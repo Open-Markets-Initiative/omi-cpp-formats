@@ -1,0 +1,28 @@
+#pragma once
+
+// All type headers for this protocol schema
+
+#include "types/Version.hpp"
+#include "types/Reserved.hpp"
+#include "types/MessageProtocolId.hpp"
+#include "types/ChannelId.hpp"
+#include "types/SessionId.hpp"
+#include "types/PayloadLength.hpp"
+#include "types/MessageCount.hpp"
+#include "types/StreamOffset.hpp"
+#include "types/FirstMessageSequenceNumber.hpp"
+#include "types/SendTime.hpp"
+#include "types/MessageLength.hpp"
+#include "types/MessageType.hpp"
+#include "types/Timestamp.hpp"
+#include "types/Symbol.hpp"
+#include "types/BidSize.hpp"
+#include "types/BidPrice.hpp"
+#include "types/AskPrice.hpp"
+#include "types/AskSize.hpp"
+#include "types/SizeType.hpp"
+#include "types/Price.hpp"
+#include "types/TradeId.hpp"
+#include "types/Reserved4.hpp"
+#include "types/QuoteUpdateFlags.hpp"
+#include "types/SaleConditionFlags.hpp"
