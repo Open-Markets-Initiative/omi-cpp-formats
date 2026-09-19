@@ -3,55 +3,68 @@
 Generated C++ programs that read packet captures and write their messages out in other formats.
 The repository is purely historical: every program reads a pcap and writes what it holds.
 
-Each protocol carries the Advanced parser the programs read through under `cpp/advanced/`, and
+Each protocol carries the Advanced parser every program reads through under `cpp/advanced/`, and
 each format has a directory of its own:
 
 - `json/native/` — writers that turn every message into a flat JSON object without a JSON library
 - `json/rapid/` — writers that turn every message into the same object through RapidJSON
-
-RapidJSON is header only; on Ubuntu it is the `rapidjson-dev` package.
+- `parquet/wide/` — one table per protocol, a column for every value any of its messages holds
 
 ```sh
 cmake -S . -B build && cmake --build build --parallel $(nproc)
 ```
 
-## JSON
+## Programs
 
-Each format has one program per protocol, under `executables/json/<format>/<protocol>/`. Each reads a
-capture through the Advanced session layer and writes every message as one line of JSON — JSON Lines —
-to a file or standard output:
+Each format has one program per protocol, under `executables/<format>/<protocol>/`. Every one reads a
+capture through the Advanced session layer and writes what its messages hold:
 
 ```sh
 ./build/json_native_<protocol> capture.pcap [output.jsonl]
 ./build/json_rapid_<protocol> capture.pcap [output.jsonl]
+./build/parquet_wide_<protocol> capture.pcap out.parquet
 ```
 
-Each object names its message under `"message"`, then holds every value in wire order under its
-field's name: an enumeration by its value's name, text trimmed, a price or other decimal written
-exactly from its mantissa and exponent, and an absent optional value as `null`. Every format writes
-the same objects, from one translation of the protocol; the RapidJSON writers take any RapidJSON
-writer, so a program can choose `Writer` or `PrettyWriter`.
+Every format is written from one translation of its protocol, so a value carries the same name and the
+same meaning wherever it is written: an enumeration by its value's name, text trimmed, a price or other
+decimal kept exactly from its mantissa and its exponent, and an absent optional value as null.
+
+## Formats
+
+**native json** — writers that turn every message into a flat JSON object without a JSON library. It needs nothing beyond the compiler.
+
+**rapid json** — writers that turn every message into the same object through RapidJSON. It needs `rapidjson-dev` (on Ubuntu).
+
+**wide parquet** — one table per protocol, a column for every value any of its messages holds. It needs `libarrow-dev` and `libparquet-dev` (on Ubuntu).
 
 ## Tests
 
-`tests/json/native/` and `tests/json/rapid/` walk every capture a protocol
-declares, write each message and hold every line to a JSON validator, requiring the declared message to
-appear (14 tests). The native test uses a validator
-of its own; the RapidJSON test reads each line back with RapidJSON, validating its UTF-8 as well. Each
-program also runs on its protocol's first declared capture. Running them reads a packet corpus checkout:
+`tests/<format>/` walks every capture a protocol declares, writes every message it holds through that
+format and reads the result back (33 tests). A capture
+named for one message must hold it; a session capture names none, and is held to what it holds.
+The captures are the session captures of
+[omi-data-pcaps](https://github.com/Open-Markets-Initiative/omi-data-pcaps), read compressed:
 
 ```sh
-cmake -S . -B build -DOMI_PACKETS_DIR=/path/to/packets
+git clone --depth=1 https://github.com/Open-Markets-Initiative/omi-data-pcaps.git
+cmake -S . -B build -DOMI_PACKETS_DIR=omi-data-pcaps
 cmake --build build --parallel $(nproc) && ctest --test-dir build
 ```
 
-A protocol a format cannot be written for is left out of it:
+Every build also compiles `checks/`, one translation unit per protocol and format holding nothing but
+an include of its writers, so a writer that does not compile fails the build whether or not the corpus
+has a capture to run it against.
 
-- Iex.IexEquities.Deep.Snap.v1.6, JSON: no transport sequence for the Advanced session layer to walk a capture with
-- Iex.IexEquities.DeepPlus.Snap.v1.05, JSON: no transport sequence for the Advanced session layer to walk a capture with
-- Iex.IexEquities.Tops.Snap.v1.6, JSON: no transport sequence for the Advanced session layer to walk a capture with
+A protocol that cannot be written is left out:
 
-## Protocols (7)
+- Iex.IexEquities.Deep.Snap.v1.6: no transport sequence for the Advanced session layer to walk a capture with
+- Iex.IexEquities.DeepPlus.Snap.v1.05: no transport sequence for the Advanced session layer to walk a capture with
+- Iex.IexEquities.Tops.Snap.v1.6: no transport sequence for the Advanced session layer to walk a capture with
+- Nasdaq.NsmEquities.NlsPlus.Itch.v3.0: no transport sequence for the Advanced session layer to walk a capture with
+- Nasdaq.NsmEquities.Nois.Itch.v2.2: no transport sequence for the Advanced session layer to walk a capture with
+- Nasdaq.NsmEquities.Nois.Itch.v2.2.2022: no transport sequence for the Advanced session layer to walk a capture with
+
+## Protocols (19)
 
 - `Iex.IexEquities.Deep.IexTp.v1.06`
 - `Iex.IexEquities.Deep.IexTp.v1.08`
@@ -60,5 +73,17 @@ A protocol a format cannot be written for is left out of it:
 - `Iex.IexEquities.Tops.IexTp.v1.56`
 - `Iex.IexEquities.Tops.IexTp.v1.64`
 - `Iex.IexEquities.Tops.IexTp.v1.66`
+- `Nasdaq.NsmEquities.Aggregated.Itch.v2.0`
+- `Nasdaq.NsmEquities.Level2.Itch.v2.0`
+- `Nasdaq.NsmEquities.NlsPlus.Itch.v4.0`
+- `Nasdaq.NsmEquities.NoiView.Itch.v3.0.2017`
+- `Nasdaq.NsmEquities.NoiView.Itch.v3.0.2026`
+- `Nasdaq.NsmEquities.Qbbo.Itch.v2.1`
+- `Nasdaq.NsmEquities.TotalView.Itch.v4.1`
+- `Nasdaq.NsmEquities.TotalView.Itch.v5.0.2017`
+- `Nasdaq.NsmEquities.TotalView.Itch.v5.0.2018`
+- `Nasdaq.NsmEquities.TotalView.Itch.v5.0.2022`
+- `Nasdaq.NsmEquities.TotalView.Itch.v5.0.2023`
+- `Nasdaq.NsmEquities.TotalView.Itch.v5.0.2026`
 
 Regenerated by `Generate.Cpp.Formats.Repository`; do not edit by hand.

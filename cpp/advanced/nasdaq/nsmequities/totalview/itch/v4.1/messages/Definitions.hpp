@@ -1,0 +1,25 @@
+#pragma once
+
+#include "../structs/PacketHeader.hpp"
+#include "../structs/MessageHeader.hpp"
+
+#include "TimestampMessage.hpp"
+#include "SystemEventMessage.hpp"
+#include "StockDirectoryMessage.hpp"
+#include "RegShoShortSalePriceTestRestrictedIndicatorMessage.hpp"
+#include "MarketParticipantPositionMessage.hpp"
+#include "AddOrderMessage.hpp"
+#include "AddOrderWithMpidMessage.hpp"
+#include "OrderExecutedMessage.hpp"
+#include "OrderExecutedWithPriceMessage.hpp"
+#include "OrderCancelMessage.hpp"
+#include "OrderDeleteMessage.hpp"
+#include "OrderReplaceMessage.hpp"
+#include "TradeMessage.hpp"
+#include "CrossTradeMessage.hpp"
+#include "BrokenTradeMessage.hpp"
+#include "NetOrderImbalanceIndicatorMessage.hpp"
+#include "RetailPriceImprovementIndicatorMessage.hpp"
+
+#include "../actions/Heartbeat.hpp"
+#include "../actions/EndOfSession.hpp"
