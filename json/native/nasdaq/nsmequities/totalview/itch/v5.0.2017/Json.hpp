@@ -16,6 +16,68 @@ namespace itch_totalview = ::nasdaq::nsmequities::totalview::itch::v5_0_2017;
 template <typename Message>
 inline constexpr bool writes = true;
 
+inline void write(omi::json::native::Writer& writer, const itch_totalview::debug_packet& message) {
+    writer.start_object();
+    writer.key("message");
+    writer.string("DebugPacket");
+    writer.key("text");
+    writer.character(message.fields.text.get().value());
+    writer.end_object();
+}
+
+inline void write(omi::json::native::Writer& writer, const itch_totalview::login_request_packet& message) {
+    writer.start_object();
+    writer.key("message");
+    writer.string("LoginRequestPacket");
+    writer.key("username");
+    writer.string(message.fields.username.get_trimmed().value());
+    writer.key("password");
+    writer.string(message.fields.password.get_trimmed().value());
+    writer.key("requested_session");
+    writer.string(message.fields.requested_session.get_trimmed().value());
+    writer.key("requested_sequence_number");
+    writer.string(message.fields.requested_sequence_number.get_trimmed().value());
+    writer.end_object();
+}
+
+inline void write(omi::json::native::Writer& writer, const itch_totalview::unsequenced_data_packet& message) {
+    writer.start_object();
+    writer.key("message");
+    writer.string("UnsequencedDataPacket");
+    writer.key("unsequenced_message_type");
+    writer.character(message.fields.unsequenced_message_type.get().value());
+    writer.end_object();
+}
+
+inline void write(omi::json::native::Writer& writer, const itch_totalview::login_accepted_packet& message) {
+    writer.start_object();
+    writer.key("message");
+    writer.string("LoginAcceptedPacket");
+    writer.key("accepted_session");
+    writer.string(message.fields.accepted_session.get_trimmed().value());
+    writer.key("accepted_sequence_number");
+    writer.string(message.fields.accepted_sequence_number.get_trimmed().value());
+    writer.end_object();
+}
+
+inline void write(omi::json::native::Writer& writer, const itch_totalview::login_rejected_packet& message) {
+    writer.start_object();
+    writer.key("message");
+    writer.string("LoginRejectedPacket");
+    writer.key("reject_reason_code");
+    writer.string(itch_totalview::reject_reason_code::to_string(message.fields.reject_reason_code.get().value()));
+    writer.end_object();
+}
+
+inline void write(omi::json::native::Writer& writer, const itch_totalview::sequenced_data_packet& message) {
+    writer.start_object();
+    writer.key("message");
+    writer.string("SequencedDataPacket");
+    writer.key("sequenced_message_type");
+    writer.character(message.fields.sequenced_message_type.get().value());
+    writer.end_object();
+}
+
 inline void write(omi::json::native::Writer& writer, const itch_totalview::system_event_message& message) {
     writer.start_object();
     writer.key("message");
@@ -86,8 +148,8 @@ inline void write(omi::json::native::Writer& writer, const itch_totalview::stock
     writer.string(message.fields.stock.get_trimmed().value());
     writer.key("trading_state");
     writer.string(itch_totalview::trading_state::to_string(message.fields.trading_state.get().value()));
-    writer.key("reason");
-    writer.string(message.fields.reason.get_trimmed().value());
+    writer.key("reason_code");
+    writer.string(message.fields.reason_code.get_trimmed().value());
     writer.end_object();
 }
 
@@ -186,29 +248,6 @@ inline void write(omi::json::native::Writer& writer, const itch_totalview::ipo_q
     writer.end_object();
 }
 
-inline void write(omi::json::native::Writer& writer, const itch_totalview::add_order_no_mpid_attribution_message& message) {
-    writer.start_object();
-    writer.key("message");
-    writer.string("AddOrderNoMpidAttributionMessage");
-    writer.key("stock_locate");
-    writer.unsigned_integer(static_cast<std::uint64_t>(message.fields.stock_locate.get().value()));
-    writer.key("tracking_number");
-    writer.unsigned_integer(static_cast<std::uint64_t>(message.fields.tracking_number.get().value()));
-    writer.key("timestamp");
-    writer.unsigned_integer(static_cast<std::uint64_t>(message.fields.timestamp.get().value()));
-    writer.key("order_reference_number");
-    writer.unsigned_integer(static_cast<std::uint64_t>(message.fields.order_reference_number.get().value()));
-    writer.key("buy_sell_indicator");
-    writer.string(itch_totalview::buy_sell_indicator::to_string(message.fields.buy_sell_indicator.get().value()));
-    writer.key("shares");
-    writer.unsigned_integer(static_cast<std::uint64_t>(message.fields.shares.get().value()));
-    writer.key("stock");
-    writer.string(message.fields.stock.get_trimmed().value());
-    writer.key("price");
-    writer.unsigned_decimal(static_cast<std::uint64_t>(message.fields.price.get().value()), itch_totalview::price::exponent);
-    writer.end_object();
-}
-
 inline void write(omi::json::native::Writer& writer, const itch_totalview::luld_auction_collar_message& message) {
     writer.start_object();
     writer.key("message");
@@ -229,6 +268,29 @@ inline void write(omi::json::native::Writer& writer, const itch_totalview::luld_
     writer.unsigned_decimal(static_cast<std::uint64_t>(message.fields.lower_auction_collar_price.get().value()), itch_totalview::lower_auction_collar_price::exponent);
     writer.key("auction_collar_extension");
     writer.unsigned_integer(static_cast<std::uint64_t>(message.fields.auction_collar_extension.get().value()));
+    writer.end_object();
+}
+
+inline void write(omi::json::native::Writer& writer, const itch_totalview::add_order_no_mpid_attribution_message& message) {
+    writer.start_object();
+    writer.key("message");
+    writer.string("AddOrderNoMpidAttributionMessage");
+    writer.key("stock_locate");
+    writer.unsigned_integer(static_cast<std::uint64_t>(message.fields.stock_locate.get().value()));
+    writer.key("tracking_number");
+    writer.unsigned_integer(static_cast<std::uint64_t>(message.fields.tracking_number.get().value()));
+    writer.key("timestamp");
+    writer.unsigned_integer(static_cast<std::uint64_t>(message.fields.timestamp.get().value()));
+    writer.key("order_reference_number");
+    writer.unsigned_integer(static_cast<std::uint64_t>(message.fields.order_reference_number.get().value()));
+    writer.key("buy_sell_indicator");
+    writer.string(itch_totalview::buy_sell_indicator::to_string(message.fields.buy_sell_indicator.get().value()));
+    writer.key("shares");
+    writer.unsigned_integer(static_cast<std::uint64_t>(message.fields.shares.get().value()));
+    writer.key("stock");
+    writer.string(message.fields.stock.get_trimmed().value());
+    writer.key("price");
+    writer.unsigned_decimal(static_cast<std::uint64_t>(message.fields.price.get().value()), itch_totalview::price::exponent);
     writer.end_object();
 }
 

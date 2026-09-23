@@ -135,12 +135,12 @@ struct Checker {
     std::size_t matched = 0;
     std::size_t invalid = 0;
 
-    protocol::seq_action on_transport_header(const protocol::packet_header&, const packet::Frame&) {
+    protocol::seq_action on_transport_header(const protocol::udp_packet_header&, const packet::Frame&) {
         return protocol::seq_action::process;
     }
 
     template <typename Message>
-    void on_message(const Message& message, std::uint64_t, const protocol::packet_header&) {
+    void on_message(const Message& message, std::uint64_t, const protocol::udp_packet_header&) {
         if constexpr (protocol::json::native::writes<Message>) {
             text.clear();
             omi::json::native::Writer writer{ text };

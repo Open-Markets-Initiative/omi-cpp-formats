@@ -20,6 +20,16 @@ inline constexpr bool writes = true;
 inline std::shared_ptr<arrow::Schema> schema() {
     return arrow::schema({
         arrow::field("message", arrow::utf8()),
+        arrow::field("text", arrow::utf8()),
+        arrow::field("username", arrow::utf8()),
+        arrow::field("password", arrow::utf8()),
+        arrow::field("requested_session", arrow::utf8()),
+        arrow::field("requested_sequence_number", arrow::utf8()),
+        arrow::field("unsequenced_message_type", arrow::utf8()),
+        arrow::field("accepted_session", arrow::utf8()),
+        arrow::field("accepted_sequence_number", arrow::utf8()),
+        arrow::field("reject_reason_code", arrow::utf8()),
+        arrow::field("sequenced_message_type", arrow::utf8()),
         arrow::field("stock_locate", arrow::uint64()),
         arrow::field("tracking_number", arrow::uint64()),
         arrow::field("timestamp", arrow::uint64()),
@@ -39,7 +49,7 @@ inline std::shared_ptr<arrow::Schema> schema() {
         arrow::field("etp_leverage_factor", arrow::uint64()),
         arrow::field("inverse_indicator", arrow::utf8()),
         arrow::field("trading_state", arrow::utf8()),
-        arrow::field("reason", arrow::utf8()),
+        arrow::field("reason_code", arrow::utf8()),
         arrow::field("locate_code", arrow::uint64()),
         arrow::field("reg_sho_action", arrow::utf8()),
         arrow::field("mpid", arrow::utf8()),
@@ -53,14 +63,14 @@ inline std::shared_ptr<arrow::Schema> schema() {
         arrow::field("ipo_quotation_release_time", arrow::uint64()),
         arrow::field("ipo_quotation_release_qualifier", arrow::utf8()),
         arrow::field("ipo_price", arrow::decimal128(10, 4)),
-        arrow::field("order_reference_number", arrow::uint64()),
-        arrow::field("buy_sell_indicator", arrow::utf8()),
-        arrow::field("shares", arrow::uint64()),
-        arrow::field("price", arrow::decimal128(10, 4)),
         arrow::field("auction_collar_reference_price", arrow::decimal128(10, 4)),
         arrow::field("upper_auction_collar_price", arrow::decimal128(10, 4)),
         arrow::field("lower_auction_collar_price", arrow::decimal128(10, 4)),
         arrow::field("auction_collar_extension", arrow::uint64()),
+        arrow::field("order_reference_number", arrow::uint64()),
+        arrow::field("buy_sell_indicator", arrow::utf8()),
+        arrow::field("shares", arrow::uint64()),
+        arrow::field("price", arrow::decimal128(10, 4)),
         arrow::field("attribution", arrow::utf8()),
         arrow::field("executed_shares", arrow::uint64()),
         arrow::field("match_number", arrow::uint64()),
@@ -89,12 +99,12 @@ class Table {
     Table()
       : schema_{ schema() } {}
 
-    void append(const itch_totalview::system_event_message& message) {
-        message_.append("SystemEventMessage");
-        column_0_.append(message.fields.stock_locate.get().value());
-        column_1_.append(message.fields.tracking_number.get().value());
-        column_2_.append(message.fields.timestamp.get().value());
-        column_3_.append(itch_totalview::event_code::to_string(message.fields.event_code.get().value()));
+    void append(const itch_totalview::debug_packet& message) {
+        message_.append("DebugPacket");
+        column_0_.append(message.fields.text.get().value());
+        column_1_.null();
+        column_2_.null();
+        column_3_.null();
         column_4_.null();
         column_5_.null();
         column_6_.null();
@@ -151,39 +161,499 @@ class Table {
         column_57_.null();
         column_58_.null();
         column_59_.null();
+        column_60_.null();
+        column_61_.null();
+        column_62_.null();
+        column_63_.null();
+        column_64_.null();
+        column_65_.null();
+        column_66_.null();
+        column_67_.null();
+        column_68_.null();
+        column_69_.null();
+        ++rows_;
+    }
+
+    void append(const itch_totalview::login_request_packet& message) {
+        message_.append("LoginRequestPacket");
+        column_1_.append(message.fields.username.get_trimmed().value());
+        column_2_.append(message.fields.password.get_trimmed().value());
+        column_3_.append(message.fields.requested_session.get_trimmed().value());
+        column_4_.append(message.fields.requested_sequence_number.get_trimmed().value());
+        column_0_.null();
+        column_5_.null();
+        column_6_.null();
+        column_7_.null();
+        column_8_.null();
+        column_9_.null();
+        column_10_.null();
+        column_11_.null();
+        column_12_.null();
+        column_13_.null();
+        column_14_.null();
+        column_15_.null();
+        column_16_.null();
+        column_17_.null();
+        column_18_.null();
+        column_19_.null();
+        column_20_.null();
+        column_21_.null();
+        column_22_.null();
+        column_23_.null();
+        column_24_.null();
+        column_25_.null();
+        column_26_.null();
+        column_27_.null();
+        column_28_.null();
+        column_29_.null();
+        column_30_.null();
+        column_31_.null();
+        column_32_.null();
+        column_33_.null();
+        column_34_.null();
+        column_35_.null();
+        column_36_.null();
+        column_37_.null();
+        column_38_.null();
+        column_39_.null();
+        column_40_.null();
+        column_41_.null();
+        column_42_.null();
+        column_43_.null();
+        column_44_.null();
+        column_45_.null();
+        column_46_.null();
+        column_47_.null();
+        column_48_.null();
+        column_49_.null();
+        column_50_.null();
+        column_51_.null();
+        column_52_.null();
+        column_53_.null();
+        column_54_.null();
+        column_55_.null();
+        column_56_.null();
+        column_57_.null();
+        column_58_.null();
+        column_59_.null();
+        column_60_.null();
+        column_61_.null();
+        column_62_.null();
+        column_63_.null();
+        column_64_.null();
+        column_65_.null();
+        column_66_.null();
+        column_67_.null();
+        column_68_.null();
+        column_69_.null();
+        ++rows_;
+    }
+
+    void append(const itch_totalview::unsequenced_data_packet& message) {
+        message_.append("UnsequencedDataPacket");
+        column_5_.append(message.fields.unsequenced_message_type.get().value());
+        column_0_.null();
+        column_1_.null();
+        column_2_.null();
+        column_3_.null();
+        column_4_.null();
+        column_6_.null();
+        column_7_.null();
+        column_8_.null();
+        column_9_.null();
+        column_10_.null();
+        column_11_.null();
+        column_12_.null();
+        column_13_.null();
+        column_14_.null();
+        column_15_.null();
+        column_16_.null();
+        column_17_.null();
+        column_18_.null();
+        column_19_.null();
+        column_20_.null();
+        column_21_.null();
+        column_22_.null();
+        column_23_.null();
+        column_24_.null();
+        column_25_.null();
+        column_26_.null();
+        column_27_.null();
+        column_28_.null();
+        column_29_.null();
+        column_30_.null();
+        column_31_.null();
+        column_32_.null();
+        column_33_.null();
+        column_34_.null();
+        column_35_.null();
+        column_36_.null();
+        column_37_.null();
+        column_38_.null();
+        column_39_.null();
+        column_40_.null();
+        column_41_.null();
+        column_42_.null();
+        column_43_.null();
+        column_44_.null();
+        column_45_.null();
+        column_46_.null();
+        column_47_.null();
+        column_48_.null();
+        column_49_.null();
+        column_50_.null();
+        column_51_.null();
+        column_52_.null();
+        column_53_.null();
+        column_54_.null();
+        column_55_.null();
+        column_56_.null();
+        column_57_.null();
+        column_58_.null();
+        column_59_.null();
+        column_60_.null();
+        column_61_.null();
+        column_62_.null();
+        column_63_.null();
+        column_64_.null();
+        column_65_.null();
+        column_66_.null();
+        column_67_.null();
+        column_68_.null();
+        column_69_.null();
+        ++rows_;
+    }
+
+    void append(const itch_totalview::login_accepted_packet& message) {
+        message_.append("LoginAcceptedPacket");
+        column_6_.append(message.fields.accepted_session.get_trimmed().value());
+        column_7_.append(message.fields.accepted_sequence_number.get_trimmed().value());
+        column_0_.null();
+        column_1_.null();
+        column_2_.null();
+        column_3_.null();
+        column_4_.null();
+        column_5_.null();
+        column_8_.null();
+        column_9_.null();
+        column_10_.null();
+        column_11_.null();
+        column_12_.null();
+        column_13_.null();
+        column_14_.null();
+        column_15_.null();
+        column_16_.null();
+        column_17_.null();
+        column_18_.null();
+        column_19_.null();
+        column_20_.null();
+        column_21_.null();
+        column_22_.null();
+        column_23_.null();
+        column_24_.null();
+        column_25_.null();
+        column_26_.null();
+        column_27_.null();
+        column_28_.null();
+        column_29_.null();
+        column_30_.null();
+        column_31_.null();
+        column_32_.null();
+        column_33_.null();
+        column_34_.null();
+        column_35_.null();
+        column_36_.null();
+        column_37_.null();
+        column_38_.null();
+        column_39_.null();
+        column_40_.null();
+        column_41_.null();
+        column_42_.null();
+        column_43_.null();
+        column_44_.null();
+        column_45_.null();
+        column_46_.null();
+        column_47_.null();
+        column_48_.null();
+        column_49_.null();
+        column_50_.null();
+        column_51_.null();
+        column_52_.null();
+        column_53_.null();
+        column_54_.null();
+        column_55_.null();
+        column_56_.null();
+        column_57_.null();
+        column_58_.null();
+        column_59_.null();
+        column_60_.null();
+        column_61_.null();
+        column_62_.null();
+        column_63_.null();
+        column_64_.null();
+        column_65_.null();
+        column_66_.null();
+        column_67_.null();
+        column_68_.null();
+        column_69_.null();
+        ++rows_;
+    }
+
+    void append(const itch_totalview::login_rejected_packet& message) {
+        message_.append("LoginRejectedPacket");
+        column_8_.append(itch_totalview::reject_reason_code::to_string(message.fields.reject_reason_code.get().value()));
+        column_0_.null();
+        column_1_.null();
+        column_2_.null();
+        column_3_.null();
+        column_4_.null();
+        column_5_.null();
+        column_6_.null();
+        column_7_.null();
+        column_9_.null();
+        column_10_.null();
+        column_11_.null();
+        column_12_.null();
+        column_13_.null();
+        column_14_.null();
+        column_15_.null();
+        column_16_.null();
+        column_17_.null();
+        column_18_.null();
+        column_19_.null();
+        column_20_.null();
+        column_21_.null();
+        column_22_.null();
+        column_23_.null();
+        column_24_.null();
+        column_25_.null();
+        column_26_.null();
+        column_27_.null();
+        column_28_.null();
+        column_29_.null();
+        column_30_.null();
+        column_31_.null();
+        column_32_.null();
+        column_33_.null();
+        column_34_.null();
+        column_35_.null();
+        column_36_.null();
+        column_37_.null();
+        column_38_.null();
+        column_39_.null();
+        column_40_.null();
+        column_41_.null();
+        column_42_.null();
+        column_43_.null();
+        column_44_.null();
+        column_45_.null();
+        column_46_.null();
+        column_47_.null();
+        column_48_.null();
+        column_49_.null();
+        column_50_.null();
+        column_51_.null();
+        column_52_.null();
+        column_53_.null();
+        column_54_.null();
+        column_55_.null();
+        column_56_.null();
+        column_57_.null();
+        column_58_.null();
+        column_59_.null();
+        column_60_.null();
+        column_61_.null();
+        column_62_.null();
+        column_63_.null();
+        column_64_.null();
+        column_65_.null();
+        column_66_.null();
+        column_67_.null();
+        column_68_.null();
+        column_69_.null();
+        ++rows_;
+    }
+
+    void append(const itch_totalview::sequenced_data_packet& message) {
+        message_.append("SequencedDataPacket");
+        column_9_.append(message.fields.sequenced_message_type.get().value());
+        column_0_.null();
+        column_1_.null();
+        column_2_.null();
+        column_3_.null();
+        column_4_.null();
+        column_5_.null();
+        column_6_.null();
+        column_7_.null();
+        column_8_.null();
+        column_10_.null();
+        column_11_.null();
+        column_12_.null();
+        column_13_.null();
+        column_14_.null();
+        column_15_.null();
+        column_16_.null();
+        column_17_.null();
+        column_18_.null();
+        column_19_.null();
+        column_20_.null();
+        column_21_.null();
+        column_22_.null();
+        column_23_.null();
+        column_24_.null();
+        column_25_.null();
+        column_26_.null();
+        column_27_.null();
+        column_28_.null();
+        column_29_.null();
+        column_30_.null();
+        column_31_.null();
+        column_32_.null();
+        column_33_.null();
+        column_34_.null();
+        column_35_.null();
+        column_36_.null();
+        column_37_.null();
+        column_38_.null();
+        column_39_.null();
+        column_40_.null();
+        column_41_.null();
+        column_42_.null();
+        column_43_.null();
+        column_44_.null();
+        column_45_.null();
+        column_46_.null();
+        column_47_.null();
+        column_48_.null();
+        column_49_.null();
+        column_50_.null();
+        column_51_.null();
+        column_52_.null();
+        column_53_.null();
+        column_54_.null();
+        column_55_.null();
+        column_56_.null();
+        column_57_.null();
+        column_58_.null();
+        column_59_.null();
+        column_60_.null();
+        column_61_.null();
+        column_62_.null();
+        column_63_.null();
+        column_64_.null();
+        column_65_.null();
+        column_66_.null();
+        column_67_.null();
+        column_68_.null();
+        column_69_.null();
+        ++rows_;
+    }
+
+    void append(const itch_totalview::system_event_message& message) {
+        message_.append("SystemEventMessage");
+        column_10_.append(message.fields.stock_locate.get().value());
+        column_11_.append(message.fields.tracking_number.get().value());
+        column_12_.append(message.fields.timestamp.get().value());
+        column_13_.append(itch_totalview::event_code::to_string(message.fields.event_code.get().value()));
+        column_0_.null();
+        column_1_.null();
+        column_2_.null();
+        column_3_.null();
+        column_4_.null();
+        column_5_.null();
+        column_6_.null();
+        column_7_.null();
+        column_8_.null();
+        column_9_.null();
+        column_14_.null();
+        column_15_.null();
+        column_16_.null();
+        column_17_.null();
+        column_18_.null();
+        column_19_.null();
+        column_20_.null();
+        column_21_.null();
+        column_22_.null();
+        column_23_.null();
+        column_24_.null();
+        column_25_.null();
+        column_26_.null();
+        column_27_.null();
+        column_28_.null();
+        column_29_.null();
+        column_30_.null();
+        column_31_.null();
+        column_32_.null();
+        column_33_.null();
+        column_34_.null();
+        column_35_.null();
+        column_36_.null();
+        column_37_.null();
+        column_38_.null();
+        column_39_.null();
+        column_40_.null();
+        column_41_.null();
+        column_42_.null();
+        column_43_.null();
+        column_44_.null();
+        column_45_.null();
+        column_46_.null();
+        column_47_.null();
+        column_48_.null();
+        column_49_.null();
+        column_50_.null();
+        column_51_.null();
+        column_52_.null();
+        column_53_.null();
+        column_54_.null();
+        column_55_.null();
+        column_56_.null();
+        column_57_.null();
+        column_58_.null();
+        column_59_.null();
+        column_60_.null();
+        column_61_.null();
+        column_62_.null();
+        column_63_.null();
+        column_64_.null();
+        column_65_.null();
+        column_66_.null();
+        column_67_.null();
+        column_68_.null();
+        column_69_.null();
         ++rows_;
     }
 
     void append(const itch_totalview::stock_directory_message& message) {
         message_.append("StockDirectoryMessage");
-        column_0_.append(message.fields.stock_locate.get().value());
-        column_1_.append(message.fields.tracking_number.get().value());
-        column_2_.append(message.fields.timestamp.get().value());
-        column_4_.append(message.fields.stock.get_trimmed().value());
-        column_5_.append(itch_totalview::market_category::to_string(message.fields.market_category.get().value()));
-        column_6_.append(itch_totalview::financial_status_indicator::to_string(message.fields.financial_status_indicator.get().value()));
-        column_7_.append(message.fields.round_lot_size.get().value());
-        column_8_.append(itch_totalview::round_lots_only::to_string(message.fields.round_lots_only.get().value()));
-        column_9_.append(itch_totalview::issue_classification::to_string(message.fields.issue_classification.get().value()));
-        column_10_.append(message.fields.issue_sub_type.get_trimmed().value());
-        column_11_.append(itch_totalview::authenticity::to_string(message.fields.authenticity.get().value()));
-        column_12_.append(itch_totalview::short_sale_threshold_indicator::to_string(message.fields.short_sale_threshold_indicator.get().value()));
-        column_13_.append(itch_totalview::ipo_flag::to_string(message.fields.ipo_flag.get().value()));
-        column_14_.append(itch_totalview::luld_reference_price_tier::to_string(message.fields.luld_reference_price_tier.get().value()));
-        column_15_.append(itch_totalview::etp_flag::to_string(message.fields.etp_flag.get().value()));
-        column_16_.append(message.fields.etp_leverage_factor.get().value());
-        column_17_.append(itch_totalview::inverse_indicator::to_string(message.fields.inverse_indicator.get().value()));
+        column_10_.append(message.fields.stock_locate.get().value());
+        column_11_.append(message.fields.tracking_number.get().value());
+        column_12_.append(message.fields.timestamp.get().value());
+        column_14_.append(message.fields.stock.get_trimmed().value());
+        column_15_.append(itch_totalview::market_category::to_string(message.fields.market_category.get().value()));
+        column_16_.append(itch_totalview::financial_status_indicator::to_string(message.fields.financial_status_indicator.get().value()));
+        column_17_.append(message.fields.round_lot_size.get().value());
+        column_18_.append(itch_totalview::round_lots_only::to_string(message.fields.round_lots_only.get().value()));
+        column_19_.append(itch_totalview::issue_classification::to_string(message.fields.issue_classification.get().value()));
+        column_20_.append(message.fields.issue_sub_type.get_trimmed().value());
+        column_21_.append(itch_totalview::authenticity::to_string(message.fields.authenticity.get().value()));
+        column_22_.append(itch_totalview::short_sale_threshold_indicator::to_string(message.fields.short_sale_threshold_indicator.get().value()));
+        column_23_.append(itch_totalview::ipo_flag::to_string(message.fields.ipo_flag.get().value()));
+        column_24_.append(itch_totalview::luld_reference_price_tier::to_string(message.fields.luld_reference_price_tier.get().value()));
+        column_25_.append(itch_totalview::etp_flag::to_string(message.fields.etp_flag.get().value()));
+        column_26_.append(message.fields.etp_leverage_factor.get().value());
+        column_27_.append(itch_totalview::inverse_indicator::to_string(message.fields.inverse_indicator.get().value()));
+        column_0_.null();
+        column_1_.null();
+        column_2_.null();
         column_3_.null();
-        column_18_.null();
-        column_19_.null();
-        column_20_.null();
-        column_21_.null();
-        column_22_.null();
-        column_23_.null();
-        column_24_.null();
-        column_25_.null();
-        column_26_.null();
-        column_27_.null();
+        column_4_.null();
+        column_5_.null();
+        column_6_.null();
+        column_7_.null();
+        column_8_.null();
+        column_9_.null();
+        column_13_.null();
         column_28_.null();
         column_29_.null();
         column_30_.null();
@@ -216,31 +686,43 @@ class Table {
         column_57_.null();
         column_58_.null();
         column_59_.null();
+        column_60_.null();
+        column_61_.null();
+        column_62_.null();
+        column_63_.null();
+        column_64_.null();
+        column_65_.null();
+        column_66_.null();
+        column_67_.null();
+        column_68_.null();
+        column_69_.null();
         ++rows_;
     }
 
     void append(const itch_totalview::stock_trading_action_message& message) {
         message_.append("StockTradingActionMessage");
-        column_0_.append(message.fields.stock_locate.get().value());
-        column_1_.append(message.fields.tracking_number.get().value());
-        column_2_.append(message.fields.timestamp.get().value());
-        column_4_.append(message.fields.stock.get_trimmed().value());
-        column_18_.append(itch_totalview::trading_state::to_string(message.fields.trading_state.get().value()));
-        column_19_.append(message.fields.reason.get_trimmed().value());
+        column_10_.append(message.fields.stock_locate.get().value());
+        column_11_.append(message.fields.tracking_number.get().value());
+        column_12_.append(message.fields.timestamp.get().value());
+        column_14_.append(message.fields.stock.get_trimmed().value());
+        column_28_.append(itch_totalview::trading_state::to_string(message.fields.trading_state.get().value()));
+        column_29_.append(message.fields.reason_code.get_trimmed().value());
+        column_0_.null();
+        column_1_.null();
+        column_2_.null();
         column_3_.null();
+        column_4_.null();
         column_5_.null();
         column_6_.null();
         column_7_.null();
         column_8_.null();
         column_9_.null();
-        column_10_.null();
-        column_11_.null();
-        column_12_.null();
         column_13_.null();
-        column_14_.null();
         column_15_.null();
         column_16_.null();
         column_17_.null();
+        column_18_.null();
+        column_19_.null();
         column_20_.null();
         column_21_.null();
         column_22_.null();
@@ -249,8 +731,6 @@ class Table {
         column_25_.null();
         column_26_.null();
         column_27_.null();
-        column_28_.null();
-        column_29_.null();
         column_30_.null();
         column_31_.null();
         column_32_.null();
@@ -281,33 +761,45 @@ class Table {
         column_57_.null();
         column_58_.null();
         column_59_.null();
+        column_60_.null();
+        column_61_.null();
+        column_62_.null();
+        column_63_.null();
+        column_64_.null();
+        column_65_.null();
+        column_66_.null();
+        column_67_.null();
+        column_68_.null();
+        column_69_.null();
         ++rows_;
     }
 
     void append(const itch_totalview::reg_sho_short_sale_price_test_restricted_indicator_message& message) {
         message_.append("RegShoShortSalePriceTestRestrictedIndicatorMessage");
-        column_20_.append(message.fields.locate_code.get().value());
-        column_1_.append(message.fields.tracking_number.get().value());
-        column_2_.append(message.fields.timestamp.get().value());
-        column_4_.append(message.fields.stock.get_trimmed().value());
-        column_21_.append(itch_totalview::reg_sho_action::to_string(message.fields.reg_sho_action.get().value()));
+        column_30_.append(message.fields.locate_code.get().value());
+        column_11_.append(message.fields.tracking_number.get().value());
+        column_12_.append(message.fields.timestamp.get().value());
+        column_14_.append(message.fields.stock.get_trimmed().value());
+        column_31_.append(itch_totalview::reg_sho_action::to_string(message.fields.reg_sho_action.get().value()));
         column_0_.null();
+        column_1_.null();
+        column_2_.null();
         column_3_.null();
+        column_4_.null();
         column_5_.null();
         column_6_.null();
         column_7_.null();
         column_8_.null();
         column_9_.null();
         column_10_.null();
-        column_11_.null();
-        column_12_.null();
         column_13_.null();
-        column_14_.null();
         column_15_.null();
         column_16_.null();
         column_17_.null();
         column_18_.null();
         column_19_.null();
+        column_20_.null();
+        column_21_.null();
         column_22_.null();
         column_23_.null();
         column_24_.null();
@@ -316,8 +808,6 @@ class Table {
         column_27_.null();
         column_28_.null();
         column_29_.null();
-        column_30_.null();
-        column_31_.null();
         column_32_.null();
         column_33_.null();
         column_34_.null();
@@ -346,30 +836,40 @@ class Table {
         column_57_.null();
         column_58_.null();
         column_59_.null();
+        column_60_.null();
+        column_61_.null();
+        column_62_.null();
+        column_63_.null();
+        column_64_.null();
+        column_65_.null();
+        column_66_.null();
+        column_67_.null();
+        column_68_.null();
+        column_69_.null();
         ++rows_;
     }
 
     void append(const itch_totalview::market_participant_position_message& message) {
         message_.append("MarketParticipantPositionMessage");
-        column_0_.append(message.fields.stock_locate.get().value());
-        column_1_.append(message.fields.tracking_number.get().value());
-        column_2_.append(message.fields.timestamp.get().value());
-        column_22_.append(message.fields.mpid.get_trimmed().value());
-        column_4_.append(message.fields.stock.get_trimmed().value());
-        column_23_.append(itch_totalview::primary_market_maker::to_string(message.fields.primary_market_maker.get().value()));
-        column_24_.append(itch_totalview::market_maker_mode::to_string(message.fields.market_maker_mode.get().value()));
-        column_25_.append(itch_totalview::market_participant_state::to_string(message.fields.market_participant_state.get().value()));
+        column_10_.append(message.fields.stock_locate.get().value());
+        column_11_.append(message.fields.tracking_number.get().value());
+        column_12_.append(message.fields.timestamp.get().value());
+        column_32_.append(message.fields.mpid.get_trimmed().value());
+        column_14_.append(message.fields.stock.get_trimmed().value());
+        column_33_.append(itch_totalview::primary_market_maker::to_string(message.fields.primary_market_maker.get().value()));
+        column_34_.append(itch_totalview::market_maker_mode::to_string(message.fields.market_maker_mode.get().value()));
+        column_35_.append(itch_totalview::market_participant_state::to_string(message.fields.market_participant_state.get().value()));
+        column_0_.null();
+        column_1_.null();
+        column_2_.null();
         column_3_.null();
+        column_4_.null();
         column_5_.null();
         column_6_.null();
         column_7_.null();
         column_8_.null();
         column_9_.null();
-        column_10_.null();
-        column_11_.null();
-        column_12_.null();
         column_13_.null();
-        column_14_.null();
         column_15_.null();
         column_16_.null();
         column_17_.null();
@@ -377,16 +877,16 @@ class Table {
         column_19_.null();
         column_20_.null();
         column_21_.null();
+        column_22_.null();
+        column_23_.null();
+        column_24_.null();
+        column_25_.null();
         column_26_.null();
         column_27_.null();
         column_28_.null();
         column_29_.null();
         column_30_.null();
         column_31_.null();
-        column_32_.null();
-        column_33_.null();
-        column_34_.null();
-        column_35_.null();
         column_36_.null();
         column_37_.null();
         column_38_.null();
@@ -411,17 +911,30 @@ class Table {
         column_57_.null();
         column_58_.null();
         column_59_.null();
+        column_60_.null();
+        column_61_.null();
+        column_62_.null();
+        column_63_.null();
+        column_64_.null();
+        column_65_.null();
+        column_66_.null();
+        column_67_.null();
+        column_68_.null();
+        column_69_.null();
         ++rows_;
     }
 
     void append(const itch_totalview::mwcb_decline_level_message& message) {
         message_.append("MwcbDeclineLevelMessage");
-        column_0_.append(message.fields.stock_locate.get().value());
-        column_1_.append(message.fields.tracking_number.get().value());
-        column_2_.append(message.fields.timestamp.get().value());
-        column_26_.append(message.fields.level_1.get().value());
-        column_27_.append(message.fields.level_2.get().value());
-        column_28_.append(message.fields.level_3.get().value());
+        column_10_.append(message.fields.stock_locate.get().value());
+        column_11_.append(message.fields.tracking_number.get().value());
+        column_12_.append(message.fields.timestamp.get().value());
+        column_36_.append(message.fields.level_1.get().value());
+        column_37_.append(message.fields.level_2.get().value());
+        column_38_.append(message.fields.level_3.get().value());
+        column_0_.null();
+        column_1_.null();
+        column_2_.null();
         column_3_.null();
         column_4_.null();
         column_5_.null();
@@ -429,9 +942,6 @@ class Table {
         column_7_.null();
         column_8_.null();
         column_9_.null();
-        column_10_.null();
-        column_11_.null();
-        column_12_.null();
         column_13_.null();
         column_14_.null();
         column_15_.null();
@@ -445,6 +955,9 @@ class Table {
         column_23_.null();
         column_24_.null();
         column_25_.null();
+        column_26_.null();
+        column_27_.null();
+        column_28_.null();
         column_29_.null();
         column_30_.null();
         column_31_.null();
@@ -452,9 +965,6 @@ class Table {
         column_33_.null();
         column_34_.null();
         column_35_.null();
-        column_36_.null();
-        column_37_.null();
-        column_38_.null();
         column_39_.null();
         column_40_.null();
         column_41_.null();
@@ -476,15 +986,28 @@ class Table {
         column_57_.null();
         column_58_.null();
         column_59_.null();
+        column_60_.null();
+        column_61_.null();
+        column_62_.null();
+        column_63_.null();
+        column_64_.null();
+        column_65_.null();
+        column_66_.null();
+        column_67_.null();
+        column_68_.null();
+        column_69_.null();
         ++rows_;
     }
 
     void append(const itch_totalview::mwcb_status_level_message& message) {
         message_.append("MwcbStatusLevelMessage");
-        column_0_.append(message.fields.stock_locate.get().value());
-        column_1_.append(message.fields.tracking_number.get().value());
-        column_2_.append(message.fields.timestamp.get().value());
-        column_29_.append(itch_totalview::breached_level::to_string(message.fields.breached_level.get().value()));
+        column_10_.append(message.fields.stock_locate.get().value());
+        column_11_.append(message.fields.tracking_number.get().value());
+        column_12_.append(message.fields.timestamp.get().value());
+        column_39_.append(itch_totalview::breached_level::to_string(message.fields.breached_level.get().value()));
+        column_0_.null();
+        column_1_.null();
+        column_2_.null();
         column_3_.null();
         column_4_.null();
         column_5_.null();
@@ -492,9 +1015,6 @@ class Table {
         column_7_.null();
         column_8_.null();
         column_9_.null();
-        column_10_.null();
-        column_11_.null();
-        column_12_.null();
         column_13_.null();
         column_14_.null();
         column_15_.null();
@@ -511,6 +1031,7 @@ class Table {
         column_26_.null();
         column_27_.null();
         column_28_.null();
+        column_29_.null();
         column_30_.null();
         column_31_.null();
         column_32_.null();
@@ -520,7 +1041,6 @@ class Table {
         column_36_.null();
         column_37_.null();
         column_38_.null();
-        column_39_.null();
         column_40_.null();
         column_41_.null();
         column_42_.null();
@@ -541,95 +1061,39 @@ class Table {
         column_57_.null();
         column_58_.null();
         column_59_.null();
+        column_60_.null();
+        column_61_.null();
+        column_62_.null();
+        column_63_.null();
+        column_64_.null();
+        column_65_.null();
+        column_66_.null();
+        column_67_.null();
+        column_68_.null();
+        column_69_.null();
         ++rows_;
     }
 
     void append(const itch_totalview::ipo_quoting_period_update& message) {
         message_.append("IpoQuotingPeriodUpdate");
-        column_0_.append(message.fields.stock_locate.get().value());
-        column_1_.append(message.fields.tracking_number.get().value());
-        column_2_.append(message.fields.timestamp.get().value());
-        column_4_.append(message.fields.stock.get_trimmed().value());
-        column_30_.append(message.fields.ipo_quotation_release_time.get().value());
-        column_31_.append(itch_totalview::ipo_quotation_release_qualifier::to_string(message.fields.ipo_quotation_release_qualifier.get().value()));
-        column_32_.append(message.fields.ipo_price.get().value());
+        column_10_.append(message.fields.stock_locate.get().value());
+        column_11_.append(message.fields.tracking_number.get().value());
+        column_12_.append(message.fields.timestamp.get().value());
+        column_14_.append(message.fields.stock.get_trimmed().value());
+        column_40_.append(message.fields.ipo_quotation_release_time.get().value());
+        column_41_.append(itch_totalview::ipo_quotation_release_qualifier::to_string(message.fields.ipo_quotation_release_qualifier.get().value()));
+        column_42_.append(message.fields.ipo_price.get().value());
+        column_0_.null();
+        column_1_.null();
+        column_2_.null();
         column_3_.null();
+        column_4_.null();
         column_5_.null();
         column_6_.null();
         column_7_.null();
         column_8_.null();
         column_9_.null();
-        column_10_.null();
-        column_11_.null();
-        column_12_.null();
         column_13_.null();
-        column_14_.null();
-        column_15_.null();
-        column_16_.null();
-        column_17_.null();
-        column_18_.null();
-        column_19_.null();
-        column_20_.null();
-        column_21_.null();
-        column_22_.null();
-        column_23_.null();
-        column_24_.null();
-        column_25_.null();
-        column_26_.null();
-        column_27_.null();
-        column_28_.null();
-        column_29_.null();
-        column_33_.null();
-        column_34_.null();
-        column_35_.null();
-        column_36_.null();
-        column_37_.null();
-        column_38_.null();
-        column_39_.null();
-        column_40_.null();
-        column_41_.null();
-        column_42_.null();
-        column_43_.null();
-        column_44_.null();
-        column_45_.null();
-        column_46_.null();
-        column_47_.null();
-        column_48_.null();
-        column_49_.null();
-        column_50_.null();
-        column_51_.null();
-        column_52_.null();
-        column_53_.null();
-        column_54_.null();
-        column_55_.null();
-        column_56_.null();
-        column_57_.null();
-        column_58_.null();
-        column_59_.null();
-        ++rows_;
-    }
-
-    void append(const itch_totalview::add_order_no_mpid_attribution_message& message) {
-        message_.append("AddOrderNoMpidAttributionMessage");
-        column_0_.append(message.fields.stock_locate.get().value());
-        column_1_.append(message.fields.tracking_number.get().value());
-        column_2_.append(message.fields.timestamp.get().value());
-        column_33_.append(message.fields.order_reference_number.get().value());
-        column_34_.append(itch_totalview::buy_sell_indicator::to_string(message.fields.buy_sell_indicator.get().value()));
-        column_35_.append(message.fields.shares.get().value());
-        column_4_.append(message.fields.stock.get_trimmed().value());
-        column_36_.append(message.fields.price.get().value());
-        column_3_.null();
-        column_5_.null();
-        column_6_.null();
-        column_7_.null();
-        column_8_.null();
-        column_9_.null();
-        column_10_.null();
-        column_11_.null();
-        column_12_.null();
-        column_13_.null();
-        column_14_.null();
         column_15_.null();
         column_16_.null();
         column_17_.null();
@@ -648,12 +1112,13 @@ class Table {
         column_30_.null();
         column_31_.null();
         column_32_.null();
+        column_33_.null();
+        column_34_.null();
+        column_35_.null();
+        column_36_.null();
         column_37_.null();
         column_38_.null();
         column_39_.null();
-        column_40_.null();
-        column_41_.null();
-        column_42_.null();
         column_43_.null();
         column_44_.null();
         column_45_.null();
@@ -671,30 +1136,40 @@ class Table {
         column_57_.null();
         column_58_.null();
         column_59_.null();
+        column_60_.null();
+        column_61_.null();
+        column_62_.null();
+        column_63_.null();
+        column_64_.null();
+        column_65_.null();
+        column_66_.null();
+        column_67_.null();
+        column_68_.null();
+        column_69_.null();
         ++rows_;
     }
 
     void append(const itch_totalview::luld_auction_collar_message& message) {
         message_.append("LuldAuctionCollarMessage");
-        column_0_.append(message.fields.stock_locate.get().value());
-        column_1_.append(message.fields.tracking_number.get().value());
-        column_2_.append(message.fields.timestamp.get().value());
-        column_4_.append(message.fields.stock.get_trimmed().value());
-        column_37_.append(message.fields.auction_collar_reference_price.get().value());
-        column_38_.append(message.fields.upper_auction_collar_price.get().value());
-        column_39_.append(message.fields.lower_auction_collar_price.get().value());
-        column_40_.append(message.fields.auction_collar_extension.get().value());
+        column_10_.append(message.fields.stock_locate.get().value());
+        column_11_.append(message.fields.tracking_number.get().value());
+        column_12_.append(message.fields.timestamp.get().value());
+        column_14_.append(message.fields.stock.get_trimmed().value());
+        column_43_.append(message.fields.auction_collar_reference_price.get().value());
+        column_44_.append(message.fields.upper_auction_collar_price.get().value());
+        column_45_.append(message.fields.lower_auction_collar_price.get().value());
+        column_46_.append(message.fields.auction_collar_extension.get().value());
+        column_0_.null();
+        column_1_.null();
+        column_2_.null();
         column_3_.null();
+        column_4_.null();
         column_5_.null();
         column_6_.null();
         column_7_.null();
         column_8_.null();
         column_9_.null();
-        column_10_.null();
-        column_11_.null();
-        column_12_.null();
         column_13_.null();
-        column_14_.null();
         column_15_.null();
         column_16_.null();
         column_17_.null();
@@ -717,12 +1192,12 @@ class Table {
         column_34_.null();
         column_35_.null();
         column_36_.null();
+        column_37_.null();
+        column_38_.null();
+        column_39_.null();
+        column_40_.null();
         column_41_.null();
         column_42_.null();
-        column_43_.null();
-        column_44_.null();
-        column_45_.null();
-        column_46_.null();
         column_47_.null();
         column_48_.null();
         column_49_.null();
@@ -736,31 +1211,116 @@ class Table {
         column_57_.null();
         column_58_.null();
         column_59_.null();
+        column_60_.null();
+        column_61_.null();
+        column_62_.null();
+        column_63_.null();
+        column_64_.null();
+        column_65_.null();
+        column_66_.null();
+        column_67_.null();
+        column_68_.null();
+        column_69_.null();
+        ++rows_;
+    }
+
+    void append(const itch_totalview::add_order_no_mpid_attribution_message& message) {
+        message_.append("AddOrderNoMpidAttributionMessage");
+        column_10_.append(message.fields.stock_locate.get().value());
+        column_11_.append(message.fields.tracking_number.get().value());
+        column_12_.append(message.fields.timestamp.get().value());
+        column_47_.append(message.fields.order_reference_number.get().value());
+        column_48_.append(itch_totalview::buy_sell_indicator::to_string(message.fields.buy_sell_indicator.get().value()));
+        column_49_.append(message.fields.shares.get().value());
+        column_14_.append(message.fields.stock.get_trimmed().value());
+        column_50_.append(message.fields.price.get().value());
+        column_0_.null();
+        column_1_.null();
+        column_2_.null();
+        column_3_.null();
+        column_4_.null();
+        column_5_.null();
+        column_6_.null();
+        column_7_.null();
+        column_8_.null();
+        column_9_.null();
+        column_13_.null();
+        column_15_.null();
+        column_16_.null();
+        column_17_.null();
+        column_18_.null();
+        column_19_.null();
+        column_20_.null();
+        column_21_.null();
+        column_22_.null();
+        column_23_.null();
+        column_24_.null();
+        column_25_.null();
+        column_26_.null();
+        column_27_.null();
+        column_28_.null();
+        column_29_.null();
+        column_30_.null();
+        column_31_.null();
+        column_32_.null();
+        column_33_.null();
+        column_34_.null();
+        column_35_.null();
+        column_36_.null();
+        column_37_.null();
+        column_38_.null();
+        column_39_.null();
+        column_40_.null();
+        column_41_.null();
+        column_42_.null();
+        column_43_.null();
+        column_44_.null();
+        column_45_.null();
+        column_46_.null();
+        column_51_.null();
+        column_52_.null();
+        column_53_.null();
+        column_54_.null();
+        column_55_.null();
+        column_56_.null();
+        column_57_.null();
+        column_58_.null();
+        column_59_.null();
+        column_60_.null();
+        column_61_.null();
+        column_62_.null();
+        column_63_.null();
+        column_64_.null();
+        column_65_.null();
+        column_66_.null();
+        column_67_.null();
+        column_68_.null();
+        column_69_.null();
         ++rows_;
     }
 
     void append(const itch_totalview::add_order_with_mpid_attribution_message& message) {
         message_.append("AddOrderWithMpidAttributionMessage");
-        column_0_.append(message.fields.stock_locate.get().value());
-        column_1_.append(message.fields.tracking_number.get().value());
-        column_2_.append(message.fields.timestamp.get().value());
-        column_33_.append(message.fields.order_reference_number.get().value());
-        column_34_.append(itch_totalview::buy_sell_indicator::to_string(message.fields.buy_sell_indicator.get().value()));
-        column_35_.append(message.fields.shares.get().value());
-        column_4_.append(message.fields.stock.get_trimmed().value());
-        column_36_.append(message.fields.price.get().value());
-        column_41_.append(message.fields.attribution.get_trimmed().value());
+        column_10_.append(message.fields.stock_locate.get().value());
+        column_11_.append(message.fields.tracking_number.get().value());
+        column_12_.append(message.fields.timestamp.get().value());
+        column_47_.append(message.fields.order_reference_number.get().value());
+        column_48_.append(itch_totalview::buy_sell_indicator::to_string(message.fields.buy_sell_indicator.get().value()));
+        column_49_.append(message.fields.shares.get().value());
+        column_14_.append(message.fields.stock.get_trimmed().value());
+        column_50_.append(message.fields.price.get().value());
+        column_51_.append(message.fields.attribution.get_trimmed().value());
+        column_0_.null();
+        column_1_.null();
+        column_2_.null();
         column_3_.null();
+        column_4_.null();
         column_5_.null();
         column_6_.null();
         column_7_.null();
         column_8_.null();
         column_9_.null();
-        column_10_.null();
-        column_11_.null();
-        column_12_.null();
         column_13_.null();
-        column_14_.null();
         column_15_.null();
         column_16_.null();
         column_17_.null();
@@ -779,20 +1339,20 @@ class Table {
         column_30_.null();
         column_31_.null();
         column_32_.null();
+        column_33_.null();
+        column_34_.null();
+        column_35_.null();
+        column_36_.null();
         column_37_.null();
         column_38_.null();
         column_39_.null();
         column_40_.null();
+        column_41_.null();
         column_42_.null();
         column_43_.null();
         column_44_.null();
         column_45_.null();
         column_46_.null();
-        column_47_.null();
-        column_48_.null();
-        column_49_.null();
-        column_50_.null();
-        column_51_.null();
         column_52_.null();
         column_53_.null();
         column_54_.null();
@@ -801,17 +1361,30 @@ class Table {
         column_57_.null();
         column_58_.null();
         column_59_.null();
+        column_60_.null();
+        column_61_.null();
+        column_62_.null();
+        column_63_.null();
+        column_64_.null();
+        column_65_.null();
+        column_66_.null();
+        column_67_.null();
+        column_68_.null();
+        column_69_.null();
         ++rows_;
     }
 
     void append(const itch_totalview::order_executed_message& message) {
         message_.append("OrderExecutedMessage");
-        column_0_.append(message.fields.stock_locate.get().value());
-        column_1_.append(message.fields.tracking_number.get().value());
-        column_2_.append(message.fields.timestamp.get().value());
-        column_33_.append(message.fields.order_reference_number.get().value());
-        column_42_.append(message.fields.executed_shares.get().value());
-        column_43_.append(message.fields.match_number.get().value());
+        column_10_.append(message.fields.stock_locate.get().value());
+        column_11_.append(message.fields.tracking_number.get().value());
+        column_12_.append(message.fields.timestamp.get().value());
+        column_47_.append(message.fields.order_reference_number.get().value());
+        column_52_.append(message.fields.executed_shares.get().value());
+        column_53_.append(message.fields.match_number.get().value());
+        column_0_.null();
+        column_1_.null();
+        column_2_.null();
         column_3_.null();
         column_4_.null();
         column_5_.null();
@@ -819,9 +1392,6 @@ class Table {
         column_7_.null();
         column_8_.null();
         column_9_.null();
-        column_10_.null();
-        column_11_.null();
-        column_12_.null();
         column_13_.null();
         column_14_.null();
         column_15_.null();
@@ -842,6 +1412,7 @@ class Table {
         column_30_.null();
         column_31_.null();
         column_32_.null();
+        column_33_.null();
         column_34_.null();
         column_35_.null();
         column_36_.null();
@@ -850,35 +1421,47 @@ class Table {
         column_39_.null();
         column_40_.null();
         column_41_.null();
+        column_42_.null();
+        column_43_.null();
         column_44_.null();
         column_45_.null();
         column_46_.null();
-        column_47_.null();
         column_48_.null();
         column_49_.null();
         column_50_.null();
         column_51_.null();
-        column_52_.null();
-        column_53_.null();
         column_54_.null();
         column_55_.null();
         column_56_.null();
         column_57_.null();
         column_58_.null();
         column_59_.null();
+        column_60_.null();
+        column_61_.null();
+        column_62_.null();
+        column_63_.null();
+        column_64_.null();
+        column_65_.null();
+        column_66_.null();
+        column_67_.null();
+        column_68_.null();
+        column_69_.null();
         ++rows_;
     }
 
     void append(const itch_totalview::order_executed_with_price_message& message) {
         message_.append("OrderExecutedWithPriceMessage");
-        column_0_.append(message.fields.stock_locate.get().value());
-        column_1_.append(message.fields.tracking_number.get().value());
-        column_2_.append(message.fields.timestamp.get().value());
-        column_33_.append(message.fields.order_reference_number.get().value());
-        column_42_.append(message.fields.executed_shares.get().value());
-        column_43_.append(message.fields.match_number.get().value());
-        column_44_.append(itch_totalview::printable::to_string(message.fields.printable.get().value()));
-        column_45_.append(message.fields.execution_price.get().value());
+        column_10_.append(message.fields.stock_locate.get().value());
+        column_11_.append(message.fields.tracking_number.get().value());
+        column_12_.append(message.fields.timestamp.get().value());
+        column_47_.append(message.fields.order_reference_number.get().value());
+        column_52_.append(message.fields.executed_shares.get().value());
+        column_53_.append(message.fields.match_number.get().value());
+        column_54_.append(itch_totalview::printable::to_string(message.fields.printable.get().value()));
+        column_55_.append(message.fields.execution_price.get().value());
+        column_0_.null();
+        column_1_.null();
+        column_2_.null();
         column_3_.null();
         column_4_.null();
         column_5_.null();
@@ -886,9 +1469,6 @@ class Table {
         column_7_.null();
         column_8_.null();
         column_9_.null();
-        column_10_.null();
-        column_11_.null();
-        column_12_.null();
         column_13_.null();
         column_14_.null();
         column_15_.null();
@@ -909,6 +1489,7 @@ class Table {
         column_30_.null();
         column_31_.null();
         column_32_.null();
+        column_33_.null();
         column_34_.null();
         column_35_.null();
         column_36_.null();
@@ -917,30 +1498,42 @@ class Table {
         column_39_.null();
         column_40_.null();
         column_41_.null();
+        column_42_.null();
+        column_43_.null();
+        column_44_.null();
+        column_45_.null();
         column_46_.null();
-        column_47_.null();
         column_48_.null();
         column_49_.null();
         column_50_.null();
         column_51_.null();
-        column_52_.null();
-        column_53_.null();
-        column_54_.null();
-        column_55_.null();
         column_56_.null();
         column_57_.null();
         column_58_.null();
         column_59_.null();
+        column_60_.null();
+        column_61_.null();
+        column_62_.null();
+        column_63_.null();
+        column_64_.null();
+        column_65_.null();
+        column_66_.null();
+        column_67_.null();
+        column_68_.null();
+        column_69_.null();
         ++rows_;
     }
 
     void append(const itch_totalview::order_cancel_message& message) {
         message_.append("OrderCancelMessage");
-        column_0_.append(message.fields.stock_locate.get().value());
-        column_1_.append(message.fields.tracking_number.get().value());
-        column_2_.append(message.fields.timestamp.get().value());
-        column_33_.append(message.fields.order_reference_number.get().value());
-        column_46_.append(message.fields.canceled_shares.get().value());
+        column_10_.append(message.fields.stock_locate.get().value());
+        column_11_.append(message.fields.tracking_number.get().value());
+        column_12_.append(message.fields.timestamp.get().value());
+        column_47_.append(message.fields.order_reference_number.get().value());
+        column_56_.append(message.fields.canceled_shares.get().value());
+        column_0_.null();
+        column_1_.null();
+        column_2_.null();
         column_3_.null();
         column_4_.null();
         column_5_.null();
@@ -948,9 +1541,6 @@ class Table {
         column_7_.null();
         column_8_.null();
         column_9_.null();
-        column_10_.null();
-        column_11_.null();
-        column_12_.null();
         column_13_.null();
         column_14_.null();
         column_15_.null();
@@ -971,6 +1561,7 @@ class Table {
         column_30_.null();
         column_31_.null();
         column_32_.null();
+        column_33_.null();
         column_34_.null();
         column_35_.null();
         column_36_.null();
@@ -983,7 +1574,7 @@ class Table {
         column_43_.null();
         column_44_.null();
         column_45_.null();
-        column_47_.null();
+        column_46_.null();
         column_48_.null();
         column_49_.null();
         column_50_.null();
@@ -992,19 +1583,31 @@ class Table {
         column_53_.null();
         column_54_.null();
         column_55_.null();
-        column_56_.null();
         column_57_.null();
         column_58_.null();
         column_59_.null();
+        column_60_.null();
+        column_61_.null();
+        column_62_.null();
+        column_63_.null();
+        column_64_.null();
+        column_65_.null();
+        column_66_.null();
+        column_67_.null();
+        column_68_.null();
+        column_69_.null();
         ++rows_;
     }
 
     void append(const itch_totalview::order_delete_message& message) {
         message_.append("OrderDeleteMessage");
-        column_0_.append(message.fields.stock_locate.get().value());
-        column_1_.append(message.fields.tracking_number.get().value());
-        column_2_.append(message.fields.timestamp.get().value());
-        column_33_.append(message.fields.order_reference_number.get().value());
+        column_10_.append(message.fields.stock_locate.get().value());
+        column_11_.append(message.fields.tracking_number.get().value());
+        column_12_.append(message.fields.timestamp.get().value());
+        column_47_.append(message.fields.order_reference_number.get().value());
+        column_0_.null();
+        column_1_.null();
+        column_2_.null();
         column_3_.null();
         column_4_.null();
         column_5_.null();
@@ -1012,9 +1615,6 @@ class Table {
         column_7_.null();
         column_8_.null();
         column_9_.null();
-        column_10_.null();
-        column_11_.null();
-        column_12_.null();
         column_13_.null();
         column_14_.null();
         column_15_.null();
@@ -1035,6 +1635,7 @@ class Table {
         column_30_.null();
         column_31_.null();
         column_32_.null();
+        column_33_.null();
         column_34_.null();
         column_35_.null();
         column_36_.null();
@@ -1048,7 +1649,6 @@ class Table {
         column_44_.null();
         column_45_.null();
         column_46_.null();
-        column_47_.null();
         column_48_.null();
         column_49_.null();
         column_50_.null();
@@ -1061,18 +1661,31 @@ class Table {
         column_57_.null();
         column_58_.null();
         column_59_.null();
+        column_60_.null();
+        column_61_.null();
+        column_62_.null();
+        column_63_.null();
+        column_64_.null();
+        column_65_.null();
+        column_66_.null();
+        column_67_.null();
+        column_68_.null();
+        column_69_.null();
         ++rows_;
     }
 
     void append(const itch_totalview::order_replace_message& message) {
         message_.append("OrderReplaceMessage");
-        column_0_.append(message.fields.stock_locate.get().value());
-        column_1_.append(message.fields.tracking_number.get().value());
-        column_2_.append(message.fields.timestamp.get().value());
-        column_47_.append(message.fields.original_order_reference_number.get().value());
-        column_48_.append(message.fields.new_order_reference_number.get().value());
-        column_35_.append(message.fields.shares.get().value());
-        column_36_.append(message.fields.price.get().value());
+        column_10_.append(message.fields.stock_locate.get().value());
+        column_11_.append(message.fields.tracking_number.get().value());
+        column_12_.append(message.fields.timestamp.get().value());
+        column_57_.append(message.fields.original_order_reference_number.get().value());
+        column_58_.append(message.fields.new_order_reference_number.get().value());
+        column_49_.append(message.fields.shares.get().value());
+        column_50_.append(message.fields.price.get().value());
+        column_0_.null();
+        column_1_.null();
+        column_2_.null();
         column_3_.null();
         column_4_.null();
         column_5_.null();
@@ -1080,9 +1693,6 @@ class Table {
         column_7_.null();
         column_8_.null();
         column_9_.null();
-        column_10_.null();
-        column_11_.null();
-        column_12_.null();
         column_13_.null();
         column_14_.null();
         column_15_.null();
@@ -1105,6 +1715,8 @@ class Table {
         column_32_.null();
         column_33_.null();
         column_34_.null();
+        column_35_.null();
+        column_36_.null();
         column_37_.null();
         column_38_.null();
         column_39_.null();
@@ -1115,156 +1727,42 @@ class Table {
         column_44_.null();
         column_45_.null();
         column_46_.null();
-        column_49_.null();
-        column_50_.null();
+        column_47_.null();
+        column_48_.null();
         column_51_.null();
         column_52_.null();
         column_53_.null();
         column_54_.null();
         column_55_.null();
         column_56_.null();
-        column_57_.null();
-        column_58_.null();
         column_59_.null();
+        column_60_.null();
+        column_61_.null();
+        column_62_.null();
+        column_63_.null();
+        column_64_.null();
+        column_65_.null();
+        column_66_.null();
+        column_67_.null();
+        column_68_.null();
+        column_69_.null();
         ++rows_;
     }
 
     void append(const itch_totalview::non_cross_trade_message& message) {
         message_.append("NonCrossTradeMessage");
-        column_0_.append(message.fields.stock_locate.get().value());
-        column_1_.append(message.fields.tracking_number.get().value());
-        column_2_.append(message.fields.timestamp.get().value());
-        column_33_.append(message.fields.order_reference_number.get().value());
-        column_34_.append(itch_totalview::buy_sell_indicator::to_string(message.fields.buy_sell_indicator.get().value()));
-        column_35_.append(message.fields.shares.get().value());
-        column_4_.append(message.fields.stock.get_trimmed().value());
-        column_36_.append(message.fields.price.get().value());
-        column_43_.append(message.fields.match_number.get().value());
-        column_3_.null();
-        column_5_.null();
-        column_6_.null();
-        column_7_.null();
-        column_8_.null();
-        column_9_.null();
-        column_10_.null();
-        column_11_.null();
-        column_12_.null();
-        column_13_.null();
-        column_14_.null();
-        column_15_.null();
-        column_16_.null();
-        column_17_.null();
-        column_18_.null();
-        column_19_.null();
-        column_20_.null();
-        column_21_.null();
-        column_22_.null();
-        column_23_.null();
-        column_24_.null();
-        column_25_.null();
-        column_26_.null();
-        column_27_.null();
-        column_28_.null();
-        column_29_.null();
-        column_30_.null();
-        column_31_.null();
-        column_32_.null();
-        column_37_.null();
-        column_38_.null();
-        column_39_.null();
-        column_40_.null();
-        column_41_.null();
-        column_42_.null();
-        column_44_.null();
-        column_45_.null();
-        column_46_.null();
-        column_47_.null();
-        column_48_.null();
-        column_49_.null();
-        column_50_.null();
-        column_51_.null();
-        column_52_.null();
-        column_53_.null();
-        column_54_.null();
-        column_55_.null();
-        column_56_.null();
-        column_57_.null();
-        column_58_.null();
-        column_59_.null();
-        ++rows_;
-    }
-
-    void append(const itch_totalview::cross_trade_message& message) {
-        message_.append("CrossTradeMessage");
-        column_0_.append(message.fields.stock_locate.get().value());
-        column_1_.append(message.fields.tracking_number.get().value());
-        column_2_.append(message.fields.timestamp.get().value());
-        column_49_.append(message.fields.cross_shares.get().value());
-        column_4_.append(message.fields.stock.get_trimmed().value());
-        column_50_.append(message.fields.cross_price.get().value());
-        column_43_.append(message.fields.match_number.get().value());
-        column_51_.append(itch_totalview::cross_type::to_string(message.fields.cross_type.get().value()));
-        column_3_.null();
-        column_5_.null();
-        column_6_.null();
-        column_7_.null();
-        column_8_.null();
-        column_9_.null();
-        column_10_.null();
-        column_11_.null();
-        column_12_.null();
-        column_13_.null();
-        column_14_.null();
-        column_15_.null();
-        column_16_.null();
-        column_17_.null();
-        column_18_.null();
-        column_19_.null();
-        column_20_.null();
-        column_21_.null();
-        column_22_.null();
-        column_23_.null();
-        column_24_.null();
-        column_25_.null();
-        column_26_.null();
-        column_27_.null();
-        column_28_.null();
-        column_29_.null();
-        column_30_.null();
-        column_31_.null();
-        column_32_.null();
-        column_33_.null();
-        column_34_.null();
-        column_35_.null();
-        column_36_.null();
-        column_37_.null();
-        column_38_.null();
-        column_39_.null();
-        column_40_.null();
-        column_41_.null();
-        column_42_.null();
-        column_44_.null();
-        column_45_.null();
-        column_46_.null();
-        column_47_.null();
-        column_48_.null();
-        column_52_.null();
-        column_53_.null();
-        column_54_.null();
-        column_55_.null();
-        column_56_.null();
-        column_57_.null();
-        column_58_.null();
-        column_59_.null();
-        ++rows_;
-    }
-
-    void append(const itch_totalview::broken_trade_message& message) {
-        message_.append("BrokenTradeMessage");
-        column_0_.append(message.fields.stock_locate.get().value());
-        column_1_.append(message.fields.tracking_number.get().value());
-        column_2_.append(message.fields.timestamp.get().value());
-        column_43_.append(message.fields.match_number.get().value());
+        column_10_.append(message.fields.stock_locate.get().value());
+        column_11_.append(message.fields.tracking_number.get().value());
+        column_12_.append(message.fields.timestamp.get().value());
+        column_47_.append(message.fields.order_reference_number.get().value());
+        column_48_.append(itch_totalview::buy_sell_indicator::to_string(message.fields.buy_sell_indicator.get().value()));
+        column_49_.append(message.fields.shares.get().value());
+        column_14_.append(message.fields.stock.get_trimmed().value());
+        column_50_.append(message.fields.price.get().value());
+        column_53_.append(message.fields.match_number.get().value());
+        column_0_.null();
+        column_1_.null();
+        column_2_.null();
         column_3_.null();
         column_4_.null();
         column_5_.null();
@@ -1272,9 +1770,151 @@ class Table {
         column_7_.null();
         column_8_.null();
         column_9_.null();
-        column_10_.null();
-        column_11_.null();
-        column_12_.null();
+        column_13_.null();
+        column_15_.null();
+        column_16_.null();
+        column_17_.null();
+        column_18_.null();
+        column_19_.null();
+        column_20_.null();
+        column_21_.null();
+        column_22_.null();
+        column_23_.null();
+        column_24_.null();
+        column_25_.null();
+        column_26_.null();
+        column_27_.null();
+        column_28_.null();
+        column_29_.null();
+        column_30_.null();
+        column_31_.null();
+        column_32_.null();
+        column_33_.null();
+        column_34_.null();
+        column_35_.null();
+        column_36_.null();
+        column_37_.null();
+        column_38_.null();
+        column_39_.null();
+        column_40_.null();
+        column_41_.null();
+        column_42_.null();
+        column_43_.null();
+        column_44_.null();
+        column_45_.null();
+        column_46_.null();
+        column_51_.null();
+        column_52_.null();
+        column_54_.null();
+        column_55_.null();
+        column_56_.null();
+        column_57_.null();
+        column_58_.null();
+        column_59_.null();
+        column_60_.null();
+        column_61_.null();
+        column_62_.null();
+        column_63_.null();
+        column_64_.null();
+        column_65_.null();
+        column_66_.null();
+        column_67_.null();
+        column_68_.null();
+        column_69_.null();
+        ++rows_;
+    }
+
+    void append(const itch_totalview::cross_trade_message& message) {
+        message_.append("CrossTradeMessage");
+        column_10_.append(message.fields.stock_locate.get().value());
+        column_11_.append(message.fields.tracking_number.get().value());
+        column_12_.append(message.fields.timestamp.get().value());
+        column_59_.append(message.fields.cross_shares.get().value());
+        column_14_.append(message.fields.stock.get_trimmed().value());
+        column_60_.append(message.fields.cross_price.get().value());
+        column_53_.append(message.fields.match_number.get().value());
+        column_61_.append(itch_totalview::cross_type::to_string(message.fields.cross_type.get().value()));
+        column_0_.null();
+        column_1_.null();
+        column_2_.null();
+        column_3_.null();
+        column_4_.null();
+        column_5_.null();
+        column_6_.null();
+        column_7_.null();
+        column_8_.null();
+        column_9_.null();
+        column_13_.null();
+        column_15_.null();
+        column_16_.null();
+        column_17_.null();
+        column_18_.null();
+        column_19_.null();
+        column_20_.null();
+        column_21_.null();
+        column_22_.null();
+        column_23_.null();
+        column_24_.null();
+        column_25_.null();
+        column_26_.null();
+        column_27_.null();
+        column_28_.null();
+        column_29_.null();
+        column_30_.null();
+        column_31_.null();
+        column_32_.null();
+        column_33_.null();
+        column_34_.null();
+        column_35_.null();
+        column_36_.null();
+        column_37_.null();
+        column_38_.null();
+        column_39_.null();
+        column_40_.null();
+        column_41_.null();
+        column_42_.null();
+        column_43_.null();
+        column_44_.null();
+        column_45_.null();
+        column_46_.null();
+        column_47_.null();
+        column_48_.null();
+        column_49_.null();
+        column_50_.null();
+        column_51_.null();
+        column_52_.null();
+        column_54_.null();
+        column_55_.null();
+        column_56_.null();
+        column_57_.null();
+        column_58_.null();
+        column_62_.null();
+        column_63_.null();
+        column_64_.null();
+        column_65_.null();
+        column_66_.null();
+        column_67_.null();
+        column_68_.null();
+        column_69_.null();
+        ++rows_;
+    }
+
+    void append(const itch_totalview::broken_trade_message& message) {
+        message_.append("BrokenTradeMessage");
+        column_10_.append(message.fields.stock_locate.get().value());
+        column_11_.append(message.fields.tracking_number.get().value());
+        column_12_.append(message.fields.timestamp.get().value());
+        column_53_.append(message.fields.match_number.get().value());
+        column_0_.null();
+        column_1_.null();
+        column_2_.null();
+        column_3_.null();
+        column_4_.null();
+        column_5_.null();
+        column_6_.null();
+        column_7_.null();
+        column_8_.null();
+        column_9_.null();
         column_13_.null();
         column_14_.null();
         column_15_.null();
@@ -1305,6 +1945,7 @@ class Table {
         column_40_.null();
         column_41_.null();
         column_42_.null();
+        column_43_.null();
         column_44_.null();
         column_45_.null();
         column_46_.null();
@@ -1314,99 +1955,50 @@ class Table {
         column_50_.null();
         column_51_.null();
         column_52_.null();
-        column_53_.null();
         column_54_.null();
         column_55_.null();
         column_56_.null();
         column_57_.null();
         column_58_.null();
         column_59_.null();
+        column_60_.null();
+        column_61_.null();
+        column_62_.null();
+        column_63_.null();
+        column_64_.null();
+        column_65_.null();
+        column_66_.null();
+        column_67_.null();
+        column_68_.null();
+        column_69_.null();
         ++rows_;
     }
 
     void append(const itch_totalview::net_order_imbalance_indicator_message& message) {
         message_.append("NetOrderImbalanceIndicatorMessage");
-        column_0_.append(message.fields.stock_locate.get().value());
-        column_1_.append(message.fields.tracking_number.get().value());
-        column_2_.append(message.fields.timestamp.get().value());
-        column_52_.append(message.fields.paired_shares.get().value());
-        column_53_.append(message.fields.imbalance_shares.get().value());
-        column_54_.append(itch_totalview::imbalance_direction::to_string(message.fields.imbalance_direction.get().value()));
-        column_4_.append(message.fields.stock.get_trimmed().value());
-        column_55_.append(message.fields.far_price.get().value());
-        column_56_.append(message.fields.near_price.get().value());
-        column_57_.append(message.fields.current_reference_price.get().value());
-        column_51_.append(itch_totalview::cross_type::to_string(message.fields.cross_type.get().value()));
-        column_58_.append(itch_totalview::price_variation_indicator::to_string(message.fields.price_variation_indicator.get().value()));
+        column_10_.append(message.fields.stock_locate.get().value());
+        column_11_.append(message.fields.tracking_number.get().value());
+        column_12_.append(message.fields.timestamp.get().value());
+        column_62_.append(message.fields.paired_shares.get().value());
+        column_63_.append(message.fields.imbalance_shares.get().value());
+        column_64_.append(itch_totalview::imbalance_direction::to_string(message.fields.imbalance_direction.get().value()));
+        column_14_.append(message.fields.stock.get_trimmed().value());
+        column_65_.append(message.fields.far_price.get().value());
+        column_66_.append(message.fields.near_price.get().value());
+        column_67_.append(message.fields.current_reference_price.get().value());
+        column_61_.append(itch_totalview::cross_type::to_string(message.fields.cross_type.get().value()));
+        column_68_.append(itch_totalview::price_variation_indicator::to_string(message.fields.price_variation_indicator.get().value()));
+        column_0_.null();
+        column_1_.null();
+        column_2_.null();
         column_3_.null();
+        column_4_.null();
         column_5_.null();
         column_6_.null();
         column_7_.null();
         column_8_.null();
         column_9_.null();
-        column_10_.null();
-        column_11_.null();
-        column_12_.null();
         column_13_.null();
-        column_14_.null();
-        column_15_.null();
-        column_16_.null();
-        column_17_.null();
-        column_18_.null();
-        column_19_.null();
-        column_20_.null();
-        column_21_.null();
-        column_22_.null();
-        column_23_.null();
-        column_24_.null();
-        column_25_.null();
-        column_26_.null();
-        column_27_.null();
-        column_28_.null();
-        column_29_.null();
-        column_30_.null();
-        column_31_.null();
-        column_32_.null();
-        column_33_.null();
-        column_34_.null();
-        column_35_.null();
-        column_36_.null();
-        column_37_.null();
-        column_38_.null();
-        column_39_.null();
-        column_40_.null();
-        column_41_.null();
-        column_42_.null();
-        column_43_.null();
-        column_44_.null();
-        column_45_.null();
-        column_46_.null();
-        column_47_.null();
-        column_48_.null();
-        column_49_.null();
-        column_50_.null();
-        column_59_.null();
-        ++rows_;
-    }
-
-    void append(const itch_totalview::retail_interest_message& message) {
-        message_.append("RetailInterestMessage");
-        column_0_.append(message.fields.stock_locate.get().value());
-        column_1_.append(message.fields.tracking_number.get().value());
-        column_2_.append(message.fields.timestamp.get().value());
-        column_4_.append(message.fields.stock.get_trimmed().value());
-        column_59_.append(itch_totalview::interest_flag::to_string(message.fields.interest_flag.get().value()));
-        column_3_.null();
-        column_5_.null();
-        column_6_.null();
-        column_7_.null();
-        column_8_.null();
-        column_9_.null();
-        column_10_.null();
-        column_11_.null();
-        column_12_.null();
-        column_13_.null();
-        column_14_.null();
         column_15_.null();
         column_16_.null();
         column_17_.null();
@@ -1451,6 +2043,84 @@ class Table {
         column_56_.null();
         column_57_.null();
         column_58_.null();
+        column_59_.null();
+        column_60_.null();
+        column_69_.null();
+        ++rows_;
+    }
+
+    void append(const itch_totalview::retail_interest_message& message) {
+        message_.append("RetailInterestMessage");
+        column_10_.append(message.fields.stock_locate.get().value());
+        column_11_.append(message.fields.tracking_number.get().value());
+        column_12_.append(message.fields.timestamp.get().value());
+        column_14_.append(message.fields.stock.get_trimmed().value());
+        column_69_.append(itch_totalview::interest_flag::to_string(message.fields.interest_flag.get().value()));
+        column_0_.null();
+        column_1_.null();
+        column_2_.null();
+        column_3_.null();
+        column_4_.null();
+        column_5_.null();
+        column_6_.null();
+        column_7_.null();
+        column_8_.null();
+        column_9_.null();
+        column_13_.null();
+        column_15_.null();
+        column_16_.null();
+        column_17_.null();
+        column_18_.null();
+        column_19_.null();
+        column_20_.null();
+        column_21_.null();
+        column_22_.null();
+        column_23_.null();
+        column_24_.null();
+        column_25_.null();
+        column_26_.null();
+        column_27_.null();
+        column_28_.null();
+        column_29_.null();
+        column_30_.null();
+        column_31_.null();
+        column_32_.null();
+        column_33_.null();
+        column_34_.null();
+        column_35_.null();
+        column_36_.null();
+        column_37_.null();
+        column_38_.null();
+        column_39_.null();
+        column_40_.null();
+        column_41_.null();
+        column_42_.null();
+        column_43_.null();
+        column_44_.null();
+        column_45_.null();
+        column_46_.null();
+        column_47_.null();
+        column_48_.null();
+        column_49_.null();
+        column_50_.null();
+        column_51_.null();
+        column_52_.null();
+        column_53_.null();
+        column_54_.null();
+        column_55_.null();
+        column_56_.null();
+        column_57_.null();
+        column_58_.null();
+        column_59_.null();
+        column_60_.null();
+        column_61_.null();
+        column_62_.null();
+        column_63_.null();
+        column_64_.null();
+        column_65_.null();
+        column_66_.null();
+        column_67_.null();
+        column_68_.null();
         ++rows_;
     }
 
@@ -1518,6 +2188,16 @@ class Table {
         arrays.push_back(column_57_.finish());
         arrays.push_back(column_58_.finish());
         arrays.push_back(column_59_.finish());
+        arrays.push_back(column_60_.finish());
+        arrays.push_back(column_61_.finish());
+        arrays.push_back(column_62_.finish());
+        arrays.push_back(column_63_.finish());
+        arrays.push_back(column_64_.finish());
+        arrays.push_back(column_65_.finish());
+        arrays.push_back(column_66_.finish());
+        arrays.push_back(column_67_.finish());
+        arrays.push_back(column_68_.finish());
+        arrays.push_back(column_69_.finish());
         return arrow::Table::Make(schema_, arrays, rows_);
     }
 
@@ -1527,66 +2207,76 @@ class Table {
     std::shared_ptr<arrow::Schema> schema_;
     std::int64_t rows_ = 0;
     omi::parquet::wide::Text message_{  };
-    omi::parquet::wide::Unsigned column_0_{  };   // stock_locate
-    omi::parquet::wide::Unsigned column_1_{  };   // tracking_number
-    omi::parquet::wide::Unsigned column_2_{  };   // timestamp
-    omi::parquet::wide::Text column_3_{  };   // event_code
-    omi::parquet::wide::Text column_4_{  };   // stock
-    omi::parquet::wide::Text column_5_{  };   // market_category
-    omi::parquet::wide::Text column_6_{  };   // financial_status_indicator
-    omi::parquet::wide::Unsigned column_7_{  };   // round_lot_size
-    omi::parquet::wide::Text column_8_{  };   // round_lots_only
-    omi::parquet::wide::Text column_9_{  };   // issue_classification
-    omi::parquet::wide::Text column_10_{  };   // issue_sub_type
-    omi::parquet::wide::Text column_11_{  };   // authenticity
-    omi::parquet::wide::Text column_12_{  };   // short_sale_threshold_indicator
-    omi::parquet::wide::Text column_13_{  };   // ipo_flag
-    omi::parquet::wide::Text column_14_{  };   // luld_reference_price_tier
-    omi::parquet::wide::Text column_15_{  };   // etp_flag
-    omi::parquet::wide::Unsigned column_16_{  };   // etp_leverage_factor
-    omi::parquet::wide::Text column_17_{  };   // inverse_indicator
-    omi::parquet::wide::Text column_18_{  };   // trading_state
-    omi::parquet::wide::Text column_19_{  };   // reason
-    omi::parquet::wide::Unsigned column_20_{  };   // locate_code
-    omi::parquet::wide::Text column_21_{  };   // reg_sho_action
-    omi::parquet::wide::Text column_22_{  };   // mpid
-    omi::parquet::wide::Text column_23_{  };   // primary_market_maker
-    omi::parquet::wide::Text column_24_{  };   // market_maker_mode
-    omi::parquet::wide::Text column_25_{  };   // market_participant_state
-    omi::parquet::wide::Decimal column_26_{ arrow::decimal128(18, 8) };   // level_1
-    omi::parquet::wide::Decimal column_27_{ arrow::decimal128(18, 8) };   // level_2
-    omi::parquet::wide::Decimal column_28_{ arrow::decimal128(18, 8) };   // level_3
-    omi::parquet::wide::Text column_29_{  };   // breached_level
-    omi::parquet::wide::Unsigned column_30_{  };   // ipo_quotation_release_time
-    omi::parquet::wide::Text column_31_{  };   // ipo_quotation_release_qualifier
-    omi::parquet::wide::Decimal column_32_{ arrow::decimal128(10, 4) };   // ipo_price
-    omi::parquet::wide::Unsigned column_33_{  };   // order_reference_number
-    omi::parquet::wide::Text column_34_{  };   // buy_sell_indicator
-    omi::parquet::wide::Unsigned column_35_{  };   // shares
-    omi::parquet::wide::Decimal column_36_{ arrow::decimal128(10, 4) };   // price
-    omi::parquet::wide::Decimal column_37_{ arrow::decimal128(10, 4) };   // auction_collar_reference_price
-    omi::parquet::wide::Decimal column_38_{ arrow::decimal128(10, 4) };   // upper_auction_collar_price
-    omi::parquet::wide::Decimal column_39_{ arrow::decimal128(10, 4) };   // lower_auction_collar_price
-    omi::parquet::wide::Unsigned column_40_{  };   // auction_collar_extension
-    omi::parquet::wide::Text column_41_{  };   // attribution
-    omi::parquet::wide::Unsigned column_42_{  };   // executed_shares
-    omi::parquet::wide::Unsigned column_43_{  };   // match_number
-    omi::parquet::wide::Text column_44_{  };   // printable
-    omi::parquet::wide::Decimal column_45_{ arrow::decimal128(10, 4) };   // execution_price
-    omi::parquet::wide::Unsigned column_46_{  };   // canceled_shares
-    omi::parquet::wide::Unsigned column_47_{  };   // original_order_reference_number
-    omi::parquet::wide::Unsigned column_48_{  };   // new_order_reference_number
-    omi::parquet::wide::Unsigned column_49_{  };   // cross_shares
-    omi::parquet::wide::Decimal column_50_{ arrow::decimal128(10, 4) };   // cross_price
-    omi::parquet::wide::Text column_51_{  };   // cross_type
-    omi::parquet::wide::Unsigned column_52_{  };   // paired_shares
-    omi::parquet::wide::Unsigned column_53_{  };   // imbalance_shares
-    omi::parquet::wide::Text column_54_{  };   // imbalance_direction
-    omi::parquet::wide::Decimal column_55_{ arrow::decimal128(10, 4) };   // far_price
-    omi::parquet::wide::Decimal column_56_{ arrow::decimal128(10, 4) };   // near_price
-    omi::parquet::wide::Decimal column_57_{ arrow::decimal128(10, 4) };   // current_reference_price
-    omi::parquet::wide::Text column_58_{  };   // price_variation_indicator
-    omi::parquet::wide::Text column_59_{  };   // interest_flag
+    omi::parquet::wide::Text column_0_{  };   // text
+    omi::parquet::wide::Text column_1_{  };   // username
+    omi::parquet::wide::Text column_2_{  };   // password
+    omi::parquet::wide::Text column_3_{  };   // requested_session
+    omi::parquet::wide::Text column_4_{  };   // requested_sequence_number
+    omi::parquet::wide::Text column_5_{  };   // unsequenced_message_type
+    omi::parquet::wide::Text column_6_{  };   // accepted_session
+    omi::parquet::wide::Text column_7_{  };   // accepted_sequence_number
+    omi::parquet::wide::Text column_8_{  };   // reject_reason_code
+    omi::parquet::wide::Text column_9_{  };   // sequenced_message_type
+    omi::parquet::wide::Unsigned column_10_{  };   // stock_locate
+    omi::parquet::wide::Unsigned column_11_{  };   // tracking_number
+    omi::parquet::wide::Unsigned column_12_{  };   // timestamp
+    omi::parquet::wide::Text column_13_{  };   // event_code
+    omi::parquet::wide::Text column_14_{  };   // stock
+    omi::parquet::wide::Text column_15_{  };   // market_category
+    omi::parquet::wide::Text column_16_{  };   // financial_status_indicator
+    omi::parquet::wide::Unsigned column_17_{  };   // round_lot_size
+    omi::parquet::wide::Text column_18_{  };   // round_lots_only
+    omi::parquet::wide::Text column_19_{  };   // issue_classification
+    omi::parquet::wide::Text column_20_{  };   // issue_sub_type
+    omi::parquet::wide::Text column_21_{  };   // authenticity
+    omi::parquet::wide::Text column_22_{  };   // short_sale_threshold_indicator
+    omi::parquet::wide::Text column_23_{  };   // ipo_flag
+    omi::parquet::wide::Text column_24_{  };   // luld_reference_price_tier
+    omi::parquet::wide::Text column_25_{  };   // etp_flag
+    omi::parquet::wide::Unsigned column_26_{  };   // etp_leverage_factor
+    omi::parquet::wide::Text column_27_{  };   // inverse_indicator
+    omi::parquet::wide::Text column_28_{  };   // trading_state
+    omi::parquet::wide::Text column_29_{  };   // reason_code
+    omi::parquet::wide::Unsigned column_30_{  };   // locate_code
+    omi::parquet::wide::Text column_31_{  };   // reg_sho_action
+    omi::parquet::wide::Text column_32_{  };   // mpid
+    omi::parquet::wide::Text column_33_{  };   // primary_market_maker
+    omi::parquet::wide::Text column_34_{  };   // market_maker_mode
+    omi::parquet::wide::Text column_35_{  };   // market_participant_state
+    omi::parquet::wide::Decimal column_36_{ arrow::decimal128(18, 8) };   // level_1
+    omi::parquet::wide::Decimal column_37_{ arrow::decimal128(18, 8) };   // level_2
+    omi::parquet::wide::Decimal column_38_{ arrow::decimal128(18, 8) };   // level_3
+    omi::parquet::wide::Text column_39_{  };   // breached_level
+    omi::parquet::wide::Unsigned column_40_{  };   // ipo_quotation_release_time
+    omi::parquet::wide::Text column_41_{  };   // ipo_quotation_release_qualifier
+    omi::parquet::wide::Decimal column_42_{ arrow::decimal128(10, 4) };   // ipo_price
+    omi::parquet::wide::Decimal column_43_{ arrow::decimal128(10, 4) };   // auction_collar_reference_price
+    omi::parquet::wide::Decimal column_44_{ arrow::decimal128(10, 4) };   // upper_auction_collar_price
+    omi::parquet::wide::Decimal column_45_{ arrow::decimal128(10, 4) };   // lower_auction_collar_price
+    omi::parquet::wide::Unsigned column_46_{  };   // auction_collar_extension
+    omi::parquet::wide::Unsigned column_47_{  };   // order_reference_number
+    omi::parquet::wide::Text column_48_{  };   // buy_sell_indicator
+    omi::parquet::wide::Unsigned column_49_{  };   // shares
+    omi::parquet::wide::Decimal column_50_{ arrow::decimal128(10, 4) };   // price
+    omi::parquet::wide::Text column_51_{  };   // attribution
+    omi::parquet::wide::Unsigned column_52_{  };   // executed_shares
+    omi::parquet::wide::Unsigned column_53_{  };   // match_number
+    omi::parquet::wide::Text column_54_{  };   // printable
+    omi::parquet::wide::Decimal column_55_{ arrow::decimal128(10, 4) };   // execution_price
+    omi::parquet::wide::Unsigned column_56_{  };   // canceled_shares
+    omi::parquet::wide::Unsigned column_57_{  };   // original_order_reference_number
+    omi::parquet::wide::Unsigned column_58_{  };   // new_order_reference_number
+    omi::parquet::wide::Unsigned column_59_{  };   // cross_shares
+    omi::parquet::wide::Decimal column_60_{ arrow::decimal128(10, 4) };   // cross_price
+    omi::parquet::wide::Text column_61_{  };   // cross_type
+    omi::parquet::wide::Unsigned column_62_{  };   // paired_shares
+    omi::parquet::wide::Unsigned column_63_{  };   // imbalance_shares
+    omi::parquet::wide::Text column_64_{  };   // imbalance_direction
+    omi::parquet::wide::Decimal column_65_{ arrow::decimal128(10, 4) };   // far_price
+    omi::parquet::wide::Decimal column_66_{ arrow::decimal128(10, 4) };   // near_price
+    omi::parquet::wide::Decimal column_67_{ arrow::decimal128(10, 4) };   // current_reference_price
+    omi::parquet::wide::Text column_68_{  };   // price_variation_indicator
+    omi::parquet::wide::Text column_69_{  };   // interest_flag
 };
 
 }

@@ -16,6 +16,7 @@ struct message_type {
         timestamp_message = 'T',
         system_event_message = 'S',
         stock_directory_message = 'R',
+        stock_trading_action_message = 'H',
         reg_sho_short_sale_price_test_restricted_indicator_message = 'Y',
         market_participant_position_message = 'L',
         add_order_message = 'A',
@@ -32,7 +33,7 @@ struct message_type {
         retail_price_improvement_indicator_message = 'N'
     };
 
-    static constexpr std::array<std::pair<std::string_view, enum_type>, 17> from_string_map = {{
+    static constexpr std::array<std::pair<std::string_view, enum_type>, 18> from_string_map = {{
         {"Add Order Message", enum_type::add_order_message},
         {"Add Order With Mpid Message", enum_type::add_order_with_mpid_message},
         {"Broken Trade Message", enum_type::broken_trade_message},
@@ -47,6 +48,7 @@ struct message_type {
         {"Reg Sho Short Sale Price Test Restricted Indicator Message", enum_type::reg_sho_short_sale_price_test_restricted_indicator_message},
         {"Retail Price Improvement Indicator Message", enum_type::retail_price_improvement_indicator_message},
         {"Stock Directory Message", enum_type::stock_directory_message},
+        {"Stock Trading Action Message", enum_type::stock_trading_action_message},
         {"System Event Message", enum_type::system_event_message},
         {"Timestamp Message", enum_type::timestamp_message},
         {"Trade Message", enum_type::trade_message}
@@ -57,6 +59,7 @@ struct message_type {
             case enum_type::timestamp_message: return "Timestamp Message";
             case enum_type::system_event_message: return "System Event Message";
             case enum_type::stock_directory_message: return "Stock Directory Message";
+            case enum_type::stock_trading_action_message: return "Stock Trading Action Message";
             case enum_type::reg_sho_short_sale_price_test_restricted_indicator_message: return "Reg Sho Short Sale Price Test Restricted Indicator Message";
             case enum_type::market_participant_position_message: return "Market Participant Position Message";
             case enum_type::add_order_message: return "Add Order Message";

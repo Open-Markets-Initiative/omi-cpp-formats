@@ -13,17 +13,18 @@ namespace nasdaq::nsmequities::totalview::itch::v4_1 {
 struct financial_status_indicator {
 
     enum class enum_type : char {
-        delinquent = 'D',
-        deficient = 'E',
+        deficient = 'D',
+        delinquent = 'E',
         bankrupt = 'Q',
         suspended = 'S',
         deficient_and_bankrupt = 'G',
         deficient_and_delinquent = 'H',
         delinquent_and_bankrupt = 'J',
-        deficient_delinquent_and_bankrupt = 'K'
+        deficient_delinquent_and_bankrupt = 'K',
+        in_compliance = ' '
     };
 
-    static constexpr std::array<std::pair<std::string_view, enum_type>, 8> from_string_map = {{
+    static constexpr std::array<std::pair<std::string_view, enum_type>, 9> from_string_map = {{
         {"Bankrupt", enum_type::bankrupt},
         {"Deficient", enum_type::deficient},
         {"Deficient And Bankrupt", enum_type::deficient_and_bankrupt},
@@ -31,19 +32,21 @@ struct financial_status_indicator {
         {"Deficient Delinquent And Bankrupt", enum_type::deficient_delinquent_and_bankrupt},
         {"Delinquent", enum_type::delinquent},
         {"Delinquent And Bankrupt", enum_type::delinquent_and_bankrupt},
+        {"In Compliance", enum_type::in_compliance},
         {"Suspended", enum_type::suspended}
     }};
 
     static constexpr std::string_view to_string(enum_type value) {
         switch (value) {
-            case enum_type::delinquent: return "Delinquent";
             case enum_type::deficient: return "Deficient";
+            case enum_type::delinquent: return "Delinquent";
             case enum_type::bankrupt: return "Bankrupt";
             case enum_type::suspended: return "Suspended";
             case enum_type::deficient_and_bankrupt: return "Deficient And Bankrupt";
             case enum_type::deficient_and_delinquent: return "Deficient And Delinquent";
             case enum_type::delinquent_and_bankrupt: return "Delinquent And Bankrupt";
             case enum_type::deficient_delinquent_and_bankrupt: return "Deficient Delinquent And Bankrupt";
+            case enum_type::in_compliance: return "In Compliance";
             default: return "unknown";
         }
     }
@@ -69,7 +72,7 @@ struct financial_status_indicator {
     using storage_type = result_type;
 
     constexpr financial_status_indicator()
-     : value{ enum_type::delinquent } {}
+     : value{ enum_type::deficient } {}
 
     constexpr financial_status_indicator(enum_type v)
      : value{ v } {}
@@ -86,7 +89,7 @@ struct financial_status_indicator {
         if (value.has_value())
             set(value.value());
         else
-            set(enum_type::deficient_delinquent_and_bankrupt);
+            set(enum_type::in_compliance);
     }
 
   protected:

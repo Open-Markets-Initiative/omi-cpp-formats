@@ -42,11 +42,11 @@ void dispatch(Handler& handler, const std::byte* buffer, std::size_t length, std
         case message_type::enum_type::ipo_quoting_period_update:
             handler.on_message(*ipo_quoting_period_update::parse(buffer), packet_receive_time, transport);
             break;
-        case message_type::enum_type::add_order_no_mpid_attribution_message:
-            handler.on_message(*add_order_no_mpid_attribution_message::parse(buffer), packet_receive_time, transport);
-            break;
         case message_type::enum_type::luld_auction_collar_message:
             handler.on_message(*luld_auction_collar_message::parse(buffer), packet_receive_time, transport);
+            break;
+        case message_type::enum_type::add_order_no_mpid_attribution_message:
+            handler.on_message(*add_order_no_mpid_attribution_message::parse(buffer), packet_receive_time, transport);
             break;
         case message_type::enum_type::add_order_with_mpid_attribution_message:
             handler.on_message(*add_order_with_mpid_attribution_message::parse(buffer), packet_receive_time, transport);
@@ -80,6 +80,48 @@ void dispatch(Handler& handler, const std::byte* buffer, std::size_t length, std
             break;
         case message_type::enum_type::retail_interest_message:
             handler.on_message(*retail_interest_message::parse(buffer), packet_receive_time, transport);
+            break;
+        default:
+            // Unknown message type - handler should implement on_unknown if needed
+            break;
+    }
+}
+
+// Dispatch for the Server Packet tree
+template<typename Handler>
+void dispatch_server_packet(Handler& handler, const std::byte* buffer, std::size_t length) {
+    (void)length;
+
+    switch (login_accepted_packet::parse(buffer)->header.server_packet_type.get().value()) {
+        case server_packet_type::enum_type::login_accepted_packet:
+            handler.on_message(*login_accepted_packet::parse(buffer));
+            break;
+        case server_packet_type::enum_type::login_rejected_packet:
+            handler.on_message(*login_rejected_packet::parse(buffer));
+            break;
+        case server_packet_type::enum_type::sequenced_data_packet:
+            handler.on_message(*sequenced_data_packet::parse(buffer));
+            break;
+        default:
+            // Unknown message type - handler should implement on_unknown if needed
+            break;
+    }
+}
+
+// Dispatch for the Client Packet tree
+template<typename Handler>
+void dispatch_client_packet(Handler& handler, const std::byte* buffer, std::size_t length) {
+    (void)length;
+
+    switch (debug_packet::parse(buffer)->header.client_packet_type.get().value()) {
+        case client_packet_type::enum_type::debug_packet:
+            handler.on_message(*debug_packet::parse(buffer));
+            break;
+        case client_packet_type::enum_type::login_request_packet:
+            handler.on_message(*login_request_packet::parse(buffer));
+            break;
+        case client_packet_type::enum_type::unsequenced_data_packet:
+            handler.on_message(*unsequenced_data_packet::parse(buffer));
             break;
         default:
             // Unknown message type - handler should implement on_unknown if needed

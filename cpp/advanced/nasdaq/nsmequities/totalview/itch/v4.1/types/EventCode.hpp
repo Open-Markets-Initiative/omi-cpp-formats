@@ -18,19 +18,19 @@ struct event_code {
         start_of_market_hours = 'Q',
         end_of_market_hours = 'M',
         end_of_system_hours = 'E',
-        end_of_message = 'C',
-        halt = 'A',
-        quote_only_period = 'R',
-        resumption = 'B'
+        end_of_messages = 'C',
+        emergency_market_condition_halt = 'A',
+        emergency_market_condition_quote_only_period = 'R',
+        emergency_market_condition_resumption = 'B'
     };
 
     static constexpr std::array<std::pair<std::string_view, enum_type>, 9> from_string_map = {{
+        {"Emergency Market Condition Halt", enum_type::emergency_market_condition_halt},
+        {"Emergency Market Condition Quote Only Period", enum_type::emergency_market_condition_quote_only_period},
+        {"Emergency Market Condition Resumption", enum_type::emergency_market_condition_resumption},
         {"End Of Market Hours", enum_type::end_of_market_hours},
-        {"End Of Message", enum_type::end_of_message},
+        {"End Of Messages", enum_type::end_of_messages},
         {"End Of System Hours", enum_type::end_of_system_hours},
-        {"Halt", enum_type::halt},
-        {"Quote Only Period", enum_type::quote_only_period},
-        {"Resumption", enum_type::resumption},
         {"Start Of Market Hours", enum_type::start_of_market_hours},
         {"Start Of Messages", enum_type::start_of_messages},
         {"Start Of System Hours", enum_type::start_of_system_hours}
@@ -43,10 +43,10 @@ struct event_code {
             case enum_type::start_of_market_hours: return "Start Of Market Hours";
             case enum_type::end_of_market_hours: return "End Of Market Hours";
             case enum_type::end_of_system_hours: return "End Of System Hours";
-            case enum_type::end_of_message: return "End Of Message";
-            case enum_type::halt: return "Halt";
-            case enum_type::quote_only_period: return "Quote Only Period";
-            case enum_type::resumption: return "Resumption";
+            case enum_type::end_of_messages: return "End Of Messages";
+            case enum_type::emergency_market_condition_halt: return "Emergency Market Condition Halt";
+            case enum_type::emergency_market_condition_quote_only_period: return "Emergency Market Condition Quote Only Period";
+            case enum_type::emergency_market_condition_resumption: return "Emergency Market Condition Resumption";
             default: return "unknown";
         }
     }
@@ -89,7 +89,7 @@ struct event_code {
         if (value.has_value())
             set(value.value());
         else
-            set(enum_type::resumption);
+            set(enum_type::emergency_market_condition_resumption);
     }
 
   protected:

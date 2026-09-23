@@ -21,8 +21,8 @@ struct message_type {
         mwcb_decline_level_message = 'V',
         mwcb_status_level_message = 'W',
         ipo_quoting_period_update = 'K',
-        add_order_no_mpid_attribution_message = 'A',
         luld_auction_collar_message = 'J',
+        add_order_no_mpid_attribution_message = 'A',
         add_order_with_mpid_attribution_message = 'F',
         order_executed_message = 'E',
         order_executed_with_price_message = 'C',
@@ -70,8 +70,8 @@ struct message_type {
             case enum_type::mwcb_decline_level_message: return "Mwcb Decline Level Message";
             case enum_type::mwcb_status_level_message: return "Mwcb Status Level Message";
             case enum_type::ipo_quoting_period_update: return "Ipo Quoting Period Update";
-            case enum_type::add_order_no_mpid_attribution_message: return "Add Order No Mpid Attribution Message";
             case enum_type::luld_auction_collar_message: return "Luld Auction Collar Message";
+            case enum_type::add_order_no_mpid_attribution_message: return "Add Order No Mpid Attribution Message";
             case enum_type::add_order_with_mpid_attribution_message: return "Add Order With Mpid Attribution Message";
             case enum_type::order_executed_message: return "Order Executed Message";
             case enum_type::order_executed_with_price_message: return "Order Executed With Price Message";

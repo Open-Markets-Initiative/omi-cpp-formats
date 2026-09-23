@@ -16,13 +16,15 @@ struct market_maker_mode {
         normal = 'N',
         passive = 'P',
         syndicate = 'S',
+        pre_syndicate = 'R',
         penalty = 'L'
     };
 
-    static constexpr std::array<std::pair<std::string_view, enum_type>, 4> from_string_map = {{
+    static constexpr std::array<std::pair<std::string_view, enum_type>, 5> from_string_map = {{
         {"Normal", enum_type::normal},
         {"Passive", enum_type::passive},
         {"Penalty", enum_type::penalty},
+        {"Pre Syndicate", enum_type::pre_syndicate},
         {"Syndicate", enum_type::syndicate}
     }};
 
@@ -31,6 +33,7 @@ struct market_maker_mode {
             case enum_type::normal: return "Normal";
             case enum_type::passive: return "Passive";
             case enum_type::syndicate: return "Syndicate";
+            case enum_type::pre_syndicate: return "Pre Syndicate";
             case enum_type::penalty: return "Penalty";
             default: return "unknown";
         }

@@ -17,7 +17,7 @@ struct market_category {
         nasdaq_global_market = 'G',
         nasdaq_capital_market = 'S',
         nyse = 'N',
-        nyse_american = 'A',
+        nyse_mkt = 'A',
         nyse_arca = 'P',
         bats_z = 'Z',
         investors_exchange = 'V',
@@ -32,8 +32,8 @@ struct market_category {
         {"Nasdaq Global Select Market", enum_type::nasdaq_global_select_market},
         {"Not Available", enum_type::not_available},
         {"Nyse", enum_type::nyse},
-        {"Nyse American", enum_type::nyse_american},
-        {"Nyse Arca", enum_type::nyse_arca}
+        {"Nyse Arca", enum_type::nyse_arca},
+        {"Nyse Mkt", enum_type::nyse_mkt}
     }};
 
     static constexpr std::string_view to_string(enum_type value) {
@@ -42,7 +42,7 @@ struct market_category {
             case enum_type::nasdaq_global_market: return "Nasdaq Global Market";
             case enum_type::nasdaq_capital_market: return "Nasdaq Capital Market";
             case enum_type::nyse: return "Nyse";
-            case enum_type::nyse_american: return "Nyse American";
+            case enum_type::nyse_mkt: return "Nyse Mkt";
             case enum_type::nyse_arca: return "Nyse Arca";
             case enum_type::bats_z: return "Bats Z";
             case enum_type::investors_exchange: return "Investors Exchange";

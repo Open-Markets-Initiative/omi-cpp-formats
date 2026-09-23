@@ -15,12 +15,14 @@ struct cross_type {
     enum class enum_type : char {
         opening = 'O',
         closing = 'C',
-        halted_or_paused = 'H'
+        halted_or_paused = 'H',
+        intraday_cross_and_post_close_cross = 'I'
     };
 
-    static constexpr std::array<std::pair<std::string_view, enum_type>, 3> from_string_map = {{
+    static constexpr std::array<std::pair<std::string_view, enum_type>, 4> from_string_map = {{
         {"Closing", enum_type::closing},
         {"Halted Or Paused", enum_type::halted_or_paused},
+        {"Intraday Cross And Post Close Cross", enum_type::intraday_cross_and_post_close_cross},
         {"Opening", enum_type::opening}
     }};
 
@@ -29,6 +31,7 @@ struct cross_type {
             case enum_type::opening: return "Opening";
             case enum_type::closing: return "Closing";
             case enum_type::halted_or_paused: return "Halted Or Paused";
+            case enum_type::intraday_cross_and_post_close_cross: return "Intraday Cross And Post Close Cross";
             default: return "unknown";
         }
     }
@@ -71,7 +74,7 @@ struct cross_type {
         if (value.has_value())
             set(value.value());
         else
-            set(enum_type::halted_or_paused);
+            set(enum_type::intraday_cross_and_post_close_cross);
     }
 
   protected:

@@ -8,7 +8,7 @@
 #include "../types/Stock.hpp"
 #include "../types/TradingState.hpp"
 #include "../types/Reserved.hpp"
-#include "../types/Reason.hpp"
+#include "../types/ReasonCode.hpp"
 
 namespace nasdaq::nsmequities::totalview::itch::v5_0_2017 {
 
@@ -26,7 +26,7 @@ struct stock_trading_action_message {
         itch_totalview::stock stock;
         itch_totalview::trading_state trading_state;
         itch_totalview::reserved reserved;
-        itch_totalview::reason reason;
+        itch_totalview::reason_code reason_code;
     };
 
     message_header header = {std::uint16_t(sizeof(message_header) + sizeof(fields_type) - 2), message_type::enum_type::stock_trading_action_message};
@@ -52,7 +52,7 @@ static_assert(offsetof(stock_trading_action_message::fields_type, timestamp) == 
 static_assert(offsetof(stock_trading_action_message::fields_type, stock) == 10, "unexpected offset of stock_trading_action_message::fields_type::stock");
 static_assert(offsetof(stock_trading_action_message::fields_type, trading_state) == 18, "unexpected offset of stock_trading_action_message::fields_type::trading_state");
 static_assert(offsetof(stock_trading_action_message::fields_type, reserved) == 19, "unexpected offset of stock_trading_action_message::fields_type::reserved");
-static_assert(offsetof(stock_trading_action_message::fields_type, reason) == 20, "unexpected offset of stock_trading_action_message::fields_type::reason");
+static_assert(offsetof(stock_trading_action_message::fields_type, reason_code) == 20, "unexpected offset of stock_trading_action_message::fields_type::reason_code");
 static_assert(sizeof(stock_trading_action_message::fields_type) == 24, "unexpected sizeof stock_trading_action_message::fields_type");
 static_assert(sizeof(stock_trading_action_message) == sizeof(message_header) + 24, "unexpected sizeof stock_trading_action_message");
 

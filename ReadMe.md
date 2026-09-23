@@ -58,7 +58,7 @@ has a capture to run it against.
 A protocol that cannot be written is left out:
 
 - Iex.IexEquities.Deep.Snap.v1.6: no transport sequence for the Advanced session layer to walk a capture with
-- Iex.IexEquities.DeepPlus.Snap.v1.05: no transport sequence for the Advanced session layer to walk a capture with
+- Iex.IexEquities.DeepPlus.Snap.v1.06: no transport sequence for the Advanced session layer to walk a capture with
 - Iex.IexEquities.Tops.Snap.v1.6: no transport sequence for the Advanced session layer to walk a capture with
 - Nasdaq.NsmEquities.NlsPlus.Itch.v3.0: no transport sequence for the Advanced session layer to walk a capture with
 - Nasdaq.NsmEquities.Nois.Itch.v2.2: no transport sequence for the Advanced session layer to walk a capture with
@@ -69,7 +69,7 @@ A protocol that cannot be written is left out:
 - `Iex.IexEquities.Deep.IexTp.v1.06`
 - `Iex.IexEquities.Deep.IexTp.v1.08`
 - `Iex.IexEquities.DeepPlus.IexTp.v1.01`
-- `Iex.IexEquities.DeepPlus.IexTp.v1.04`
+- `Iex.IexEquities.DeepPlus.IexTp.v1.05`
 - `Iex.IexEquities.Tops.IexTp.v1.56`
 - `Iex.IexEquities.Tops.IexTp.v1.64`
 - `Iex.IexEquities.Tops.IexTp.v1.66`

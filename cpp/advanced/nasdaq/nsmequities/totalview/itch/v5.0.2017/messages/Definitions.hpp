@@ -1,8 +1,16 @@
 #pragma once
 
+#include "../structs/ClientPacketHeader.hpp"
+#include "../structs/ServerPacketHeader.hpp"
 #include "../structs/PacketHeader.hpp"
 #include "../structs/MessageHeader.hpp"
 
+#include "DebugPacket.hpp"
+#include "LoginRequestPacket.hpp"
+#include "UnsequencedDataPacket.hpp"
+#include "LoginAcceptedPacket.hpp"
+#include "LoginRejectedPacket.hpp"
+#include "SequencedDataPacket.hpp"
 #include "SystemEventMessage.hpp"
 #include "StockDirectoryMessage.hpp"
 #include "StockTradingActionMessage.hpp"
@@ -11,8 +19,8 @@
 #include "MwcbDeclineLevelMessage.hpp"
 #include "MwcbStatusLevelMessage.hpp"
 #include "IpoQuotingPeriodUpdate.hpp"
-#include "AddOrderNoMpidAttributionMessage.hpp"
 #include "LuldAuctionCollarMessage.hpp"
+#include "AddOrderNoMpidAttributionMessage.hpp"
 #include "AddOrderWithMpidAttributionMessage.hpp"
 #include "OrderExecutedMessage.hpp"
 #include "OrderExecutedWithPriceMessage.hpp"
@@ -25,5 +33,8 @@
 #include "NetOrderImbalanceIndicatorMessage.hpp"
 #include "RetailInterestMessage.hpp"
 
-#include "../actions/Heartbeat.hpp"
+#include "../actions/ClientHeartbeat.hpp"
+#include "../actions/LogoutRequest.hpp"
+#include "../actions/ServerHeartbeat.hpp"
 #include "../actions/EndOfSession.hpp"
+#include "../actions/Heartbeat.hpp"

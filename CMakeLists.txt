@@ -29,9 +29,9 @@ add_library(formats_check OBJECT
   checks/iex_iexequities_deepplus_iextp_v1.01_json_native.cpp
   checks/iex_iexequities_deepplus_iextp_v1.01_json_rapid.cpp
   checks/iex_iexequities_deepplus_iextp_v1.01_parquet_wide.cpp
-  checks/iex_iexequities_deepplus_iextp_v1.04_json_native.cpp
-  checks/iex_iexequities_deepplus_iextp_v1.04_json_rapid.cpp
-  checks/iex_iexequities_deepplus_iextp_v1.04_parquet_wide.cpp
+  checks/iex_iexequities_deepplus_iextp_v1.05_json_native.cpp
+  checks/iex_iexequities_deepplus_iextp_v1.05_json_rapid.cpp
+  checks/iex_iexequities_deepplus_iextp_v1.05_parquet_wide.cpp
   checks/iex_iexequities_tops_iextp_v1.56_json_native.cpp
   checks/iex_iexequities_tops_iextp_v1.56_json_rapid.cpp
   checks/iex_iexequities_tops_iextp_v1.56_parquet_wide.cpp
@@ -116,17 +116,17 @@ add_executable(parquet_wide_iex_iexequities_deepplus_iextp_v1.01 executables/par
 target_include_directories(parquet_wide_iex_iexequities_deepplus_iextp_v1.01 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(parquet_wide_iex_iexequities_deepplus_iextp_v1.01 PRIVATE ${ZSTD_LIBRARY})
 target_link_libraries(parquet_wide_iex_iexequities_deepplus_iextp_v1.01 PRIVATE Arrow::arrow_shared Parquet::parquet_shared)
-add_executable(json_native_iex_iexequities_deepplus_iextp_v1.04 executables/json/native/iex/iexequities/deepplus/iextp/v1.04/main.cpp)
-target_include_directories(json_native_iex_iexequities_deepplus_iextp_v1.04 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
-target_link_libraries(json_native_iex_iexequities_deepplus_iextp_v1.04 PRIVATE ${ZSTD_LIBRARY})
-add_executable(json_rapid_iex_iexequities_deepplus_iextp_v1.04 executables/json/rapid/iex/iexequities/deepplus/iextp/v1.04/main.cpp)
-target_include_directories(json_rapid_iex_iexequities_deepplus_iextp_v1.04 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
-target_link_libraries(json_rapid_iex_iexequities_deepplus_iextp_v1.04 PRIVATE ${ZSTD_LIBRARY})
-target_include_directories(json_rapid_iex_iexequities_deepplus_iextp_v1.04 SYSTEM PRIVATE ${RAPIDJSON_INCLUDE_DIRS})
-add_executable(parquet_wide_iex_iexequities_deepplus_iextp_v1.04 executables/parquet/wide/iex/iexequities/deepplus/iextp/v1.04/main.cpp)
-target_include_directories(parquet_wide_iex_iexequities_deepplus_iextp_v1.04 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
-target_link_libraries(parquet_wide_iex_iexequities_deepplus_iextp_v1.04 PRIVATE ${ZSTD_LIBRARY})
-target_link_libraries(parquet_wide_iex_iexequities_deepplus_iextp_v1.04 PRIVATE Arrow::arrow_shared Parquet::parquet_shared)
+add_executable(json_native_iex_iexequities_deepplus_iextp_v1.05 executables/json/native/iex/iexequities/deepplus/iextp/v1.05/main.cpp)
+target_include_directories(json_native_iex_iexequities_deepplus_iextp_v1.05 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(json_native_iex_iexequities_deepplus_iextp_v1.05 PRIVATE ${ZSTD_LIBRARY})
+add_executable(json_rapid_iex_iexequities_deepplus_iextp_v1.05 executables/json/rapid/iex/iexequities/deepplus/iextp/v1.05/main.cpp)
+target_include_directories(json_rapid_iex_iexequities_deepplus_iextp_v1.05 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(json_rapid_iex_iexequities_deepplus_iextp_v1.05 PRIVATE ${ZSTD_LIBRARY})
+target_include_directories(json_rapid_iex_iexequities_deepplus_iextp_v1.05 SYSTEM PRIVATE ${RAPIDJSON_INCLUDE_DIRS})
+add_executable(parquet_wide_iex_iexequities_deepplus_iextp_v1.05 executables/parquet/wide/iex/iexequities/deepplus/iextp/v1.05/main.cpp)
+target_include_directories(parquet_wide_iex_iexequities_deepplus_iextp_v1.05 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(parquet_wide_iex_iexequities_deepplus_iextp_v1.05 PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(parquet_wide_iex_iexequities_deepplus_iextp_v1.05 PRIVATE Arrow::arrow_shared Parquet::parquet_shared)
 add_executable(json_native_iex_iexequities_tops_iextp_v1.56 executables/json/native/iex/iexequities/tops/iextp/v1.56/main.cpp)
 target_include_directories(json_native_iex_iexequities_tops_iextp_v1.56 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(json_native_iex_iexequities_tops_iextp_v1.56 PRIVATE ${ZSTD_LIBRARY})
@@ -327,17 +327,17 @@ add_executable(parquet_wide_iex_iexequities_deepplus_iextp_v1.01_test tests/parq
 target_include_directories(parquet_wide_iex_iexequities_deepplus_iextp_v1.01_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(parquet_wide_iex_iexequities_deepplus_iextp_v1.01_test PRIVATE ${ZSTD_LIBRARY})
 target_link_libraries(parquet_wide_iex_iexequities_deepplus_iextp_v1.01_test PRIVATE Arrow::arrow_shared Parquet::parquet_shared)
-add_executable(json_native_iex_iexequities_deepplus_iextp_v1.04_test tests/json/native/iex_iexequities_deepplus_iextp_v1.04.cpp)
-target_include_directories(json_native_iex_iexequities_deepplus_iextp_v1.04_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
-target_link_libraries(json_native_iex_iexequities_deepplus_iextp_v1.04_test PRIVATE ${ZSTD_LIBRARY})
-add_executable(json_rapid_iex_iexequities_deepplus_iextp_v1.04_test tests/json/rapid/iex_iexequities_deepplus_iextp_v1.04.cpp)
-target_include_directories(json_rapid_iex_iexequities_deepplus_iextp_v1.04_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
-target_link_libraries(json_rapid_iex_iexequities_deepplus_iextp_v1.04_test PRIVATE ${ZSTD_LIBRARY})
-target_include_directories(json_rapid_iex_iexequities_deepplus_iextp_v1.04_test SYSTEM PRIVATE ${RAPIDJSON_INCLUDE_DIRS})
-add_executable(parquet_wide_iex_iexequities_deepplus_iextp_v1.04_test tests/parquet/wide/iex_iexequities_deepplus_iextp_v1.04.cpp)
-target_include_directories(parquet_wide_iex_iexequities_deepplus_iextp_v1.04_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
-target_link_libraries(parquet_wide_iex_iexequities_deepplus_iextp_v1.04_test PRIVATE ${ZSTD_LIBRARY})
-target_link_libraries(parquet_wide_iex_iexequities_deepplus_iextp_v1.04_test PRIVATE Arrow::arrow_shared Parquet::parquet_shared)
+add_executable(json_native_iex_iexequities_deepplus_iextp_v1.05_test tests/json/native/iex_iexequities_deepplus_iextp_v1.05.cpp)
+target_include_directories(json_native_iex_iexequities_deepplus_iextp_v1.05_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(json_native_iex_iexequities_deepplus_iextp_v1.05_test PRIVATE ${ZSTD_LIBRARY})
+add_executable(json_rapid_iex_iexequities_deepplus_iextp_v1.05_test tests/json/rapid/iex_iexequities_deepplus_iextp_v1.05.cpp)
+target_include_directories(json_rapid_iex_iexequities_deepplus_iextp_v1.05_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(json_rapid_iex_iexequities_deepplus_iextp_v1.05_test PRIVATE ${ZSTD_LIBRARY})
+target_include_directories(json_rapid_iex_iexequities_deepplus_iextp_v1.05_test SYSTEM PRIVATE ${RAPIDJSON_INCLUDE_DIRS})
+add_executable(parquet_wide_iex_iexequities_deepplus_iextp_v1.05_test tests/parquet/wide/iex_iexequities_deepplus_iextp_v1.05.cpp)
+target_include_directories(parquet_wide_iex_iexequities_deepplus_iextp_v1.05_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(parquet_wide_iex_iexequities_deepplus_iextp_v1.05_test PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(parquet_wide_iex_iexequities_deepplus_iextp_v1.05_test PRIVATE Arrow::arrow_shared Parquet::parquet_shared)
 add_executable(json_native_iex_iexequities_tops_iextp_v1.64_test tests/json/native/iex_iexequities_tops_iextp_v1.64.cpp)
 target_include_directories(json_native_iex_iexequities_tops_iextp_v1.64_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(json_native_iex_iexequities_tops_iextp_v1.64_test PRIVATE ${ZSTD_LIBRARY})
@@ -453,14 +453,14 @@ if(OMI_PACKETS_DIR)
   add_test(NAME parquet_wide_iex_iexequities_deepplus_iextp_v1.01 COMMAND parquet_wide_iex_iexequities_deepplus_iextp_v1.01_test)
   set_tests_properties(parquet_wide_iex_iexequities_deepplus_iextp_v1.01 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
 
-  add_test(NAME json_native_iex_iexequities_deepplus_iextp_v1.04 COMMAND json_native_iex_iexequities_deepplus_iextp_v1.04_test)
-  set_tests_properties(json_native_iex_iexequities_deepplus_iextp_v1.04 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
+  add_test(NAME json_native_iex_iexequities_deepplus_iextp_v1.05 COMMAND json_native_iex_iexequities_deepplus_iextp_v1.05_test)
+  set_tests_properties(json_native_iex_iexequities_deepplus_iextp_v1.05 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
 
-  add_test(NAME json_rapid_iex_iexequities_deepplus_iextp_v1.04 COMMAND json_rapid_iex_iexequities_deepplus_iextp_v1.04_test)
-  set_tests_properties(json_rapid_iex_iexequities_deepplus_iextp_v1.04 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
+  add_test(NAME json_rapid_iex_iexequities_deepplus_iextp_v1.05 COMMAND json_rapid_iex_iexequities_deepplus_iextp_v1.05_test)
+  set_tests_properties(json_rapid_iex_iexequities_deepplus_iextp_v1.05 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
 
-  add_test(NAME parquet_wide_iex_iexequities_deepplus_iextp_v1.04 COMMAND parquet_wide_iex_iexequities_deepplus_iextp_v1.04_test)
-  set_tests_properties(parquet_wide_iex_iexequities_deepplus_iextp_v1.04 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
+  add_test(NAME parquet_wide_iex_iexequities_deepplus_iextp_v1.05 COMMAND parquet_wide_iex_iexequities_deepplus_iextp_v1.05_test)
+  set_tests_properties(parquet_wide_iex_iexequities_deepplus_iextp_v1.05 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
 
   add_test(NAME json_native_iex_iexequities_tops_iextp_v1.64 COMMAND json_native_iex_iexequities_tops_iextp_v1.64_test)
   set_tests_properties(json_native_iex_iexequities_tops_iextp_v1.64 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")

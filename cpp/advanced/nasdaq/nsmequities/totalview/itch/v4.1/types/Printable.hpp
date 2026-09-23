@@ -13,18 +13,18 @@ namespace nasdaq::nsmequities::totalview::itch::v4_1 {
 struct printable {
 
     enum class enum_type : char {
-        nonprintable = 'N',
+        non_printable = 'N',
         printable = 'Y'
     };
 
     static constexpr std::array<std::pair<std::string_view, enum_type>, 2> from_string_map = {{
-        {"Nonprintable", enum_type::nonprintable},
+        {"Non Printable", enum_type::non_printable},
         {"Printable", enum_type::printable}
     }};
 
     static constexpr std::string_view to_string(enum_type value) {
         switch (value) {
-            case enum_type::nonprintable: return "Nonprintable";
+            case enum_type::non_printable: return "Non Printable";
             case enum_type::printable: return "Printable";
             default: return "unknown";
         }
@@ -51,7 +51,7 @@ struct printable {
     using storage_type = result_type;
 
     constexpr printable()
-     : value{ enum_type::nonprintable } {}
+     : value{ enum_type::non_printable } {}
 
     constexpr printable(enum_type v)
      : value{ v } {}

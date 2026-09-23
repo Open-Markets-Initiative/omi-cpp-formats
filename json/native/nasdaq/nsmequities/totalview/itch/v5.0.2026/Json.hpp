@@ -16,6 +16,68 @@ namespace itch_totalview = ::nasdaq::nsmequities::totalview::itch::v5_0_2026;
 template <typename Message>
 inline constexpr bool writes = true;
 
+inline void write(omi::json::native::Writer& writer, const itch_totalview::debug_packet& message) {
+    writer.start_object();
+    writer.key("message");
+    writer.string("DebugPacket");
+    writer.key("text");
+    writer.character(message.fields.text.get().value());
+    writer.end_object();
+}
+
+inline void write(omi::json::native::Writer& writer, const itch_totalview::login_request_packet& message) {
+    writer.start_object();
+    writer.key("message");
+    writer.string("LoginRequestPacket");
+    writer.key("username");
+    writer.string(message.fields.username.get_trimmed().value());
+    writer.key("password");
+    writer.string(message.fields.password.get_trimmed().value());
+    writer.key("requested_session");
+    writer.string(message.fields.requested_session.get_trimmed().value());
+    writer.key("requested_sequence_number");
+    writer.string(message.fields.requested_sequence_number.get_trimmed().value());
+    writer.end_object();
+}
+
+inline void write(omi::json::native::Writer& writer, const itch_totalview::unsequenced_data_packet& message) {
+    writer.start_object();
+    writer.key("message");
+    writer.string("UnsequencedDataPacket");
+    writer.key("unsequenced_message_type");
+    writer.character(message.fields.unsequenced_message_type.get().value());
+    writer.end_object();
+}
+
+inline void write(omi::json::native::Writer& writer, const itch_totalview::login_accepted_packet& message) {
+    writer.start_object();
+    writer.key("message");
+    writer.string("LoginAcceptedPacket");
+    writer.key("accepted_session");
+    writer.string(message.fields.accepted_session.get_trimmed().value());
+    writer.key("accepted_sequence_number");
+    writer.string(message.fields.accepted_sequence_number.get_trimmed().value());
+    writer.end_object();
+}
+
+inline void write(omi::json::native::Writer& writer, const itch_totalview::login_rejected_packet& message) {
+    writer.start_object();
+    writer.key("message");
+    writer.string("LoginRejectedPacket");
+    writer.key("reject_reason_code");
+    writer.string(itch_totalview::reject_reason_code::to_string(message.fields.reject_reason_code.get().value()));
+    writer.end_object();
+}
+
+inline void write(omi::json::native::Writer& writer, const itch_totalview::sequenced_data_packet& message) {
+    writer.start_object();
+    writer.key("message");
+    writer.string("SequencedDataPacket");
+    writer.key("sequenced_message_type");
+    writer.string(itch_totalview::sequenced_message_type::to_string(message.fields.sequenced_message_type.get().value()));
+    writer.end_object();
+}
+
 inline void write(omi::json::native::Writer& writer, const itch_totalview::system_event_message& message) {
     writer.start_object();
     writer.key("message");

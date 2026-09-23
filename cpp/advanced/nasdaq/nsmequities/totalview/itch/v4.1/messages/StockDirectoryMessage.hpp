@@ -6,6 +6,8 @@
 #include "../types/Stock.hpp"
 #include "../types/MarketCategory.hpp"
 #include "../types/FinancialStatusIndicator.hpp"
+#include "../types/RoundLotSize.hpp"
+#include "../types/RoundLotsOnly.hpp"
 
 namespace nasdaq::nsmequities::totalview::itch::v4_1 {
 
@@ -21,6 +23,8 @@ struct stock_directory_message {
         itch_totalview::stock stock;
         itch_totalview::market_category market_category;
         itch_totalview::financial_status_indicator financial_status_indicator;
+        itch_totalview::round_lot_size round_lot_size;
+        itch_totalview::round_lots_only round_lots_only;
     };
 
     message_header header = {std::uint16_t(sizeof(message_header) + sizeof(fields_type) - 2), message_type::enum_type::stock_directory_message};
@@ -44,8 +48,10 @@ static_assert(offsetof(stock_directory_message::fields_type, nanoseconds) == 0, 
 static_assert(offsetof(stock_directory_message::fields_type, stock) == 4, "unexpected offset of stock_directory_message::fields_type::stock");
 static_assert(offsetof(stock_directory_message::fields_type, market_category) == 12, "unexpected offset of stock_directory_message::fields_type::market_category");
 static_assert(offsetof(stock_directory_message::fields_type, financial_status_indicator) == 13, "unexpected offset of stock_directory_message::fields_type::financial_status_indicator");
-static_assert(sizeof(stock_directory_message::fields_type) == 14, "unexpected sizeof stock_directory_message::fields_type");
-static_assert(sizeof(stock_directory_message) == sizeof(message_header) + 14, "unexpected sizeof stock_directory_message");
+static_assert(offsetof(stock_directory_message::fields_type, round_lot_size) == 14, "unexpected offset of stock_directory_message::fields_type::round_lot_size");
+static_assert(offsetof(stock_directory_message::fields_type, round_lots_only) == 18, "unexpected offset of stock_directory_message::fields_type::round_lots_only");
+static_assert(sizeof(stock_directory_message::fields_type) == 19, "unexpected sizeof stock_directory_message::fields_type");
+static_assert(sizeof(stock_directory_message) == sizeof(message_header) + 19, "unexpected sizeof stock_directory_message");
 
 #pragma pack(pop)
 }

@@ -3,9 +3,16 @@
 #include <ostream>
 #include <string_view>
 
+#include "DebugPacket.hpp"
+#include "LoginRequestPacket.hpp"
+#include "UnsequencedDataPacket.hpp"
+#include "LoginAcceptedPacket.hpp"
+#include "LoginRejectedPacket.hpp"
+#include "SequencedDataPacket.hpp"
 #include "TimestampMessage.hpp"
 #include "SystemEventMessage.hpp"
 #include "StockDirectoryMessage.hpp"
+#include "StockTradingActionMessage.hpp"
 #include "RegShoShortSalePriceTestRestrictedIndicatorMessage.hpp"
 #include "MarketParticipantPositionMessage.hpp"
 #include "AddOrderMessage.hpp"
@@ -20,10 +27,26 @@
 #include "BrokenTradeMessage.hpp"
 #include "NetOrderImbalanceIndicatorMessage.hpp"
 #include "RetailPriceImprovementIndicatorMessage.hpp"
+#include "../json/messages/unsequenced_data_packet_json.hpp"
+#include "../json/messages/sequenced_data_packet_json.hpp"
 
 namespace nasdaq::nsmequities::totalview::itch::v4_1 {
 
 namespace itch_totalview = ::nasdaq::nsmequities::totalview::itch::v4_1;
+
+inline std::ostream& operator<<(std::ostream& os, const client_packet_header& value) {
+    os << "packet_length=" << value.packet_length.get().value()
+       << ",client_packet_type=\"" << itch_totalview::client_packet_type::to_string(value.client_packet_type.get().value()) << '"'
+       ;
+    return os;
+}
+
+inline std::ostream& operator<<(std::ostream& os, const server_packet_header& value) {
+    os << "packet_length=" << value.packet_length.get().value()
+       << ",server_packet_type=\"" << itch_totalview::server_packet_type::to_string(value.server_packet_type.get().value()) << '"'
+       ;
+    return os;
+}
 
 inline std::ostream& operator<<(std::ostream& os, const packet_header& value) {
     os << "session=\"" << value.session.get_trimmed().value() << '"'
@@ -36,6 +59,48 @@ inline std::ostream& operator<<(std::ostream& os, const packet_header& value) {
 inline std::ostream& operator<<(std::ostream& os, const message_header& value) {
     os << "message_length=" << value.message_length.get().value()
        << ",message_type=\"" << itch_totalview::message_type::to_string(value.message_type.get().value()) << '"'
+       ;
+    return os;
+}
+
+inline std::ostream& operator<<(std::ostream& os, const debug_packet& msg) {
+    os << "text=\"" << msg.fields.text.get().value() << '"'
+       ;
+    return os;
+}
+
+inline std::ostream& operator<<(std::ostream& os, const login_request_packet& msg) {
+    os << "username=\"" << msg.fields.username.get_trimmed().value() << '"'
+       << ",password=\"" << msg.fields.password.get_trimmed().value() << '"'
+       << ",requested_session=\"" << msg.fields.requested_session.get_trimmed().value() << '"'
+       << ",requested_sequence_number=\"" << msg.fields.requested_sequence_number.get_trimmed().value() << '"'
+       ;
+    return os;
+}
+
+inline std::ostream& operator<<(std::ostream& os, const unsequenced_data_packet& msg) {
+    os << "unsequenced_message_type=\"" << msg.fields.unsequenced_message_type.get().value() << '"'
+       << ",tail=" << json::tail_to_json_string(msg)
+       ;
+    return os;
+}
+
+inline std::ostream& operator<<(std::ostream& os, const login_accepted_packet& msg) {
+    os << "accepted_session=\"" << msg.fields.accepted_session.get_trimmed().value() << '"'
+       << ",accepted_sequence_number=\"" << msg.fields.accepted_sequence_number.get_trimmed().value() << '"'
+       ;
+    return os;
+}
+
+inline std::ostream& operator<<(std::ostream& os, const login_rejected_packet& msg) {
+    os << "reject_reason_code=\"" << itch_totalview::reject_reason_code::to_string(msg.fields.reject_reason_code.get().value()) << '"'
+       ;
+    return os;
+}
+
+inline std::ostream& operator<<(std::ostream& os, const sequenced_data_packet& msg) {
+    os << "sequenced_message_type=\"" << msg.fields.sequenced_message_type.get().value() << '"'
+       << ",tail=" << json::tail_to_json_string(msg)
        ;
     return os;
 }
@@ -58,6 +123,17 @@ inline std::ostream& operator<<(std::ostream& os, const stock_directory_message&
        << ",stock=\"" << msg.fields.stock.get_trimmed().value() << '"'
        << ",market_category=\"" << itch_totalview::market_category::to_string(msg.fields.market_category.get().value()) << '"'
        << ",financial_status_indicator=\"" << itch_totalview::financial_status_indicator::to_string(msg.fields.financial_status_indicator.get().value()) << '"'
+       << ",round_lot_size=" << msg.fields.round_lot_size.get().value()
+       << ",round_lots_only=\"" << itch_totalview::round_lots_only::to_string(msg.fields.round_lots_only.get().value()) << '"'
+       ;
+    return os;
+}
+
+inline std::ostream& operator<<(std::ostream& os, const stock_trading_action_message& msg) {
+    os << "nanoseconds=" << msg.fields.nanoseconds.get().value()
+       << ",stock=\"" << msg.fields.stock.get_trimmed().value() << '"'
+       << ",trading_state=\"" << itch_totalview::trading_state::to_string(msg.fields.trading_state.get().value()) << '"'
+       << ",reason=\"" << msg.fields.reason.get_trimmed().value() << '"'
        ;
     return os;
 }

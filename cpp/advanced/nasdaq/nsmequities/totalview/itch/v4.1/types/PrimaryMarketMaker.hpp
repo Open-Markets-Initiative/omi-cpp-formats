@@ -14,18 +14,18 @@ struct primary_market_maker {
 
     enum class enum_type : char {
         primary = 'Y',
-        nonprimary = 'N'
+        non_primary = 'N'
     };
 
     static constexpr std::array<std::pair<std::string_view, enum_type>, 2> from_string_map = {{
-        {"Nonprimary", enum_type::nonprimary},
+        {"Non Primary", enum_type::non_primary},
         {"Primary", enum_type::primary}
     }};
 
     static constexpr std::string_view to_string(enum_type value) {
         switch (value) {
             case enum_type::primary: return "Primary";
-            case enum_type::nonprimary: return "Nonprimary";
+            case enum_type::non_primary: return "Non Primary";
             default: return "unknown";
         }
     }
@@ -68,7 +68,7 @@ struct primary_market_maker {
         if (value.has_value())
             set(value.value());
         else
-            set(enum_type::nonprimary);
+            set(enum_type::non_primary);
     }
 
   protected:

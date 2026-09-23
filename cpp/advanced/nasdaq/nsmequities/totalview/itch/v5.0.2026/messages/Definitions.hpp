@@ -1,8 +1,16 @@
 #pragma once
 
-#include "../structs/PacketHeader.hpp"
+#include "../structs/ClientPacketHeader.hpp"
+#include "../structs/ServerPacketHeader.hpp"
+#include "../structs/UdpPacketHeader.hpp"
 #include "../structs/MessageHeader.hpp"
 
+#include "DebugPacket.hpp"
+#include "LoginRequestPacket.hpp"
+#include "UnsequencedDataPacket.hpp"
+#include "LoginAcceptedPacket.hpp"
+#include "LoginRejectedPacket.hpp"
+#include "SequencedDataPacket.hpp"
 #include "SystemEventMessage.hpp"
 #include "StockDirectoryMessage.hpp"
 #include "StockTradingActionMessage.hpp"
@@ -27,5 +35,9 @@
 #include "RetailPriceImprovementIndicatorMessage.hpp"
 #include "DirectListingWithCapitalRaisePriceDiscoveryMessage.hpp"
 
+#include "../actions/ClientHeartbeatPacket.hpp"
+#include "../actions/LogoutRequestPacket.hpp"
+#include "../actions/ServerHeartbeatPacket.hpp"
+#include "../actions/EndOfSessionPacket.hpp"
 #include "../actions/Heartbeat.hpp"
 #include "../actions/EndOfSession.hpp"

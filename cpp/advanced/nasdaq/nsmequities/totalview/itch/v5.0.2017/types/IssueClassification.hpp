@@ -15,38 +15,38 @@ struct issue_classification {
     enum class enum_type : char {
         american_depositary_share = 'A',
         bond = 'B',
-        common = 'C',
-        depository = 'F',
+        common_stock = 'C',
+        depository_receipt = 'F',
         sec_144_a = 'I',
-        limited = 'L',
+        limited_partnership = 'L',
         notes = 'N',
         ordinary_share = 'O',
-        preferred = 'P',
-        other = 'Q',
+        preferred_stock = 'P',
+        other_securities = 'Q',
         right = 'R',
-        shares = 'S',
-        convertible = 'T',
+        shares_of_beneficial_interest = 'S',
+        convertible_debenture = 'T',
         unit = 'U',
-        units_benif_int = 'V',
+        units_of_beneficial_interest = 'V',
         warrant = 'W'
     };
 
     static constexpr std::array<std::pair<std::string_view, enum_type>, 16> from_string_map = {{
         {"American Depositary Share", enum_type::american_depositary_share},
         {"Bond", enum_type::bond},
-        {"Common", enum_type::common},
-        {"Convertible", enum_type::convertible},
-        {"Depository", enum_type::depository},
-        {"Limited", enum_type::limited},
+        {"Common Stock", enum_type::common_stock},
+        {"Convertible Debenture", enum_type::convertible_debenture},
+        {"Depository Receipt", enum_type::depository_receipt},
+        {"Limited Partnership", enum_type::limited_partnership},
         {"Notes", enum_type::notes},
         {"Ordinary Share", enum_type::ordinary_share},
-        {"Other", enum_type::other},
-        {"Preferred", enum_type::preferred},
+        {"Other Securities", enum_type::other_securities},
+        {"Preferred Stock", enum_type::preferred_stock},
         {"Right", enum_type::right},
         {"Sec 144 A", enum_type::sec_144_a},
-        {"Shares", enum_type::shares},
+        {"Shares Of Beneficial Interest", enum_type::shares_of_beneficial_interest},
         {"Unit", enum_type::unit},
-        {"Units Benif Int", enum_type::units_benif_int},
+        {"Units Of Beneficial Interest", enum_type::units_of_beneficial_interest},
         {"Warrant", enum_type::warrant}
     }};
 
@@ -54,19 +54,19 @@ struct issue_classification {
         switch (value) {
             case enum_type::american_depositary_share: return "American Depositary Share";
             case enum_type::bond: return "Bond";
-            case enum_type::common: return "Common";
-            case enum_type::depository: return "Depository";
+            case enum_type::common_stock: return "Common Stock";
+            case enum_type::depository_receipt: return "Depository Receipt";
             case enum_type::sec_144_a: return "Sec 144 A";
-            case enum_type::limited: return "Limited";
+            case enum_type::limited_partnership: return "Limited Partnership";
             case enum_type::notes: return "Notes";
             case enum_type::ordinary_share: return "Ordinary Share";
-            case enum_type::preferred: return "Preferred";
-            case enum_type::other: return "Other";
+            case enum_type::preferred_stock: return "Preferred Stock";
+            case enum_type::other_securities: return "Other Securities";
             case enum_type::right: return "Right";
-            case enum_type::shares: return "Shares";
-            case enum_type::convertible: return "Convertible";
+            case enum_type::shares_of_beneficial_interest: return "Shares Of Beneficial Interest";
+            case enum_type::convertible_debenture: return "Convertible Debenture";
             case enum_type::unit: return "Unit";
-            case enum_type::units_benif_int: return "Units Benif Int";
+            case enum_type::units_of_beneficial_interest: return "Units Of Beneficial Interest";
             case enum_type::warrant: return "Warrant";
             default: return "unknown";
         }
