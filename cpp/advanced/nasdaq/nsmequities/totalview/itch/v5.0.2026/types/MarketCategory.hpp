@@ -22,10 +22,11 @@ struct market_category {
         nyse_texas = 'M',
         bats_z = 'Z',
         investors_exchange = 'V',
+        texas_exchange = 'F',
         not_available = ' '
     };
 
-    static constexpr std::array<std::pair<std::string_view, enum_type>, 10> from_string_map = {{
+    static constexpr std::array<std::pair<std::string_view, enum_type>, 11> from_string_map = {{
         {"Bats Z", enum_type::bats_z},
         {"Investors Exchange", enum_type::investors_exchange},
         {"Nasdaq Capital Market", enum_type::nasdaq_capital_market},
@@ -35,7 +36,8 @@ struct market_category {
         {"Nyse", enum_type::nyse},
         {"Nyse American", enum_type::nyse_american},
         {"Nyse Arca", enum_type::nyse_arca},
-        {"Nyse Texas", enum_type::nyse_texas}
+        {"Nyse Texas", enum_type::nyse_texas},
+        {"Texas Exchange", enum_type::texas_exchange}
     }};
 
     static constexpr std::string_view to_string(enum_type value) {
@@ -49,6 +51,7 @@ struct market_category {
             case enum_type::nyse_texas: return "Nyse Texas";
             case enum_type::bats_z: return "Bats Z";
             case enum_type::investors_exchange: return "Investors Exchange";
+            case enum_type::texas_exchange: return "Texas Exchange";
             case enum_type::not_available: return "Not Available";
             default: return "unknown";
         }
@@ -75,7 +78,7 @@ struct market_category {
     using storage_type = result_type;
 
     constexpr market_category()
-     : value{ enum_type::nasdaq_global_select_market } {}
+     : value{ enum_type{} } {}
 
     constexpr market_category(enum_type v)
      : value{ v } {}

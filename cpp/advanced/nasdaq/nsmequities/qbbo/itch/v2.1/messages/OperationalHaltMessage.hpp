@@ -25,7 +25,7 @@ struct operational_halt_message {
         itch_qbbo::operational_halt_action operational_halt_action;
     };
 
-    message_header header = {std::uint16_t(sizeof(message_header) + sizeof(fields_type) - 2), message_type::enum_type::operational_halt_message};
+    itch_qbbo::message_header header = {std::uint16_t(sizeof(itch_qbbo::message_header) + sizeof(fields_type) - 2), message_type::enum_type::operational_halt_message};
 
     fields_type fields;
 
@@ -48,7 +48,7 @@ static_assert(offsetof(operational_halt_message::fields_type, stock) == 8, "unex
 static_assert(offsetof(operational_halt_message::fields_type, market_code) == 16, "unexpected offset of operational_halt_message::fields_type::market_code");
 static_assert(offsetof(operational_halt_message::fields_type, operational_halt_action) == 17, "unexpected offset of operational_halt_message::fields_type::operational_halt_action");
 static_assert(sizeof(operational_halt_message::fields_type) == 18, "unexpected sizeof operational_halt_message::fields_type");
-static_assert(sizeof(operational_halt_message) == sizeof(message_header) + 18, "unexpected sizeof operational_halt_message");
+static_assert(sizeof(operational_halt_message) == sizeof(itch_qbbo::message_header) + 18, "unexpected sizeof operational_halt_message");
 
 #pragma pack(pop)
 }

@@ -37,7 +37,7 @@ struct noii_message {
         itch_noiview::price_variation_indicator price_variation_indicator;
     };
 
-    message_header header = {std::uint16_t(sizeof(message_header) + sizeof(fields_type) - 2), message_type::enum_type::noii_message};
+    itch_noiview::message_header header = {std::uint16_t(sizeof(itch_noiview::message_header) + sizeof(fields_type) - 2), message_type::enum_type::noii_message};
 
     fields_type fields;
 
@@ -66,7 +66,7 @@ static_assert(offsetof(noii_message::fields_type, current_reference_price) == 41
 static_assert(offsetof(noii_message::fields_type, cross_type) == 45, "unexpected offset of noii_message::fields_type::cross_type");
 static_assert(offsetof(noii_message::fields_type, price_variation_indicator) == 46, "unexpected offset of noii_message::fields_type::price_variation_indicator");
 static_assert(sizeof(noii_message::fields_type) == 47, "unexpected sizeof noii_message::fields_type");
-static_assert(sizeof(noii_message) == sizeof(message_header) + 47, "unexpected sizeof noii_message");
+static_assert(sizeof(noii_message) == sizeof(itch_noiview::message_header) + 47, "unexpected sizeof noii_message");
 
 #pragma pack(pop)
 }

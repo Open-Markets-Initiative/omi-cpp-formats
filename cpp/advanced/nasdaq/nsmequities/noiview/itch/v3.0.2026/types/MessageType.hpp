@@ -69,7 +69,7 @@ struct message_type {
     using storage_type = result_type;
 
     constexpr message_type()
-     : value{ enum_type::system_event } {}
+     : value{ enum_type{} } {}
 
     constexpr message_type(enum_type v)
      : value{ v } {}

@@ -208,7 +208,7 @@ void write(Writer& writer, const iextp_tops::auction_information_message& messag
     writer.Key("imbalance_side");
     omi::json::rapid::text(writer, iextp_tops::imbalance_side::to_string(message.fields.imbalance_side.get().value()));
     writer.Key("extension_number");
-    omi::json::rapid::character(writer, message.fields.extension_number.get().value());
+    writer.Uint64(static_cast<std::uint64_t>(message.fields.extension_number.get().value()));
     writer.Key("scheduled_auction_time");
     writer.Uint64(static_cast<std::uint64_t>(message.fields.scheduled_auction_time.get().value()));
     writer.Key("auction_book_clearing_price");

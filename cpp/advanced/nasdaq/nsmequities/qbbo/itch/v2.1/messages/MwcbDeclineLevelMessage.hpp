@@ -25,7 +25,7 @@ struct mwcb_decline_level_message {
         itch_qbbo::level_3 level_3;
     };
 
-    message_header header = {std::uint16_t(sizeof(message_header) + sizeof(fields_type) - 2), message_type::enum_type::mwcb_decline_level_message};
+    itch_qbbo::message_header header = {std::uint16_t(sizeof(itch_qbbo::message_header) + sizeof(fields_type) - 2), message_type::enum_type::mwcb_decline_level_message};
 
     fields_type fields;
 
@@ -48,7 +48,7 @@ static_assert(offsetof(mwcb_decline_level_message::fields_type, level_1) == 8, "
 static_assert(offsetof(mwcb_decline_level_message::fields_type, level_2) == 16, "unexpected offset of mwcb_decline_level_message::fields_type::level_2");
 static_assert(offsetof(mwcb_decline_level_message::fields_type, level_3) == 24, "unexpected offset of mwcb_decline_level_message::fields_type::level_3");
 static_assert(sizeof(mwcb_decline_level_message::fields_type) == 32, "unexpected sizeof mwcb_decline_level_message::fields_type");
-static_assert(sizeof(mwcb_decline_level_message) == sizeof(message_header) + 32, "unexpected sizeof mwcb_decline_level_message");
+static_assert(sizeof(mwcb_decline_level_message) == sizeof(itch_qbbo::message_header) + 32, "unexpected sizeof mwcb_decline_level_message");
 
 #pragma pack(pop)
 }

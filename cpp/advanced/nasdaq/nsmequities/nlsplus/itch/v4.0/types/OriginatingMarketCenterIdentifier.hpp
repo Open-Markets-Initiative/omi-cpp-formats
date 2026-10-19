@@ -60,7 +60,7 @@ struct originating_market_center_identifier {
     using storage_type = result_type;
 
     constexpr originating_market_center_identifier()
-     : value{ enum_type::nasdaq } {}
+     : value{ enum_type{} } {}
 
     constexpr originating_market_center_identifier(enum_type v)
      : value{ v } {}

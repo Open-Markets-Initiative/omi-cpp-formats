@@ -4,7 +4,6 @@
 
 #include "types/PacketLength.hpp"
 #include "types/ClientPacketType.hpp"
-#include "types/Text.hpp"
 #include "types/Username.hpp"
 #include "types/Password.hpp"
 #include "types/RequestedSession.hpp"
@@ -85,8 +84,8 @@
 #include "types/NearExecutionTime.hpp"
 #include "types/LowerPriceRangeCollar.hpp"
 #include "types/UpperPriceRangeCollar.hpp"
-#include "types/UdpSession.hpp"
-#include "types/UdpSequenceNumber.hpp"
+#include "types/Session.hpp"
+#include "types/SequenceNumber.hpp"
 #include "types/MessageCount.hpp"
 #include "types/MessageLength.hpp"
 #include "types/MessageType.hpp"

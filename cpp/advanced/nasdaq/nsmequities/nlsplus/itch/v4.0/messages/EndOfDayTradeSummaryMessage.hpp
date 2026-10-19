@@ -33,7 +33,7 @@ struct end_of_day_trade_summary_message {
         itch_nlsplus::consolidated_open_price consolidated_open_price;
     };
 
-    message_header header = {std::uint16_t(sizeof(message_header) + sizeof(fields_type) - 2), message_type::enum_type::end_of_day_trade_summary_message};
+    itch_nlsplus::message_header header = {std::uint16_t(sizeof(itch_nlsplus::message_header) + sizeof(fields_type) - 2), message_type::enum_type::end_of_day_trade_summary_message};
 
     fields_type fields;
 
@@ -60,7 +60,7 @@ static_assert(offsetof(end_of_day_trade_summary_message::fields_type, consolidat
 static_assert(offsetof(end_of_day_trade_summary_message::fields_type, consolidated_volume) == 41, "unexpected offset of end_of_day_trade_summary_message::fields_type::consolidated_volume");
 static_assert(offsetof(end_of_day_trade_summary_message::fields_type, consolidated_open_price) == 49, "unexpected offset of end_of_day_trade_summary_message::fields_type::consolidated_open_price");
 static_assert(sizeof(end_of_day_trade_summary_message::fields_type) == 57, "unexpected sizeof end_of_day_trade_summary_message::fields_type");
-static_assert(sizeof(end_of_day_trade_summary_message) == sizeof(message_header) + 57, "unexpected sizeof end_of_day_trade_summary_message");
+static_assert(sizeof(end_of_day_trade_summary_message) == sizeof(itch_nlsplus::message_header) + 57, "unexpected sizeof end_of_day_trade_summary_message");
 
 #pragma pack(pop)
 }

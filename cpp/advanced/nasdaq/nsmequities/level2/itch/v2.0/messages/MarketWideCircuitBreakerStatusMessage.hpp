@@ -21,7 +21,7 @@ struct market_wide_circuit_breaker_status_message {
         itch_level2::breached_level breached_level;
     };
 
-    message_header header = {std::uint16_t(sizeof(message_header) + sizeof(fields_type) - 2), message_type::enum_type::market_wide_circuit_breaker_status_message};
+    itch_level2::message_header header = {std::uint16_t(sizeof(itch_level2::message_header) + sizeof(fields_type) - 2), message_type::enum_type::market_wide_circuit_breaker_status_message};
 
     fields_type fields;
 
@@ -42,7 +42,7 @@ static_assert(offsetof(market_wide_circuit_breaker_status_message::fields_type, 
 static_assert(offsetof(market_wide_circuit_breaker_status_message::fields_type, timestamp) == 2, "unexpected offset of market_wide_circuit_breaker_status_message::fields_type::timestamp");
 static_assert(offsetof(market_wide_circuit_breaker_status_message::fields_type, breached_level) == 8, "unexpected offset of market_wide_circuit_breaker_status_message::fields_type::breached_level");
 static_assert(sizeof(market_wide_circuit_breaker_status_message::fields_type) == 9, "unexpected sizeof market_wide_circuit_breaker_status_message::fields_type");
-static_assert(sizeof(market_wide_circuit_breaker_status_message) == sizeof(message_header) + 9, "unexpected sizeof market_wide_circuit_breaker_status_message");
+static_assert(sizeof(market_wide_circuit_breaker_status_message) == sizeof(itch_level2::message_header) + 9, "unexpected sizeof market_wide_circuit_breaker_status_message");
 
 #pragma pack(pop)
 }

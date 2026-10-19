@@ -25,7 +25,7 @@ struct market_wide_circuit_breaker_decline_level_message {
         itch_level2::level_3 level_3;
     };
 
-    message_header header = {std::uint16_t(sizeof(message_header) + sizeof(fields_type) - 2), message_type::enum_type::market_wide_circuit_breaker_decline_level_message};
+    itch_level2::message_header header = {std::uint16_t(sizeof(itch_level2::message_header) + sizeof(fields_type) - 2), message_type::enum_type::market_wide_circuit_breaker_decline_level_message};
 
     fields_type fields;
 
@@ -48,7 +48,7 @@ static_assert(offsetof(market_wide_circuit_breaker_decline_level_message::fields
 static_assert(offsetof(market_wide_circuit_breaker_decline_level_message::fields_type, level_2) == 16, "unexpected offset of market_wide_circuit_breaker_decline_level_message::fields_type::level_2");
 static_assert(offsetof(market_wide_circuit_breaker_decline_level_message::fields_type, level_3) == 24, "unexpected offset of market_wide_circuit_breaker_decline_level_message::fields_type::level_3");
 static_assert(sizeof(market_wide_circuit_breaker_decline_level_message::fields_type) == 32, "unexpected sizeof market_wide_circuit_breaker_decline_level_message::fields_type");
-static_assert(sizeof(market_wide_circuit_breaker_decline_level_message) == sizeof(message_header) + 32, "unexpected sizeof market_wide_circuit_breaker_decline_level_message");
+static_assert(sizeof(market_wide_circuit_breaker_decline_level_message) == sizeof(itch_level2::message_header) + 32, "unexpected sizeof market_wide_circuit_breaker_decline_level_message");
 
 #pragma pack(pop)
 }

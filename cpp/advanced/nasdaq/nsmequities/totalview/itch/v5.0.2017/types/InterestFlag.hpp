@@ -57,7 +57,7 @@ struct interest_flag {
     using storage_type = result_type;
 
     constexpr interest_flag()
-     : value{ enum_type::buy_side_rpi_orders_available } {}
+     : value{ enum_type{} } {}
 
     constexpr interest_flag(enum_type v)
      : value{ v } {}

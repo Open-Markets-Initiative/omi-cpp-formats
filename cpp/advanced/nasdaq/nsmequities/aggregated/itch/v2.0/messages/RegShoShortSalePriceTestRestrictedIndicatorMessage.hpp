@@ -23,7 +23,7 @@ struct reg_sho_short_sale_price_test_restricted_indicator_message {
         itch_aggregated::reg_sho_action reg_sho_action;
     };
 
-    message_header header = {std::uint16_t(sizeof(message_header) + sizeof(fields_type) - 2), message_type::enum_type::reg_sho_short_sale_price_test_restricted_indicator_message};
+    itch_aggregated::message_header header = {std::uint16_t(sizeof(itch_aggregated::message_header) + sizeof(fields_type) - 2), message_type::enum_type::reg_sho_short_sale_price_test_restricted_indicator_message};
 
     fields_type fields;
 
@@ -45,7 +45,7 @@ static_assert(offsetof(reg_sho_short_sale_price_test_restricted_indicator_messag
 static_assert(offsetof(reg_sho_short_sale_price_test_restricted_indicator_message::fields_type, stock) == 8, "unexpected offset of reg_sho_short_sale_price_test_restricted_indicator_message::fields_type::stock");
 static_assert(offsetof(reg_sho_short_sale_price_test_restricted_indicator_message::fields_type, reg_sho_action) == 16, "unexpected offset of reg_sho_short_sale_price_test_restricted_indicator_message::fields_type::reg_sho_action");
 static_assert(sizeof(reg_sho_short_sale_price_test_restricted_indicator_message::fields_type) == 17, "unexpected sizeof reg_sho_short_sale_price_test_restricted_indicator_message::fields_type");
-static_assert(sizeof(reg_sho_short_sale_price_test_restricted_indicator_message) == sizeof(message_header) + 17, "unexpected sizeof reg_sho_short_sale_price_test_restricted_indicator_message");
+static_assert(sizeof(reg_sho_short_sale_price_test_restricted_indicator_message) == sizeof(itch_aggregated::message_header) + 17, "unexpected sizeof reg_sho_short_sale_price_test_restricted_indicator_message");
 
 #pragma pack(pop)
 }

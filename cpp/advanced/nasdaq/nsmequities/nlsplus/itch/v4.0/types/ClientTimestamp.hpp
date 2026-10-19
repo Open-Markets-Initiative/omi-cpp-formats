@@ -3,16 +3,14 @@
 #include <cstddef>
 #include <cstdint>
 #include "../cache/Required.hpp"
-#include "../cache/Required.hpp"
 
 namespace nasdaq::nsmequities::nlsplus::itch::v4_0 {
 
 // client_timestamp
-#pragma pack(push, 1)
 struct client_timestamp {
 
     static constexpr const char* name = "client_timestamp";
-    static constexpr std::size_t size = 6;
+    static constexpr std::size_t size = 8;
     static constexpr bool is_optional = false;
 
     using result_type = required<std::uint64_t>;
@@ -22,14 +20,14 @@ struct client_timestamp {
      : value{ 0 } {}
 
     client_timestamp(std::uint64_t v)
-     : value{ __builtin_bswap64(v << 16) } {}
+     : value{ static_cast<std::uint64_t>(__builtin_bswap64(v)) } {}
 
     [[nodiscard]] result_type get() const {
-        return result_type{__builtin_bswap64(static_cast<std::uint64_t>(value)) >> 16};
+        return result_type{static_cast<std::uint64_t>(__builtin_bswap64(value))};
     }
 
     void set(std::uint64_t v) {
-        value = __builtin_bswap64(v << 16);
+        value = __builtin_bswap64(v);
     }
 
     void set(result_type value) {
@@ -40,7 +38,6 @@ struct client_timestamp {
     }
 
   protected:
-    std::uint64_t value:48;
+    std::uint64_t value;
 };
-#pragma pack(pop)
 }

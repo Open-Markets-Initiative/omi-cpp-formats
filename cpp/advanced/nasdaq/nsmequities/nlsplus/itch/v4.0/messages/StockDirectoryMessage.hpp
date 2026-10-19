@@ -49,7 +49,7 @@ struct stock_directory_message {
         itch_nlsplus::bloomberg_id bloomberg_id;
     };
 
-    message_header header = {std::uint16_t(sizeof(message_header) + sizeof(fields_type) - 2), message_type::enum_type::stock_directory_message};
+    itch_nlsplus::message_header header = {std::uint16_t(sizeof(itch_nlsplus::message_header) + sizeof(fields_type) - 2), message_type::enum_type::stock_directory_message};
 
     fields_type fields;
 
@@ -84,7 +84,7 @@ static_assert(offsetof(stock_directory_message::fields_type, etp_leverage_factor
 static_assert(offsetof(stock_directory_message::fields_type, inverse_indicator) == 35, "unexpected offset of stock_directory_message::fields_type::inverse_indicator");
 static_assert(offsetof(stock_directory_message::fields_type, bloomberg_id) == 36, "unexpected offset of stock_directory_message::fields_type::bloomberg_id");
 static_assert(sizeof(stock_directory_message::fields_type) == 48, "unexpected sizeof stock_directory_message::fields_type");
-static_assert(sizeof(stock_directory_message) == sizeof(message_header) + 48, "unexpected sizeof stock_directory_message");
+static_assert(sizeof(stock_directory_message) == sizeof(itch_nlsplus::message_header) + 48, "unexpected sizeof stock_directory_message");
 
 #pragma pack(pop)
 }

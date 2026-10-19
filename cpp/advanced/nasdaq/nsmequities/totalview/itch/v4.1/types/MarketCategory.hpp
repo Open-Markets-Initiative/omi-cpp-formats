@@ -66,7 +66,7 @@ struct market_category {
     using storage_type = result_type;
 
     constexpr market_category()
-     : value{ enum_type::nyse } {}
+     : value{ enum_type{} } {}
 
     constexpr market_category(enum_type v)
      : value{ v } {}

@@ -50,7 +50,7 @@ inline std::shared_ptr<arrow::Schema> schema() {
         arrow::field("indicative_clearing_price", arrow::decimal128(18, 4)),
         arrow::field("imbalance_shares", arrow::uint64()),
         arrow::field("imbalance_side", arrow::utf8()),
-        arrow::field("extension_number", arrow::utf8()),
+        arrow::field("extension_number", arrow::uint64()),
         arrow::field("scheduled_auction_time", arrow::uint64()),
         arrow::field("auction_book_clearing_price", arrow::decimal128(18, 4)),
         arrow::field("collar_reference_price", arrow::decimal128(18, 4)),
@@ -595,7 +595,7 @@ class Table {
     omi::parquet::wide::Decimal column_27_{ arrow::decimal128(18, 4) };   // indicative_clearing_price
     omi::parquet::wide::Unsigned column_28_{  };   // imbalance_shares
     omi::parquet::wide::Text column_29_{  };   // imbalance_side
-    omi::parquet::wide::Text column_30_{  };   // extension_number
+    omi::parquet::wide::Unsigned column_30_{  };   // extension_number
     omi::parquet::wide::Unsigned column_31_{  };   // scheduled_auction_time
     omi::parquet::wide::Decimal column_32_{ arrow::decimal128(18, 4) };   // auction_book_clearing_price
     omi::parquet::wide::Decimal column_33_{ arrow::decimal128(18, 4) };   // collar_reference_price

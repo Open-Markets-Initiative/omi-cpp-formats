@@ -29,7 +29,7 @@ struct trade_message {
         itch_totalview::match_number match_number;
     };
 
-    message_header header = {std::uint16_t(sizeof(message_header) + sizeof(fields_type) - 2), message_type::enum_type::trade_message};
+    itch_totalview::message_header header = {std::uint16_t(sizeof(itch_totalview::message_header) + sizeof(fields_type) - 2), message_type::enum_type::trade_message};
 
     fields_type fields;
 
@@ -54,7 +54,7 @@ static_assert(offsetof(trade_message::fields_type, stock) == 17, "unexpected off
 static_assert(offsetof(trade_message::fields_type, price) == 25, "unexpected offset of trade_message::fields_type::price");
 static_assert(offsetof(trade_message::fields_type, match_number) == 29, "unexpected offset of trade_message::fields_type::match_number");
 static_assert(sizeof(trade_message::fields_type) == 37, "unexpected sizeof trade_message::fields_type");
-static_assert(sizeof(trade_message) == sizeof(message_header) + 37, "unexpected sizeof trade_message");
+static_assert(sizeof(trade_message) == sizeof(itch_totalview::message_header) + 37, "unexpected sizeof trade_message");
 
 #pragma pack(pop)
 }

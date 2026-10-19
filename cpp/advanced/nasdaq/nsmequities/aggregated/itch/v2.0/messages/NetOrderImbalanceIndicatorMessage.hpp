@@ -37,7 +37,7 @@ struct net_order_imbalance_indicator_message {
         itch_aggregated::price_variation_indicator price_variation_indicator;
     };
 
-    message_header header = {std::uint16_t(sizeof(message_header) + sizeof(fields_type) - 2), message_type::enum_type::net_order_imbalance_indicator_message};
+    itch_aggregated::message_header header = {std::uint16_t(sizeof(itch_aggregated::message_header) + sizeof(fields_type) - 2), message_type::enum_type::net_order_imbalance_indicator_message};
 
     fields_type fields;
 
@@ -66,7 +66,7 @@ static_assert(offsetof(net_order_imbalance_indicator_message::fields_type, curre
 static_assert(offsetof(net_order_imbalance_indicator_message::fields_type, cross_type) == 45, "unexpected offset of net_order_imbalance_indicator_message::fields_type::cross_type");
 static_assert(offsetof(net_order_imbalance_indicator_message::fields_type, price_variation_indicator) == 46, "unexpected offset of net_order_imbalance_indicator_message::fields_type::price_variation_indicator");
 static_assert(sizeof(net_order_imbalance_indicator_message::fields_type) == 47, "unexpected sizeof net_order_imbalance_indicator_message::fields_type");
-static_assert(sizeof(net_order_imbalance_indicator_message) == sizeof(message_header) + 47, "unexpected sizeof net_order_imbalance_indicator_message");
+static_assert(sizeof(net_order_imbalance_indicator_message) == sizeof(itch_aggregated::message_header) + 47, "unexpected sizeof net_order_imbalance_indicator_message");
 
 #pragma pack(pop)
 }

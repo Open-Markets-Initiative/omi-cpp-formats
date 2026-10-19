@@ -25,7 +25,7 @@ struct adjusted_closing_price_message {
         itch_nlsplus::adjusted_closing_price adjusted_closing_price;
     };
 
-    message_header header = {std::uint16_t(sizeof(message_header) + sizeof(fields_type) - 2), message_type::enum_type::adjusted_closing_price_message};
+    itch_nlsplus::message_header header = {std::uint16_t(sizeof(itch_nlsplus::message_header) + sizeof(fields_type) - 2), message_type::enum_type::adjusted_closing_price_message};
 
     fields_type fields;
 
@@ -48,7 +48,7 @@ static_assert(offsetof(adjusted_closing_price_message::fields_type, issue_symbol
 static_assert(offsetof(adjusted_closing_price_message::fields_type, security_class) == 16, "unexpected offset of adjusted_closing_price_message::fields_type::security_class");
 static_assert(offsetof(adjusted_closing_price_message::fields_type, adjusted_closing_price) == 17, "unexpected offset of adjusted_closing_price_message::fields_type::adjusted_closing_price");
 static_assert(sizeof(adjusted_closing_price_message::fields_type) == 25, "unexpected sizeof adjusted_closing_price_message::fields_type");
-static_assert(sizeof(adjusted_closing_price_message) == sizeof(message_header) + 25, "unexpected sizeof adjusted_closing_price_message");
+static_assert(sizeof(adjusted_closing_price_message) == sizeof(itch_nlsplus::message_header) + 25, "unexpected sizeof adjusted_closing_price_message");
 
 #pragma pack(pop)
 }

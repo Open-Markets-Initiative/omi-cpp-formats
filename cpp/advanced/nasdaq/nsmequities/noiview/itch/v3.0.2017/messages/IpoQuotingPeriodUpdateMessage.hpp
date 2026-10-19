@@ -27,7 +27,7 @@ struct ipo_quoting_period_update_message {
         itch_noiview::ipo_price ipo_price;
     };
 
-    message_header header = {std::uint16_t(sizeof(message_header) + sizeof(fields_type) - 2), message_type::enum_type::ipo_quoting_period_update_message};
+    itch_noiview::message_header header = {std::uint16_t(sizeof(itch_noiview::message_header) + sizeof(fields_type) - 2), message_type::enum_type::ipo_quoting_period_update_message};
 
     fields_type fields;
 
@@ -51,7 +51,7 @@ static_assert(offsetof(ipo_quoting_period_update_message::fields_type, ipo_quota
 static_assert(offsetof(ipo_quoting_period_update_message::fields_type, ipo_quotation_release_qualifier) == 20, "unexpected offset of ipo_quoting_period_update_message::fields_type::ipo_quotation_release_qualifier");
 static_assert(offsetof(ipo_quoting_period_update_message::fields_type, ipo_price) == 21, "unexpected offset of ipo_quoting_period_update_message::fields_type::ipo_price");
 static_assert(sizeof(ipo_quoting_period_update_message::fields_type) == 25, "unexpected sizeof ipo_quoting_period_update_message::fields_type");
-static_assert(sizeof(ipo_quoting_period_update_message) == sizeof(message_header) + 25, "unexpected sizeof ipo_quoting_period_update_message");
+static_assert(sizeof(ipo_quoting_period_update_message) == sizeof(itch_noiview::message_header) + 25, "unexpected sizeof ipo_quoting_period_update_message");
 
 #pragma pack(pop)
 }

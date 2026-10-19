@@ -27,7 +27,7 @@ struct stock_directory_message {
         itch_totalview::round_lots_only round_lots_only;
     };
 
-    message_header header = {std::uint16_t(sizeof(message_header) + sizeof(fields_type) - 2), message_type::enum_type::stock_directory_message};
+    itch_totalview::message_header header = {std::uint16_t(sizeof(itch_totalview::message_header) + sizeof(fields_type) - 2), message_type::enum_type::stock_directory_message};
 
     fields_type fields;
 
@@ -51,7 +51,7 @@ static_assert(offsetof(stock_directory_message::fields_type, financial_status_in
 static_assert(offsetof(stock_directory_message::fields_type, round_lot_size) == 14, "unexpected offset of stock_directory_message::fields_type::round_lot_size");
 static_assert(offsetof(stock_directory_message::fields_type, round_lots_only) == 18, "unexpected offset of stock_directory_message::fields_type::round_lots_only");
 static_assert(sizeof(stock_directory_message::fields_type) == 19, "unexpected sizeof stock_directory_message::fields_type");
-static_assert(sizeof(stock_directory_message) == sizeof(message_header) + 19, "unexpected sizeof stock_directory_message");
+static_assert(sizeof(stock_directory_message) == sizeof(itch_totalview::message_header) + 19, "unexpected sizeof stock_directory_message");
 
 #pragma pack(pop)
 }

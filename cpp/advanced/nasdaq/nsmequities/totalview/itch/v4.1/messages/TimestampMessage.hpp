@@ -17,7 +17,7 @@ struct timestamp_message {
         itch_totalview::second second;
     };
 
-    message_header header = {std::uint16_t(sizeof(message_header) + sizeof(fields_type) - 2), message_type::enum_type::timestamp_message};
+    itch_totalview::message_header header = {std::uint16_t(sizeof(itch_totalview::message_header) + sizeof(fields_type) - 2), message_type::enum_type::timestamp_message};
 
     fields_type fields;
 
@@ -36,7 +36,7 @@ struct timestamp_message {
 // layout verification
 static_assert(offsetof(timestamp_message::fields_type, second) == 0, "unexpected offset of timestamp_message::fields_type::second");
 static_assert(sizeof(timestamp_message::fields_type) == 4, "unexpected sizeof timestamp_message::fields_type");
-static_assert(sizeof(timestamp_message) == sizeof(message_header) + 4, "unexpected sizeof timestamp_message");
+static_assert(sizeof(timestamp_message) == sizeof(itch_totalview::message_header) + 4, "unexpected sizeof timestamp_message");
 
 #pragma pack(pop)
 }

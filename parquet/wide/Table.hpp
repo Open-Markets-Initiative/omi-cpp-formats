@@ -9,6 +9,7 @@
 #include <stdexcept>
 #include <string>
 #include <string_view>
+#include <type_traits>
 #include <vector>
 
 #include <arrow/api.h>
@@ -103,6 +104,46 @@ class Decimal : public Column<arrow::Decimal128Builder, arrow::Decimal128Array> 
     template <typename Value>
     void append(Value value) {
         check(builder_.Append(arrow::Decimal128(static_cast<std::int64_t>(value))), "append decimal");
+    }
+
+    // A decimal composite: the mantissa, and the exponent the wire carries beside it - a power of ten,
+    // or a count of places after the point. Rescaled to the column's scale exactly; a part the wire
+    // left null, a value finer than the column, or one too wide for it, leaves the column null.
+    template <typename Mantissa, typename Exponent>
+    void append_parts(const Mantissa& mantissa, const Exponent& exponent, bool places) {
+        if (!mantissa.has_value() || !exponent.has_value()) {
+            null();
+            return;
+        }
+
+        const auto& type = static_cast<const arrow::Decimal128Type&>(*builder_.type());
+        const int power = places ? -static_cast<int>(exponent.value()) : static_cast<int>(exponent.value());
+        const int shift = type.scale() + power;
+
+        if (shift < 0 || shift > type.precision()) {
+            null();
+            return;
+        }
+
+        const auto value = whole(mantissa.value()) * arrow::Decimal128::GetScaleMultiplier(shift);
+
+        if (!value.FitsInPrecision(type.precision())) {
+            null();
+            return;
+        }
+
+        check(builder_.Append(value), "append decimal");
+    }
+
+  private:
+    // A mantissa as a 128-bit integer, unsigned ones above the signed range included
+    template <typename Value>
+    static arrow::Decimal128 whole(Value value) {
+        if constexpr (std::is_signed_v<Value>) {
+            return arrow::Decimal128(static_cast<std::int64_t>(value));
+        } else {
+            return arrow::Decimal128(0, static_cast<std::uint64_t>(value));
+        }
     }
 };
 

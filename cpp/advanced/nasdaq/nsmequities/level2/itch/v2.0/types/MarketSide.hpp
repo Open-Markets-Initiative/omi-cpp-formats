@@ -51,7 +51,7 @@ struct market_side {
     using storage_type = result_type;
 
     constexpr market_side()
-     : value{ enum_type::bid_update } {}
+     : value{ enum_type{} } {}
 
     constexpr market_side(enum_type v)
      : value{ v } {}

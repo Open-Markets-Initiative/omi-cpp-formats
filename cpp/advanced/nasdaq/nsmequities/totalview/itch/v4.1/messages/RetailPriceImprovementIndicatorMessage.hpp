@@ -21,7 +21,7 @@ struct retail_price_improvement_indicator_message {
         itch_totalview::interest_flag interest_flag;
     };
 
-    message_header header = {std::uint16_t(sizeof(message_header) + sizeof(fields_type) - 2), message_type::enum_type::retail_price_improvement_indicator_message};
+    itch_totalview::message_header header = {std::uint16_t(sizeof(itch_totalview::message_header) + sizeof(fields_type) - 2), message_type::enum_type::retail_price_improvement_indicator_message};
 
     fields_type fields;
 
@@ -42,7 +42,7 @@ static_assert(offsetof(retail_price_improvement_indicator_message::fields_type, 
 static_assert(offsetof(retail_price_improvement_indicator_message::fields_type, stock) == 4, "unexpected offset of retail_price_improvement_indicator_message::fields_type::stock");
 static_assert(offsetof(retail_price_improvement_indicator_message::fields_type, interest_flag) == 12, "unexpected offset of retail_price_improvement_indicator_message::fields_type::interest_flag");
 static_assert(sizeof(retail_price_improvement_indicator_message::fields_type) == 13, "unexpected sizeof retail_price_improvement_indicator_message::fields_type");
-static_assert(sizeof(retail_price_improvement_indicator_message) == sizeof(message_header) + 13, "unexpected sizeof retail_price_improvement_indicator_message");
+static_assert(sizeof(retail_price_improvement_indicator_message) == sizeof(itch_totalview::message_header) + 13, "unexpected sizeof retail_price_improvement_indicator_message");
 
 #pragma pack(pop)
 }

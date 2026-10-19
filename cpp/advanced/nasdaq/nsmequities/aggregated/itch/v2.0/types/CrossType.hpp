@@ -57,7 +57,7 @@ struct cross_type {
     using storage_type = result_type;
 
     constexpr cross_type()
-     : value{ enum_type::nasdaq_opening_cross } {}
+     : value{ enum_type{} } {}
 
     constexpr cross_type(enum_type v)
      : value{ v } {}

@@ -30,6 +30,7 @@
 #include "BrokenTradeMessage.hpp"
 #include "NetOrderImbalanceIndicatorMessage.hpp"
 #include "RetailInterestMessage.hpp"
+#include "../json/messages/debug_packet_json.hpp"
 #include "../json/messages/unsequenced_data_packet_json.hpp"
 #include "../json/messages/sequenced_data_packet_json.hpp"
 
@@ -67,7 +68,7 @@ inline std::ostream& operator<<(std::ostream& os, const message_header& value) {
 }
 
 inline std::ostream& operator<<(std::ostream& os, const debug_packet& msg) {
-    os << "text=\"" << msg.fields.text.get().value() << '"'
+    os << "tail=" << json::tail_to_json_string(msg)
        ;
     return os;
 }

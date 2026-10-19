@@ -9,6 +9,10 @@ each format has a directory of its own:
 - `json/native/` — writers that turn every message into a flat JSON object without a JSON library
 - `json/rapid/` — writers that turn every message into the same object through RapidJSON
 - `parquet/wide/` — one table per protocol, a column for every value any of its messages holds
+- `avro/wide/native/` — every message as one wide record of the values any message holds, written without an Avro library
+- `avro/wide/c/` — every message as one wide record of the values any message holds, written through Apache Avro's C library
+- `avro/tree/native/` — every message as a record of its own, holding what it holds as the model declares it, written without an Avro library
+- `avro/tree/c/` — every message as a record of its own, holding what it holds as the model declares it, written through Apache Avro's C library
 
 ```sh
 cmake -S . -B build && cmake --build build --parallel $(nproc)
@@ -23,6 +27,10 @@ capture through the Advanced session layer and writes what its messages hold:
 ./build/json_native_<protocol> capture.pcap [output.jsonl]
 ./build/json_rapid_<protocol> capture.pcap [output.jsonl]
 ./build/parquet_wide_<protocol> capture.pcap out.parquet
+./build/avro_wide_native_<protocol> capture.pcap out.avro
+./build/avro_wide_c_<protocol> capture.pcap out.avro
+./build/avro_tree_native_<protocol> capture.pcap out.avro
+./build/avro_tree_c_<protocol> capture.pcap out.avro
 ```
 
 Every format is written from one translation of its protocol, so a value carries the same name and the
@@ -37,10 +45,18 @@ decimal kept exactly from its mantissa and its exponent, and an absent optional 
 
 **wide parquet** — one table per protocol, a column for every value any of its messages holds. It needs `libarrow-dev` and `libparquet-dev` (on Ubuntu).
 
+**wide avro (native)** — every message as one wide record of the values any message holds, written without an Avro library. It needs nothing beyond the compiler.
+
+**wide avro (c)** — every message as one wide record of the values any message holds, written through Apache Avro's C library. It needs `libavro-dev` (on Ubuntu).
+
+**tree avro (native)** — every message as a record of its own, holding what it holds as the model declares it, written without an Avro library. It needs nothing beyond the compiler.
+
+**tree avro (c)** — every message as a record of its own, holding what it holds as the model declares it, written through Apache Avro's C library. It needs `libavro-dev` (on Ubuntu).
+
 ## Tests
 
 `tests/<format>/` walks every capture a protocol declares, writes every message it holds through that
-format and reads the result back (33 tests). A capture
+format and reads the result back (77 tests). A capture
 named for one message must hold it; a session capture names none, and is held to what it holds.
 The captures are the session captures of
 [omi-data-pcaps](https://github.com/Open-Markets-Initiative/omi-data-pcaps), read compressed:
@@ -55,16 +71,15 @@ Every build also compiles `checks/`, one translation unit per protocol and forma
 an include of its writers, so a writer that does not compile fails the build whether or not the corpus
 has a capture to run it against.
 
-A protocol that cannot be written is left out:
+A protocol that cannot be written is left out, of every format or of the one named:
 
 - Iex.IexEquities.Deep.Snap.v1.6: no transport sequence for the Advanced session layer to walk a capture with
 - Iex.IexEquities.DeepPlus.Snap.v1.06: no transport sequence for the Advanced session layer to walk a capture with
 - Iex.IexEquities.Tops.Snap.v1.6: no transport sequence for the Advanced session layer to walk a capture with
-- Nasdaq.NsmEquities.NlsPlus.Itch.v3.0: no transport sequence for the Advanced session layer to walk a capture with
-- Nasdaq.NsmEquities.Nois.Itch.v2.2: no transport sequence for the Advanced session layer to walk a capture with
-- Nasdaq.NsmEquities.Nois.Itch.v2.2.2022: no transport sequence for the Advanced session layer to walk a capture with
+- Nasdaq.NsmEquities.Nois.Itch.v2.2: 'Imbalance Shares' is a 9-byte integer (addr=packet.messages.message.messagebody.messagedata.payload.noismessage.imbalanceshares), and no C++ integer holds more than eight bytes. Where the field is really ASCII digits - Nasdaq's older Itch editions document numerics as left-zero-padded ASCII - the model's Translation trait is what needs correcting, not this classification.
+- Nasdaq.NsmEquities.Nois.Itch.v2.2.2022: 'Imbalance Shares' is a 9-byte integer (addr=packet.messages.message.messagebody.messagedata.payload.noismessage.imbalanceshares), and no C++ integer holds more than eight bytes. Where the field is really ASCII digits - Nasdaq's older Itch editions document numerics as left-zero-padded ASCII - the model's Translation trait is what needs correcting, not this classification.
 
-## Protocols (19)
+## Protocols (20)
 
 - `Iex.IexEquities.Deep.IexTp.v1.06`
 - `Iex.IexEquities.Deep.IexTp.v1.08`
@@ -75,6 +90,7 @@ A protocol that cannot be written is left out:
 - `Iex.IexEquities.Tops.IexTp.v1.66`
 - `Nasdaq.NsmEquities.Aggregated.Itch.v2.0`
 - `Nasdaq.NsmEquities.Level2.Itch.v2.0`
+- `Nasdaq.NsmEquities.NlsPlus.Itch.v3.0`
 - `Nasdaq.NsmEquities.NlsPlus.Itch.v4.0`
 - `Nasdaq.NsmEquities.NoiView.Itch.v3.0.2017`
 - `Nasdaq.NsmEquities.NoiView.Itch.v3.0.2026`

@@ -29,7 +29,7 @@ struct market_participant_bid_ask_update_message {
         itch_level2::mpid mpid;
     };
 
-    message_header header = {std::uint16_t(sizeof(message_header) + sizeof(fields_type) - 2), message_type::enum_type::market_participant_bid_ask_update_message};
+    itch_level2::message_header header = {std::uint16_t(sizeof(itch_level2::message_header) + sizeof(fields_type) - 2), message_type::enum_type::market_participant_bid_ask_update_message};
 
     fields_type fields;
 
@@ -54,7 +54,7 @@ static_assert(offsetof(market_participant_bid_ask_update_message::fields_type, s
 static_assert(offsetof(market_participant_bid_ask_update_message::fields_type, price) == 21, "unexpected offset of market_participant_bid_ask_update_message::fields_type::price");
 static_assert(offsetof(market_participant_bid_ask_update_message::fields_type, mpid) == 25, "unexpected offset of market_participant_bid_ask_update_message::fields_type::mpid");
 static_assert(sizeof(market_participant_bid_ask_update_message::fields_type) == 29, "unexpected sizeof market_participant_bid_ask_update_message::fields_type");
-static_assert(sizeof(market_participant_bid_ask_update_message) == sizeof(message_header) + 29, "unexpected sizeof market_participant_bid_ask_update_message");
+static_assert(sizeof(market_participant_bid_ask_update_message) == sizeof(itch_level2::message_header) + 29, "unexpected sizeof market_participant_bid_ask_update_message");
 
 #pragma pack(pop)
 }

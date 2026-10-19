@@ -27,7 +27,7 @@ struct add_order_message {
         itch_totalview::price price;
     };
 
-    message_header header = {std::uint16_t(sizeof(message_header) + sizeof(fields_type) - 2), message_type::enum_type::add_order_message};
+    itch_totalview::message_header header = {std::uint16_t(sizeof(itch_totalview::message_header) + sizeof(fields_type) - 2), message_type::enum_type::add_order_message};
 
     fields_type fields;
 
@@ -51,7 +51,7 @@ static_assert(offsetof(add_order_message::fields_type, shares) == 13, "unexpecte
 static_assert(offsetof(add_order_message::fields_type, stock) == 17, "unexpected offset of add_order_message::fields_type::stock");
 static_assert(offsetof(add_order_message::fields_type, price) == 25, "unexpected offset of add_order_message::fields_type::price");
 static_assert(sizeof(add_order_message::fields_type) == 29, "unexpected sizeof add_order_message::fields_type");
-static_assert(sizeof(add_order_message) == sizeof(message_header) + 29, "unexpected sizeof add_order_message");
+static_assert(sizeof(add_order_message) == sizeof(itch_totalview::message_header) + 29, "unexpected sizeof add_order_message");
 
 #pragma pack(pop)
 }

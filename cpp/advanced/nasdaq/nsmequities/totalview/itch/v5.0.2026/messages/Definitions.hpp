@@ -2,7 +2,7 @@
 
 #include "../structs/ClientPacketHeader.hpp"
 #include "../structs/ServerPacketHeader.hpp"
-#include "../structs/UdpPacketHeader.hpp"
+#include "../structs/PacketHeader.hpp"
 #include "../structs/MessageHeader.hpp"
 
 #include "DebugPacket.hpp"

@@ -51,7 +51,7 @@ struct reference_for_net_change {
     using storage_type = result_type;
 
     constexpr reference_for_net_change()
-     : value{ enum_type::first_trade_price } {}
+     : value{ enum_type{} } {}
 
     constexpr reference_for_net_change(enum_type v)
      : value{ v } {}

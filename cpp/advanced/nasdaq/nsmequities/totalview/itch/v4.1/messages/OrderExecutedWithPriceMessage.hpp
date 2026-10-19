@@ -27,7 +27,7 @@ struct order_executed_with_price_message {
         itch_totalview::execution_price execution_price;
     };
 
-    message_header header = {std::uint16_t(sizeof(message_header) + sizeof(fields_type) - 2), message_type::enum_type::order_executed_with_price_message};
+    itch_totalview::message_header header = {std::uint16_t(sizeof(itch_totalview::message_header) + sizeof(fields_type) - 2), message_type::enum_type::order_executed_with_price_message};
 
     fields_type fields;
 
@@ -51,7 +51,7 @@ static_assert(offsetof(order_executed_with_price_message::fields_type, match_num
 static_assert(offsetof(order_executed_with_price_message::fields_type, printable) == 24, "unexpected offset of order_executed_with_price_message::fields_type::printable");
 static_assert(offsetof(order_executed_with_price_message::fields_type, execution_price) == 25, "unexpected offset of order_executed_with_price_message::fields_type::execution_price");
 static_assert(sizeof(order_executed_with_price_message::fields_type) == 29, "unexpected sizeof order_executed_with_price_message::fields_type");
-static_assert(sizeof(order_executed_with_price_message) == sizeof(message_header) + 29, "unexpected sizeof order_executed_with_price_message");
+static_assert(sizeof(order_executed_with_price_message) == sizeof(itch_totalview::message_header) + 29, "unexpected sizeof order_executed_with_price_message");
 
 #pragma pack(pop)
 }

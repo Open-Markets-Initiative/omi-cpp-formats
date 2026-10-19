@@ -34,7 +34,7 @@ struct price_variation_indicator {
         {"Eight To Eight Point Nine Nine Percent", enum_type::eight_to_eight_point_nine_nine_percent},
         {"Five To Five Point Nine Nine Percent", enum_type::five_to_five_point_nine_nine_percent},
         {"Four To Four Point Nine Nine Percent", enum_type::four_to_four_point_nine_nine_percent},
-        {"Less Than 1", enum_type::less_than_1},
+        {"Less Than 1%", enum_type::less_than_1},
         {"Nine To Nine Point Nine Nine Percent", enum_type::nine_to_nine_point_nine_nine_percent},
         {"One To One Point Nine Nine Percent", enum_type::one_to_one_point_nine_nine_percent},
         {"Seven To Seven Point Nine Nine Percent", enum_type::seven_to_seven_point_nine_nine_percent},
@@ -48,7 +48,7 @@ struct price_variation_indicator {
 
     static constexpr std::string_view to_string(enum_type value) {
         switch (value) {
-            case enum_type::less_than_1: return "Less Than 1";
+            case enum_type::less_than_1: return "Less Than 1%";
             case enum_type::one_to_one_point_nine_nine_percent: return "One To One Point Nine Nine Percent";
             case enum_type::two_to_two_point_nine_nine_percent: return "Two To Two Point Nine Nine Percent";
             case enum_type::three_to_three_point_nine_nine_percent: return "Three To Three Point Nine Nine Percent";
@@ -87,7 +87,7 @@ struct price_variation_indicator {
     using storage_type = result_type;
 
     constexpr price_variation_indicator()
-     : value{ enum_type::less_than_1 } {}
+     : value{ enum_type{} } {}
 
     constexpr price_variation_indicator(enum_type v)
      : value{ v } {}

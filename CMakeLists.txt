@@ -10,6 +10,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(RapidJSON REQUIRED)
 find_package(Arrow REQUIRED)
 find_package(Parquet REQUIRED)
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(AVRO_C REQUIRED IMPORTED_TARGET avro-c)
 
 # The captures are zstd compressed, so the reader is built with zstd to open one.
 find_library(ZSTD_LIBRARY NAMES zstd REQUIRED)
@@ -23,64 +25,147 @@ add_library(formats_check OBJECT
   checks/iex_iexequities_deep_iextp_v1.06_json_native.cpp
   checks/iex_iexequities_deep_iextp_v1.06_json_rapid.cpp
   checks/iex_iexequities_deep_iextp_v1.06_parquet_wide.cpp
+  checks/iex_iexequities_deep_iextp_v1.06_avro_wide_native.cpp
+  checks/iex_iexequities_deep_iextp_v1.06_avro_wide_c.cpp
+  checks/iex_iexequities_deep_iextp_v1.06_avro_tree_native.cpp
+  checks/iex_iexequities_deep_iextp_v1.06_avro_tree_c.cpp
   checks/iex_iexequities_deep_iextp_v1.08_json_native.cpp
   checks/iex_iexequities_deep_iextp_v1.08_json_rapid.cpp
   checks/iex_iexequities_deep_iextp_v1.08_parquet_wide.cpp
+  checks/iex_iexequities_deep_iextp_v1.08_avro_wide_native.cpp
+  checks/iex_iexequities_deep_iextp_v1.08_avro_wide_c.cpp
+  checks/iex_iexequities_deep_iextp_v1.08_avro_tree_native.cpp
+  checks/iex_iexequities_deep_iextp_v1.08_avro_tree_c.cpp
   checks/iex_iexequities_deepplus_iextp_v1.01_json_native.cpp
   checks/iex_iexequities_deepplus_iextp_v1.01_json_rapid.cpp
   checks/iex_iexequities_deepplus_iextp_v1.01_parquet_wide.cpp
+  checks/iex_iexequities_deepplus_iextp_v1.01_avro_wide_native.cpp
+  checks/iex_iexequities_deepplus_iextp_v1.01_avro_wide_c.cpp
+  checks/iex_iexequities_deepplus_iextp_v1.01_avro_tree_native.cpp
+  checks/iex_iexequities_deepplus_iextp_v1.01_avro_tree_c.cpp
   checks/iex_iexequities_deepplus_iextp_v1.05_json_native.cpp
   checks/iex_iexequities_deepplus_iextp_v1.05_json_rapid.cpp
   checks/iex_iexequities_deepplus_iextp_v1.05_parquet_wide.cpp
+  checks/iex_iexequities_deepplus_iextp_v1.05_avro_wide_native.cpp
+  checks/iex_iexequities_deepplus_iextp_v1.05_avro_wide_c.cpp
+  checks/iex_iexequities_deepplus_iextp_v1.05_avro_tree_native.cpp
+  checks/iex_iexequities_deepplus_iextp_v1.05_avro_tree_c.cpp
   checks/iex_iexequities_tops_iextp_v1.56_json_native.cpp
   checks/iex_iexequities_tops_iextp_v1.56_json_rapid.cpp
   checks/iex_iexequities_tops_iextp_v1.56_parquet_wide.cpp
+  checks/iex_iexequities_tops_iextp_v1.56_avro_wide_native.cpp
+  checks/iex_iexequities_tops_iextp_v1.56_avro_wide_c.cpp
+  checks/iex_iexequities_tops_iextp_v1.56_avro_tree_native.cpp
+  checks/iex_iexequities_tops_iextp_v1.56_avro_tree_c.cpp
   checks/iex_iexequities_tops_iextp_v1.64_json_native.cpp
   checks/iex_iexequities_tops_iextp_v1.64_json_rapid.cpp
   checks/iex_iexequities_tops_iextp_v1.64_parquet_wide.cpp
+  checks/iex_iexequities_tops_iextp_v1.64_avro_wide_native.cpp
+  checks/iex_iexequities_tops_iextp_v1.64_avro_wide_c.cpp
+  checks/iex_iexequities_tops_iextp_v1.64_avro_tree_native.cpp
+  checks/iex_iexequities_tops_iextp_v1.64_avro_tree_c.cpp
   checks/iex_iexequities_tops_iextp_v1.66_json_native.cpp
   checks/iex_iexequities_tops_iextp_v1.66_json_rapid.cpp
   checks/iex_iexequities_tops_iextp_v1.66_parquet_wide.cpp
+  checks/iex_iexequities_tops_iextp_v1.66_avro_wide_native.cpp
+  checks/iex_iexequities_tops_iextp_v1.66_avro_wide_c.cpp
+  checks/iex_iexequities_tops_iextp_v1.66_avro_tree_native.cpp
+  checks/iex_iexequities_tops_iextp_v1.66_avro_tree_c.cpp
   checks/nasdaq_nsmequities_aggregated_itch_v2.0_json_native.cpp
   checks/nasdaq_nsmequities_aggregated_itch_v2.0_json_rapid.cpp
   checks/nasdaq_nsmequities_aggregated_itch_v2.0_parquet_wide.cpp
+  checks/nasdaq_nsmequities_aggregated_itch_v2.0_avro_wide_native.cpp
+  checks/nasdaq_nsmequities_aggregated_itch_v2.0_avro_wide_c.cpp
+  checks/nasdaq_nsmequities_aggregated_itch_v2.0_avro_tree_native.cpp
+  checks/nasdaq_nsmequities_aggregated_itch_v2.0_avro_tree_c.cpp
   checks/nasdaq_nsmequities_level2_itch_v2.0_json_native.cpp
   checks/nasdaq_nsmequities_level2_itch_v2.0_json_rapid.cpp
   checks/nasdaq_nsmequities_level2_itch_v2.0_parquet_wide.cpp
+  checks/nasdaq_nsmequities_level2_itch_v2.0_avro_wide_native.cpp
+  checks/nasdaq_nsmequities_level2_itch_v2.0_avro_wide_c.cpp
+  checks/nasdaq_nsmequities_level2_itch_v2.0_avro_tree_native.cpp
+  checks/nasdaq_nsmequities_level2_itch_v2.0_avro_tree_c.cpp
+  checks/nasdaq_nsmequities_nlsplus_itch_v3.0_json_native.cpp
+  checks/nasdaq_nsmequities_nlsplus_itch_v3.0_json_rapid.cpp
+  checks/nasdaq_nsmequities_nlsplus_itch_v3.0_parquet_wide.cpp
+  checks/nasdaq_nsmequities_nlsplus_itch_v3.0_avro_wide_native.cpp
+  checks/nasdaq_nsmequities_nlsplus_itch_v3.0_avro_wide_c.cpp
+  checks/nasdaq_nsmequities_nlsplus_itch_v3.0_avro_tree_native.cpp
+  checks/nasdaq_nsmequities_nlsplus_itch_v3.0_avro_tree_c.cpp
   checks/nasdaq_nsmequities_nlsplus_itch_v4.0_json_native.cpp
   checks/nasdaq_nsmequities_nlsplus_itch_v4.0_json_rapid.cpp
   checks/nasdaq_nsmequities_nlsplus_itch_v4.0_parquet_wide.cpp
+  checks/nasdaq_nsmequities_nlsplus_itch_v4.0_avro_wide_native.cpp
+  checks/nasdaq_nsmequities_nlsplus_itch_v4.0_avro_wide_c.cpp
+  checks/nasdaq_nsmequities_nlsplus_itch_v4.0_avro_tree_native.cpp
+  checks/nasdaq_nsmequities_nlsplus_itch_v4.0_avro_tree_c.cpp
   checks/nasdaq_nsmequities_noiview_itch_v3.0.2017_json_native.cpp
   checks/nasdaq_nsmequities_noiview_itch_v3.0.2017_json_rapid.cpp
   checks/nasdaq_nsmequities_noiview_itch_v3.0.2017_parquet_wide.cpp
+  checks/nasdaq_nsmequities_noiview_itch_v3.0.2017_avro_wide_native.cpp
+  checks/nasdaq_nsmequities_noiview_itch_v3.0.2017_avro_wide_c.cpp
+  checks/nasdaq_nsmequities_noiview_itch_v3.0.2017_avro_tree_native.cpp
+  checks/nasdaq_nsmequities_noiview_itch_v3.0.2017_avro_tree_c.cpp
   checks/nasdaq_nsmequities_noiview_itch_v3.0.2026_json_native.cpp
   checks/nasdaq_nsmequities_noiview_itch_v3.0.2026_json_rapid.cpp
   checks/nasdaq_nsmequities_noiview_itch_v3.0.2026_parquet_wide.cpp
+  checks/nasdaq_nsmequities_noiview_itch_v3.0.2026_avro_wide_native.cpp
+  checks/nasdaq_nsmequities_noiview_itch_v3.0.2026_avro_wide_c.cpp
+  checks/nasdaq_nsmequities_noiview_itch_v3.0.2026_avro_tree_native.cpp
+  checks/nasdaq_nsmequities_noiview_itch_v3.0.2026_avro_tree_c.cpp
   checks/nasdaq_nsmequities_qbbo_itch_v2.1_json_native.cpp
   checks/nasdaq_nsmequities_qbbo_itch_v2.1_json_rapid.cpp
   checks/nasdaq_nsmequities_qbbo_itch_v2.1_parquet_wide.cpp
+  checks/nasdaq_nsmequities_qbbo_itch_v2.1_avro_wide_native.cpp
+  checks/nasdaq_nsmequities_qbbo_itch_v2.1_avro_wide_c.cpp
+  checks/nasdaq_nsmequities_qbbo_itch_v2.1_avro_tree_native.cpp
+  checks/nasdaq_nsmequities_qbbo_itch_v2.1_avro_tree_c.cpp
   checks/nasdaq_nsmequities_totalview_itch_v4.1_json_native.cpp
   checks/nasdaq_nsmequities_totalview_itch_v4.1_json_rapid.cpp
   checks/nasdaq_nsmequities_totalview_itch_v4.1_parquet_wide.cpp
+  checks/nasdaq_nsmequities_totalview_itch_v4.1_avro_wide_native.cpp
+  checks/nasdaq_nsmequities_totalview_itch_v4.1_avro_wide_c.cpp
+  checks/nasdaq_nsmequities_totalview_itch_v4.1_avro_tree_native.cpp
+  checks/nasdaq_nsmequities_totalview_itch_v4.1_avro_tree_c.cpp
   checks/nasdaq_nsmequities_totalview_itch_v5.0.2017_json_native.cpp
   checks/nasdaq_nsmequities_totalview_itch_v5.0.2017_json_rapid.cpp
   checks/nasdaq_nsmequities_totalview_itch_v5.0.2017_parquet_wide.cpp
+  checks/nasdaq_nsmequities_totalview_itch_v5.0.2017_avro_wide_native.cpp
+  checks/nasdaq_nsmequities_totalview_itch_v5.0.2017_avro_wide_c.cpp
+  checks/nasdaq_nsmequities_totalview_itch_v5.0.2017_avro_tree_native.cpp
+  checks/nasdaq_nsmequities_totalview_itch_v5.0.2017_avro_tree_c.cpp
   checks/nasdaq_nsmequities_totalview_itch_v5.0.2018_json_native.cpp
   checks/nasdaq_nsmequities_totalview_itch_v5.0.2018_json_rapid.cpp
   checks/nasdaq_nsmequities_totalview_itch_v5.0.2018_parquet_wide.cpp
+  checks/nasdaq_nsmequities_totalview_itch_v5.0.2018_avro_wide_native.cpp
+  checks/nasdaq_nsmequities_totalview_itch_v5.0.2018_avro_wide_c.cpp
+  checks/nasdaq_nsmequities_totalview_itch_v5.0.2018_avro_tree_native.cpp
+  checks/nasdaq_nsmequities_totalview_itch_v5.0.2018_avro_tree_c.cpp
   checks/nasdaq_nsmequities_totalview_itch_v5.0.2022_json_native.cpp
   checks/nasdaq_nsmequities_totalview_itch_v5.0.2022_json_rapid.cpp
   checks/nasdaq_nsmequities_totalview_itch_v5.0.2022_parquet_wide.cpp
+  checks/nasdaq_nsmequities_totalview_itch_v5.0.2022_avro_wide_native.cpp
+  checks/nasdaq_nsmequities_totalview_itch_v5.0.2022_avro_wide_c.cpp
+  checks/nasdaq_nsmequities_totalview_itch_v5.0.2022_avro_tree_native.cpp
+  checks/nasdaq_nsmequities_totalview_itch_v5.0.2022_avro_tree_c.cpp
   checks/nasdaq_nsmequities_totalview_itch_v5.0.2023_json_native.cpp
   checks/nasdaq_nsmequities_totalview_itch_v5.0.2023_json_rapid.cpp
   checks/nasdaq_nsmequities_totalview_itch_v5.0.2023_parquet_wide.cpp
+  checks/nasdaq_nsmequities_totalview_itch_v5.0.2023_avro_wide_native.cpp
+  checks/nasdaq_nsmequities_totalview_itch_v5.0.2023_avro_wide_c.cpp
+  checks/nasdaq_nsmequities_totalview_itch_v5.0.2023_avro_tree_native.cpp
+  checks/nasdaq_nsmequities_totalview_itch_v5.0.2023_avro_tree_c.cpp
   checks/nasdaq_nsmequities_totalview_itch_v5.0.2026_json_native.cpp
   checks/nasdaq_nsmequities_totalview_itch_v5.0.2026_json_rapid.cpp
   checks/nasdaq_nsmequities_totalview_itch_v5.0.2026_parquet_wide.cpp
+  checks/nasdaq_nsmequities_totalview_itch_v5.0.2026_avro_wide_native.cpp
+  checks/nasdaq_nsmequities_totalview_itch_v5.0.2026_avro_wide_c.cpp
+  checks/nasdaq_nsmequities_totalview_itch_v5.0.2026_avro_tree_native.cpp
+  checks/nasdaq_nsmequities_totalview_itch_v5.0.2026_avro_tree_c.cpp
 )
 target_include_directories(formats_check PRIVATE ${CMAKE_SOURCE_DIR})
 target_include_directories(formats_check SYSTEM PRIVATE ${RAPIDJSON_INCLUDE_DIRS})
-target_link_libraries(formats_check PRIVATE Arrow::arrow_shared Parquet::parquet_shared)
+target_link_libraries(formats_check PRIVATE Arrow::arrow_shared Parquet::parquet_shared PkgConfig::AVRO_C)
 
 # One program per protocol and format, reading a capture and writing what it holds.
 add_executable(json_native_iex_iexequities_deep_iextp_v1.06 executables/json/native/iex/iexequities/deep/iextp/v1.06/main.cpp)
@@ -94,6 +179,20 @@ add_executable(parquet_wide_iex_iexequities_deep_iextp_v1.06 executables/parquet
 target_include_directories(parquet_wide_iex_iexequities_deep_iextp_v1.06 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(parquet_wide_iex_iexequities_deep_iextp_v1.06 PRIVATE ${ZSTD_LIBRARY})
 target_link_libraries(parquet_wide_iex_iexequities_deep_iextp_v1.06 PRIVATE Arrow::arrow_shared Parquet::parquet_shared)
+add_executable(avro_wide_native_iex_iexequities_deep_iextp_v1.06 executables/avro/wide/native/iex/iexequities/deep/iextp/v1.06/main.cpp)
+target_include_directories(avro_wide_native_iex_iexequities_deep_iextp_v1.06 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_native_iex_iexequities_deep_iextp_v1.06 PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_wide_c_iex_iexequities_deep_iextp_v1.06 executables/avro/wide/c/iex/iexequities/deep/iextp/v1.06/main.cpp)
+target_include_directories(avro_wide_c_iex_iexequities_deep_iextp_v1.06 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_c_iex_iexequities_deep_iextp_v1.06 PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_wide_c_iex_iexequities_deep_iextp_v1.06 PRIVATE PkgConfig::AVRO_C)
+add_executable(avro_tree_native_iex_iexequities_deep_iextp_v1.06 executables/avro/tree/native/iex/iexequities/deep/iextp/v1.06/main.cpp)
+target_include_directories(avro_tree_native_iex_iexequities_deep_iextp_v1.06 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_native_iex_iexequities_deep_iextp_v1.06 PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_tree_c_iex_iexequities_deep_iextp_v1.06 executables/avro/tree/c/iex/iexequities/deep/iextp/v1.06/main.cpp)
+target_include_directories(avro_tree_c_iex_iexequities_deep_iextp_v1.06 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_c_iex_iexequities_deep_iextp_v1.06 PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_tree_c_iex_iexequities_deep_iextp_v1.06 PRIVATE PkgConfig::AVRO_C)
 add_executable(json_native_iex_iexequities_deep_iextp_v1.08 executables/json/native/iex/iexequities/deep/iextp/v1.08/main.cpp)
 target_include_directories(json_native_iex_iexequities_deep_iextp_v1.08 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(json_native_iex_iexequities_deep_iextp_v1.08 PRIVATE ${ZSTD_LIBRARY})
@@ -105,6 +204,20 @@ add_executable(parquet_wide_iex_iexequities_deep_iextp_v1.08 executables/parquet
 target_include_directories(parquet_wide_iex_iexequities_deep_iextp_v1.08 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(parquet_wide_iex_iexequities_deep_iextp_v1.08 PRIVATE ${ZSTD_LIBRARY})
 target_link_libraries(parquet_wide_iex_iexequities_deep_iextp_v1.08 PRIVATE Arrow::arrow_shared Parquet::parquet_shared)
+add_executable(avro_wide_native_iex_iexequities_deep_iextp_v1.08 executables/avro/wide/native/iex/iexequities/deep/iextp/v1.08/main.cpp)
+target_include_directories(avro_wide_native_iex_iexequities_deep_iextp_v1.08 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_native_iex_iexequities_deep_iextp_v1.08 PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_wide_c_iex_iexequities_deep_iextp_v1.08 executables/avro/wide/c/iex/iexequities/deep/iextp/v1.08/main.cpp)
+target_include_directories(avro_wide_c_iex_iexequities_deep_iextp_v1.08 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_c_iex_iexequities_deep_iextp_v1.08 PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_wide_c_iex_iexequities_deep_iextp_v1.08 PRIVATE PkgConfig::AVRO_C)
+add_executable(avro_tree_native_iex_iexequities_deep_iextp_v1.08 executables/avro/tree/native/iex/iexequities/deep/iextp/v1.08/main.cpp)
+target_include_directories(avro_tree_native_iex_iexequities_deep_iextp_v1.08 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_native_iex_iexequities_deep_iextp_v1.08 PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_tree_c_iex_iexequities_deep_iextp_v1.08 executables/avro/tree/c/iex/iexequities/deep/iextp/v1.08/main.cpp)
+target_include_directories(avro_tree_c_iex_iexequities_deep_iextp_v1.08 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_c_iex_iexequities_deep_iextp_v1.08 PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_tree_c_iex_iexequities_deep_iextp_v1.08 PRIVATE PkgConfig::AVRO_C)
 add_executable(json_native_iex_iexequities_deepplus_iextp_v1.01 executables/json/native/iex/iexequities/deepplus/iextp/v1.01/main.cpp)
 target_include_directories(json_native_iex_iexequities_deepplus_iextp_v1.01 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(json_native_iex_iexequities_deepplus_iextp_v1.01 PRIVATE ${ZSTD_LIBRARY})
@@ -116,6 +229,20 @@ add_executable(parquet_wide_iex_iexequities_deepplus_iextp_v1.01 executables/par
 target_include_directories(parquet_wide_iex_iexequities_deepplus_iextp_v1.01 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(parquet_wide_iex_iexequities_deepplus_iextp_v1.01 PRIVATE ${ZSTD_LIBRARY})
 target_link_libraries(parquet_wide_iex_iexequities_deepplus_iextp_v1.01 PRIVATE Arrow::arrow_shared Parquet::parquet_shared)
+add_executable(avro_wide_native_iex_iexequities_deepplus_iextp_v1.01 executables/avro/wide/native/iex/iexequities/deepplus/iextp/v1.01/main.cpp)
+target_include_directories(avro_wide_native_iex_iexequities_deepplus_iextp_v1.01 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_native_iex_iexequities_deepplus_iextp_v1.01 PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_wide_c_iex_iexequities_deepplus_iextp_v1.01 executables/avro/wide/c/iex/iexequities/deepplus/iextp/v1.01/main.cpp)
+target_include_directories(avro_wide_c_iex_iexequities_deepplus_iextp_v1.01 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_c_iex_iexequities_deepplus_iextp_v1.01 PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_wide_c_iex_iexequities_deepplus_iextp_v1.01 PRIVATE PkgConfig::AVRO_C)
+add_executable(avro_tree_native_iex_iexequities_deepplus_iextp_v1.01 executables/avro/tree/native/iex/iexequities/deepplus/iextp/v1.01/main.cpp)
+target_include_directories(avro_tree_native_iex_iexequities_deepplus_iextp_v1.01 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_native_iex_iexequities_deepplus_iextp_v1.01 PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_tree_c_iex_iexequities_deepplus_iextp_v1.01 executables/avro/tree/c/iex/iexequities/deepplus/iextp/v1.01/main.cpp)
+target_include_directories(avro_tree_c_iex_iexequities_deepplus_iextp_v1.01 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_c_iex_iexequities_deepplus_iextp_v1.01 PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_tree_c_iex_iexequities_deepplus_iextp_v1.01 PRIVATE PkgConfig::AVRO_C)
 add_executable(json_native_iex_iexequities_deepplus_iextp_v1.05 executables/json/native/iex/iexequities/deepplus/iextp/v1.05/main.cpp)
 target_include_directories(json_native_iex_iexequities_deepplus_iextp_v1.05 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(json_native_iex_iexequities_deepplus_iextp_v1.05 PRIVATE ${ZSTD_LIBRARY})
@@ -127,6 +254,20 @@ add_executable(parquet_wide_iex_iexequities_deepplus_iextp_v1.05 executables/par
 target_include_directories(parquet_wide_iex_iexequities_deepplus_iextp_v1.05 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(parquet_wide_iex_iexequities_deepplus_iextp_v1.05 PRIVATE ${ZSTD_LIBRARY})
 target_link_libraries(parquet_wide_iex_iexequities_deepplus_iextp_v1.05 PRIVATE Arrow::arrow_shared Parquet::parquet_shared)
+add_executable(avro_wide_native_iex_iexequities_deepplus_iextp_v1.05 executables/avro/wide/native/iex/iexequities/deepplus/iextp/v1.05/main.cpp)
+target_include_directories(avro_wide_native_iex_iexequities_deepplus_iextp_v1.05 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_native_iex_iexequities_deepplus_iextp_v1.05 PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_wide_c_iex_iexequities_deepplus_iextp_v1.05 executables/avro/wide/c/iex/iexequities/deepplus/iextp/v1.05/main.cpp)
+target_include_directories(avro_wide_c_iex_iexequities_deepplus_iextp_v1.05 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_c_iex_iexequities_deepplus_iextp_v1.05 PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_wide_c_iex_iexequities_deepplus_iextp_v1.05 PRIVATE PkgConfig::AVRO_C)
+add_executable(avro_tree_native_iex_iexequities_deepplus_iextp_v1.05 executables/avro/tree/native/iex/iexequities/deepplus/iextp/v1.05/main.cpp)
+target_include_directories(avro_tree_native_iex_iexequities_deepplus_iextp_v1.05 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_native_iex_iexequities_deepplus_iextp_v1.05 PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_tree_c_iex_iexequities_deepplus_iextp_v1.05 executables/avro/tree/c/iex/iexequities/deepplus/iextp/v1.05/main.cpp)
+target_include_directories(avro_tree_c_iex_iexequities_deepplus_iextp_v1.05 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_c_iex_iexequities_deepplus_iextp_v1.05 PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_tree_c_iex_iexequities_deepplus_iextp_v1.05 PRIVATE PkgConfig::AVRO_C)
 add_executable(json_native_iex_iexequities_tops_iextp_v1.56 executables/json/native/iex/iexequities/tops/iextp/v1.56/main.cpp)
 target_include_directories(json_native_iex_iexequities_tops_iextp_v1.56 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(json_native_iex_iexequities_tops_iextp_v1.56 PRIVATE ${ZSTD_LIBRARY})
@@ -138,6 +279,20 @@ add_executable(parquet_wide_iex_iexequities_tops_iextp_v1.56 executables/parquet
 target_include_directories(parquet_wide_iex_iexequities_tops_iextp_v1.56 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(parquet_wide_iex_iexequities_tops_iextp_v1.56 PRIVATE ${ZSTD_LIBRARY})
 target_link_libraries(parquet_wide_iex_iexequities_tops_iextp_v1.56 PRIVATE Arrow::arrow_shared Parquet::parquet_shared)
+add_executable(avro_wide_native_iex_iexequities_tops_iextp_v1.56 executables/avro/wide/native/iex/iexequities/tops/iextp/v1.56/main.cpp)
+target_include_directories(avro_wide_native_iex_iexequities_tops_iextp_v1.56 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_native_iex_iexequities_tops_iextp_v1.56 PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_wide_c_iex_iexequities_tops_iextp_v1.56 executables/avro/wide/c/iex/iexequities/tops/iextp/v1.56/main.cpp)
+target_include_directories(avro_wide_c_iex_iexequities_tops_iextp_v1.56 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_c_iex_iexequities_tops_iextp_v1.56 PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_wide_c_iex_iexequities_tops_iextp_v1.56 PRIVATE PkgConfig::AVRO_C)
+add_executable(avro_tree_native_iex_iexequities_tops_iextp_v1.56 executables/avro/tree/native/iex/iexequities/tops/iextp/v1.56/main.cpp)
+target_include_directories(avro_tree_native_iex_iexequities_tops_iextp_v1.56 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_native_iex_iexequities_tops_iextp_v1.56 PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_tree_c_iex_iexequities_tops_iextp_v1.56 executables/avro/tree/c/iex/iexequities/tops/iextp/v1.56/main.cpp)
+target_include_directories(avro_tree_c_iex_iexequities_tops_iextp_v1.56 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_c_iex_iexequities_tops_iextp_v1.56 PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_tree_c_iex_iexequities_tops_iextp_v1.56 PRIVATE PkgConfig::AVRO_C)
 add_executable(json_native_iex_iexequities_tops_iextp_v1.64 executables/json/native/iex/iexequities/tops/iextp/v1.64/main.cpp)
 target_include_directories(json_native_iex_iexequities_tops_iextp_v1.64 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(json_native_iex_iexequities_tops_iextp_v1.64 PRIVATE ${ZSTD_LIBRARY})
@@ -149,6 +304,20 @@ add_executable(parquet_wide_iex_iexequities_tops_iextp_v1.64 executables/parquet
 target_include_directories(parquet_wide_iex_iexequities_tops_iextp_v1.64 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(parquet_wide_iex_iexequities_tops_iextp_v1.64 PRIVATE ${ZSTD_LIBRARY})
 target_link_libraries(parquet_wide_iex_iexequities_tops_iextp_v1.64 PRIVATE Arrow::arrow_shared Parquet::parquet_shared)
+add_executable(avro_wide_native_iex_iexequities_tops_iextp_v1.64 executables/avro/wide/native/iex/iexequities/tops/iextp/v1.64/main.cpp)
+target_include_directories(avro_wide_native_iex_iexequities_tops_iextp_v1.64 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_native_iex_iexequities_tops_iextp_v1.64 PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_wide_c_iex_iexequities_tops_iextp_v1.64 executables/avro/wide/c/iex/iexequities/tops/iextp/v1.64/main.cpp)
+target_include_directories(avro_wide_c_iex_iexequities_tops_iextp_v1.64 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_c_iex_iexequities_tops_iextp_v1.64 PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_wide_c_iex_iexequities_tops_iextp_v1.64 PRIVATE PkgConfig::AVRO_C)
+add_executable(avro_tree_native_iex_iexequities_tops_iextp_v1.64 executables/avro/tree/native/iex/iexequities/tops/iextp/v1.64/main.cpp)
+target_include_directories(avro_tree_native_iex_iexequities_tops_iextp_v1.64 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_native_iex_iexequities_tops_iextp_v1.64 PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_tree_c_iex_iexequities_tops_iextp_v1.64 executables/avro/tree/c/iex/iexequities/tops/iextp/v1.64/main.cpp)
+target_include_directories(avro_tree_c_iex_iexequities_tops_iextp_v1.64 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_c_iex_iexequities_tops_iextp_v1.64 PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_tree_c_iex_iexequities_tops_iextp_v1.64 PRIVATE PkgConfig::AVRO_C)
 add_executable(json_native_iex_iexequities_tops_iextp_v1.66 executables/json/native/iex/iexequities/tops/iextp/v1.66/main.cpp)
 target_include_directories(json_native_iex_iexequities_tops_iextp_v1.66 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(json_native_iex_iexequities_tops_iextp_v1.66 PRIVATE ${ZSTD_LIBRARY})
@@ -160,6 +329,20 @@ add_executable(parquet_wide_iex_iexequities_tops_iextp_v1.66 executables/parquet
 target_include_directories(parquet_wide_iex_iexequities_tops_iextp_v1.66 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(parquet_wide_iex_iexequities_tops_iextp_v1.66 PRIVATE ${ZSTD_LIBRARY})
 target_link_libraries(parquet_wide_iex_iexequities_tops_iextp_v1.66 PRIVATE Arrow::arrow_shared Parquet::parquet_shared)
+add_executable(avro_wide_native_iex_iexequities_tops_iextp_v1.66 executables/avro/wide/native/iex/iexequities/tops/iextp/v1.66/main.cpp)
+target_include_directories(avro_wide_native_iex_iexequities_tops_iextp_v1.66 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_native_iex_iexequities_tops_iextp_v1.66 PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_wide_c_iex_iexequities_tops_iextp_v1.66 executables/avro/wide/c/iex/iexequities/tops/iextp/v1.66/main.cpp)
+target_include_directories(avro_wide_c_iex_iexequities_tops_iextp_v1.66 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_c_iex_iexequities_tops_iextp_v1.66 PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_wide_c_iex_iexequities_tops_iextp_v1.66 PRIVATE PkgConfig::AVRO_C)
+add_executable(avro_tree_native_iex_iexequities_tops_iextp_v1.66 executables/avro/tree/native/iex/iexequities/tops/iextp/v1.66/main.cpp)
+target_include_directories(avro_tree_native_iex_iexequities_tops_iextp_v1.66 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_native_iex_iexequities_tops_iextp_v1.66 PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_tree_c_iex_iexequities_tops_iextp_v1.66 executables/avro/tree/c/iex/iexequities/tops/iextp/v1.66/main.cpp)
+target_include_directories(avro_tree_c_iex_iexequities_tops_iextp_v1.66 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_c_iex_iexequities_tops_iextp_v1.66 PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_tree_c_iex_iexequities_tops_iextp_v1.66 PRIVATE PkgConfig::AVRO_C)
 add_executable(json_native_nasdaq_nsmequities_aggregated_itch_v2.0 executables/json/native/nasdaq/nsmequities/aggregated/itch/v2.0/main.cpp)
 target_include_directories(json_native_nasdaq_nsmequities_aggregated_itch_v2.0 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(json_native_nasdaq_nsmequities_aggregated_itch_v2.0 PRIVATE ${ZSTD_LIBRARY})
@@ -171,6 +354,20 @@ add_executable(parquet_wide_nasdaq_nsmequities_aggregated_itch_v2.0 executables/
 target_include_directories(parquet_wide_nasdaq_nsmequities_aggregated_itch_v2.0 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(parquet_wide_nasdaq_nsmequities_aggregated_itch_v2.0 PRIVATE ${ZSTD_LIBRARY})
 target_link_libraries(parquet_wide_nasdaq_nsmequities_aggregated_itch_v2.0 PRIVATE Arrow::arrow_shared Parquet::parquet_shared)
+add_executable(avro_wide_native_nasdaq_nsmequities_aggregated_itch_v2.0 executables/avro/wide/native/nasdaq/nsmequities/aggregated/itch/v2.0/main.cpp)
+target_include_directories(avro_wide_native_nasdaq_nsmequities_aggregated_itch_v2.0 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_native_nasdaq_nsmequities_aggregated_itch_v2.0 PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_wide_c_nasdaq_nsmequities_aggregated_itch_v2.0 executables/avro/wide/c/nasdaq/nsmequities/aggregated/itch/v2.0/main.cpp)
+target_include_directories(avro_wide_c_nasdaq_nsmequities_aggregated_itch_v2.0 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_c_nasdaq_nsmequities_aggregated_itch_v2.0 PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_wide_c_nasdaq_nsmequities_aggregated_itch_v2.0 PRIVATE PkgConfig::AVRO_C)
+add_executable(avro_tree_native_nasdaq_nsmequities_aggregated_itch_v2.0 executables/avro/tree/native/nasdaq/nsmequities/aggregated/itch/v2.0/main.cpp)
+target_include_directories(avro_tree_native_nasdaq_nsmequities_aggregated_itch_v2.0 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_native_nasdaq_nsmequities_aggregated_itch_v2.0 PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_tree_c_nasdaq_nsmequities_aggregated_itch_v2.0 executables/avro/tree/c/nasdaq/nsmequities/aggregated/itch/v2.0/main.cpp)
+target_include_directories(avro_tree_c_nasdaq_nsmequities_aggregated_itch_v2.0 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_c_nasdaq_nsmequities_aggregated_itch_v2.0 PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_tree_c_nasdaq_nsmequities_aggregated_itch_v2.0 PRIVATE PkgConfig::AVRO_C)
 add_executable(json_native_nasdaq_nsmequities_level2_itch_v2.0 executables/json/native/nasdaq/nsmequities/level2/itch/v2.0/main.cpp)
 target_include_directories(json_native_nasdaq_nsmequities_level2_itch_v2.0 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(json_native_nasdaq_nsmequities_level2_itch_v2.0 PRIVATE ${ZSTD_LIBRARY})
@@ -182,6 +379,45 @@ add_executable(parquet_wide_nasdaq_nsmequities_level2_itch_v2.0 executables/parq
 target_include_directories(parquet_wide_nasdaq_nsmequities_level2_itch_v2.0 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(parquet_wide_nasdaq_nsmequities_level2_itch_v2.0 PRIVATE ${ZSTD_LIBRARY})
 target_link_libraries(parquet_wide_nasdaq_nsmequities_level2_itch_v2.0 PRIVATE Arrow::arrow_shared Parquet::parquet_shared)
+add_executable(avro_wide_native_nasdaq_nsmequities_level2_itch_v2.0 executables/avro/wide/native/nasdaq/nsmequities/level2/itch/v2.0/main.cpp)
+target_include_directories(avro_wide_native_nasdaq_nsmequities_level2_itch_v2.0 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_native_nasdaq_nsmequities_level2_itch_v2.0 PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_wide_c_nasdaq_nsmequities_level2_itch_v2.0 executables/avro/wide/c/nasdaq/nsmequities/level2/itch/v2.0/main.cpp)
+target_include_directories(avro_wide_c_nasdaq_nsmequities_level2_itch_v2.0 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_c_nasdaq_nsmequities_level2_itch_v2.0 PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_wide_c_nasdaq_nsmequities_level2_itch_v2.0 PRIVATE PkgConfig::AVRO_C)
+add_executable(avro_tree_native_nasdaq_nsmequities_level2_itch_v2.0 executables/avro/tree/native/nasdaq/nsmequities/level2/itch/v2.0/main.cpp)
+target_include_directories(avro_tree_native_nasdaq_nsmequities_level2_itch_v2.0 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_native_nasdaq_nsmequities_level2_itch_v2.0 PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_tree_c_nasdaq_nsmequities_level2_itch_v2.0 executables/avro/tree/c/nasdaq/nsmequities/level2/itch/v2.0/main.cpp)
+target_include_directories(avro_tree_c_nasdaq_nsmequities_level2_itch_v2.0 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_c_nasdaq_nsmequities_level2_itch_v2.0 PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_tree_c_nasdaq_nsmequities_level2_itch_v2.0 PRIVATE PkgConfig::AVRO_C)
+add_executable(json_native_nasdaq_nsmequities_nlsplus_itch_v3.0 executables/json/native/nasdaq/nsmequities/nlsplus/itch/v3.0/main.cpp)
+target_include_directories(json_native_nasdaq_nsmequities_nlsplus_itch_v3.0 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(json_native_nasdaq_nsmequities_nlsplus_itch_v3.0 PRIVATE ${ZSTD_LIBRARY})
+add_executable(json_rapid_nasdaq_nsmequities_nlsplus_itch_v3.0 executables/json/rapid/nasdaq/nsmequities/nlsplus/itch/v3.0/main.cpp)
+target_include_directories(json_rapid_nasdaq_nsmequities_nlsplus_itch_v3.0 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(json_rapid_nasdaq_nsmequities_nlsplus_itch_v3.0 PRIVATE ${ZSTD_LIBRARY})
+target_include_directories(json_rapid_nasdaq_nsmequities_nlsplus_itch_v3.0 SYSTEM PRIVATE ${RAPIDJSON_INCLUDE_DIRS})
+add_executable(parquet_wide_nasdaq_nsmequities_nlsplus_itch_v3.0 executables/parquet/wide/nasdaq/nsmequities/nlsplus/itch/v3.0/main.cpp)
+target_include_directories(parquet_wide_nasdaq_nsmequities_nlsplus_itch_v3.0 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(parquet_wide_nasdaq_nsmequities_nlsplus_itch_v3.0 PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(parquet_wide_nasdaq_nsmequities_nlsplus_itch_v3.0 PRIVATE Arrow::arrow_shared Parquet::parquet_shared)
+add_executable(avro_wide_native_nasdaq_nsmequities_nlsplus_itch_v3.0 executables/avro/wide/native/nasdaq/nsmequities/nlsplus/itch/v3.0/main.cpp)
+target_include_directories(avro_wide_native_nasdaq_nsmequities_nlsplus_itch_v3.0 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_native_nasdaq_nsmequities_nlsplus_itch_v3.0 PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_wide_c_nasdaq_nsmequities_nlsplus_itch_v3.0 executables/avro/wide/c/nasdaq/nsmequities/nlsplus/itch/v3.0/main.cpp)
+target_include_directories(avro_wide_c_nasdaq_nsmequities_nlsplus_itch_v3.0 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_c_nasdaq_nsmequities_nlsplus_itch_v3.0 PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_wide_c_nasdaq_nsmequities_nlsplus_itch_v3.0 PRIVATE PkgConfig::AVRO_C)
+add_executable(avro_tree_native_nasdaq_nsmequities_nlsplus_itch_v3.0 executables/avro/tree/native/nasdaq/nsmequities/nlsplus/itch/v3.0/main.cpp)
+target_include_directories(avro_tree_native_nasdaq_nsmequities_nlsplus_itch_v3.0 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_native_nasdaq_nsmequities_nlsplus_itch_v3.0 PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_tree_c_nasdaq_nsmequities_nlsplus_itch_v3.0 executables/avro/tree/c/nasdaq/nsmequities/nlsplus/itch/v3.0/main.cpp)
+target_include_directories(avro_tree_c_nasdaq_nsmequities_nlsplus_itch_v3.0 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_c_nasdaq_nsmequities_nlsplus_itch_v3.0 PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_tree_c_nasdaq_nsmequities_nlsplus_itch_v3.0 PRIVATE PkgConfig::AVRO_C)
 add_executable(json_native_nasdaq_nsmequities_nlsplus_itch_v4.0 executables/json/native/nasdaq/nsmequities/nlsplus/itch/v4.0/main.cpp)
 target_include_directories(json_native_nasdaq_nsmequities_nlsplus_itch_v4.0 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(json_native_nasdaq_nsmequities_nlsplus_itch_v4.0 PRIVATE ${ZSTD_LIBRARY})
@@ -193,6 +429,20 @@ add_executable(parquet_wide_nasdaq_nsmequities_nlsplus_itch_v4.0 executables/par
 target_include_directories(parquet_wide_nasdaq_nsmequities_nlsplus_itch_v4.0 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(parquet_wide_nasdaq_nsmequities_nlsplus_itch_v4.0 PRIVATE ${ZSTD_LIBRARY})
 target_link_libraries(parquet_wide_nasdaq_nsmequities_nlsplus_itch_v4.0 PRIVATE Arrow::arrow_shared Parquet::parquet_shared)
+add_executable(avro_wide_native_nasdaq_nsmequities_nlsplus_itch_v4.0 executables/avro/wide/native/nasdaq/nsmequities/nlsplus/itch/v4.0/main.cpp)
+target_include_directories(avro_wide_native_nasdaq_nsmequities_nlsplus_itch_v4.0 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_native_nasdaq_nsmequities_nlsplus_itch_v4.0 PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_wide_c_nasdaq_nsmequities_nlsplus_itch_v4.0 executables/avro/wide/c/nasdaq/nsmequities/nlsplus/itch/v4.0/main.cpp)
+target_include_directories(avro_wide_c_nasdaq_nsmequities_nlsplus_itch_v4.0 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_c_nasdaq_nsmequities_nlsplus_itch_v4.0 PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_wide_c_nasdaq_nsmequities_nlsplus_itch_v4.0 PRIVATE PkgConfig::AVRO_C)
+add_executable(avro_tree_native_nasdaq_nsmequities_nlsplus_itch_v4.0 executables/avro/tree/native/nasdaq/nsmequities/nlsplus/itch/v4.0/main.cpp)
+target_include_directories(avro_tree_native_nasdaq_nsmequities_nlsplus_itch_v4.0 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_native_nasdaq_nsmequities_nlsplus_itch_v4.0 PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_tree_c_nasdaq_nsmequities_nlsplus_itch_v4.0 executables/avro/tree/c/nasdaq/nsmequities/nlsplus/itch/v4.0/main.cpp)
+target_include_directories(avro_tree_c_nasdaq_nsmequities_nlsplus_itch_v4.0 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_c_nasdaq_nsmequities_nlsplus_itch_v4.0 PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_tree_c_nasdaq_nsmequities_nlsplus_itch_v4.0 PRIVATE PkgConfig::AVRO_C)
 add_executable(json_native_nasdaq_nsmequities_noiview_itch_v3.0.2017 executables/json/native/nasdaq/nsmequities/noiview/itch/v3.0.2017/main.cpp)
 target_include_directories(json_native_nasdaq_nsmequities_noiview_itch_v3.0.2017 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(json_native_nasdaq_nsmequities_noiview_itch_v3.0.2017 PRIVATE ${ZSTD_LIBRARY})
@@ -204,6 +454,20 @@ add_executable(parquet_wide_nasdaq_nsmequities_noiview_itch_v3.0.2017 executable
 target_include_directories(parquet_wide_nasdaq_nsmequities_noiview_itch_v3.0.2017 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(parquet_wide_nasdaq_nsmequities_noiview_itch_v3.0.2017 PRIVATE ${ZSTD_LIBRARY})
 target_link_libraries(parquet_wide_nasdaq_nsmequities_noiview_itch_v3.0.2017 PRIVATE Arrow::arrow_shared Parquet::parquet_shared)
+add_executable(avro_wide_native_nasdaq_nsmequities_noiview_itch_v3.0.2017 executables/avro/wide/native/nasdaq/nsmequities/noiview/itch/v3.0.2017/main.cpp)
+target_include_directories(avro_wide_native_nasdaq_nsmequities_noiview_itch_v3.0.2017 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_native_nasdaq_nsmequities_noiview_itch_v3.0.2017 PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_wide_c_nasdaq_nsmequities_noiview_itch_v3.0.2017 executables/avro/wide/c/nasdaq/nsmequities/noiview/itch/v3.0.2017/main.cpp)
+target_include_directories(avro_wide_c_nasdaq_nsmequities_noiview_itch_v3.0.2017 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_c_nasdaq_nsmequities_noiview_itch_v3.0.2017 PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_wide_c_nasdaq_nsmequities_noiview_itch_v3.0.2017 PRIVATE PkgConfig::AVRO_C)
+add_executable(avro_tree_native_nasdaq_nsmequities_noiview_itch_v3.0.2017 executables/avro/tree/native/nasdaq/nsmequities/noiview/itch/v3.0.2017/main.cpp)
+target_include_directories(avro_tree_native_nasdaq_nsmequities_noiview_itch_v3.0.2017 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_native_nasdaq_nsmequities_noiview_itch_v3.0.2017 PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_tree_c_nasdaq_nsmequities_noiview_itch_v3.0.2017 executables/avro/tree/c/nasdaq/nsmequities/noiview/itch/v3.0.2017/main.cpp)
+target_include_directories(avro_tree_c_nasdaq_nsmequities_noiview_itch_v3.0.2017 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_c_nasdaq_nsmequities_noiview_itch_v3.0.2017 PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_tree_c_nasdaq_nsmequities_noiview_itch_v3.0.2017 PRIVATE PkgConfig::AVRO_C)
 add_executable(json_native_nasdaq_nsmequities_noiview_itch_v3.0.2026 executables/json/native/nasdaq/nsmequities/noiview/itch/v3.0.2026/main.cpp)
 target_include_directories(json_native_nasdaq_nsmequities_noiview_itch_v3.0.2026 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(json_native_nasdaq_nsmequities_noiview_itch_v3.0.2026 PRIVATE ${ZSTD_LIBRARY})
@@ -215,6 +479,20 @@ add_executable(parquet_wide_nasdaq_nsmequities_noiview_itch_v3.0.2026 executable
 target_include_directories(parquet_wide_nasdaq_nsmequities_noiview_itch_v3.0.2026 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(parquet_wide_nasdaq_nsmequities_noiview_itch_v3.0.2026 PRIVATE ${ZSTD_LIBRARY})
 target_link_libraries(parquet_wide_nasdaq_nsmequities_noiview_itch_v3.0.2026 PRIVATE Arrow::arrow_shared Parquet::parquet_shared)
+add_executable(avro_wide_native_nasdaq_nsmequities_noiview_itch_v3.0.2026 executables/avro/wide/native/nasdaq/nsmequities/noiview/itch/v3.0.2026/main.cpp)
+target_include_directories(avro_wide_native_nasdaq_nsmequities_noiview_itch_v3.0.2026 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_native_nasdaq_nsmequities_noiview_itch_v3.0.2026 PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_wide_c_nasdaq_nsmequities_noiview_itch_v3.0.2026 executables/avro/wide/c/nasdaq/nsmequities/noiview/itch/v3.0.2026/main.cpp)
+target_include_directories(avro_wide_c_nasdaq_nsmequities_noiview_itch_v3.0.2026 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_c_nasdaq_nsmequities_noiview_itch_v3.0.2026 PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_wide_c_nasdaq_nsmequities_noiview_itch_v3.0.2026 PRIVATE PkgConfig::AVRO_C)
+add_executable(avro_tree_native_nasdaq_nsmequities_noiview_itch_v3.0.2026 executables/avro/tree/native/nasdaq/nsmequities/noiview/itch/v3.0.2026/main.cpp)
+target_include_directories(avro_tree_native_nasdaq_nsmequities_noiview_itch_v3.0.2026 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_native_nasdaq_nsmequities_noiview_itch_v3.0.2026 PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_tree_c_nasdaq_nsmequities_noiview_itch_v3.0.2026 executables/avro/tree/c/nasdaq/nsmequities/noiview/itch/v3.0.2026/main.cpp)
+target_include_directories(avro_tree_c_nasdaq_nsmequities_noiview_itch_v3.0.2026 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_c_nasdaq_nsmequities_noiview_itch_v3.0.2026 PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_tree_c_nasdaq_nsmequities_noiview_itch_v3.0.2026 PRIVATE PkgConfig::AVRO_C)
 add_executable(json_native_nasdaq_nsmequities_qbbo_itch_v2.1 executables/json/native/nasdaq/nsmequities/qbbo/itch/v2.1/main.cpp)
 target_include_directories(json_native_nasdaq_nsmequities_qbbo_itch_v2.1 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(json_native_nasdaq_nsmequities_qbbo_itch_v2.1 PRIVATE ${ZSTD_LIBRARY})
@@ -226,6 +504,20 @@ add_executable(parquet_wide_nasdaq_nsmequities_qbbo_itch_v2.1 executables/parque
 target_include_directories(parquet_wide_nasdaq_nsmequities_qbbo_itch_v2.1 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(parquet_wide_nasdaq_nsmequities_qbbo_itch_v2.1 PRIVATE ${ZSTD_LIBRARY})
 target_link_libraries(parquet_wide_nasdaq_nsmequities_qbbo_itch_v2.1 PRIVATE Arrow::arrow_shared Parquet::parquet_shared)
+add_executable(avro_wide_native_nasdaq_nsmequities_qbbo_itch_v2.1 executables/avro/wide/native/nasdaq/nsmequities/qbbo/itch/v2.1/main.cpp)
+target_include_directories(avro_wide_native_nasdaq_nsmequities_qbbo_itch_v2.1 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_native_nasdaq_nsmequities_qbbo_itch_v2.1 PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_wide_c_nasdaq_nsmequities_qbbo_itch_v2.1 executables/avro/wide/c/nasdaq/nsmequities/qbbo/itch/v2.1/main.cpp)
+target_include_directories(avro_wide_c_nasdaq_nsmequities_qbbo_itch_v2.1 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_c_nasdaq_nsmequities_qbbo_itch_v2.1 PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_wide_c_nasdaq_nsmequities_qbbo_itch_v2.1 PRIVATE PkgConfig::AVRO_C)
+add_executable(avro_tree_native_nasdaq_nsmequities_qbbo_itch_v2.1 executables/avro/tree/native/nasdaq/nsmequities/qbbo/itch/v2.1/main.cpp)
+target_include_directories(avro_tree_native_nasdaq_nsmequities_qbbo_itch_v2.1 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_native_nasdaq_nsmequities_qbbo_itch_v2.1 PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_tree_c_nasdaq_nsmequities_qbbo_itch_v2.1 executables/avro/tree/c/nasdaq/nsmequities/qbbo/itch/v2.1/main.cpp)
+target_include_directories(avro_tree_c_nasdaq_nsmequities_qbbo_itch_v2.1 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_c_nasdaq_nsmequities_qbbo_itch_v2.1 PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_tree_c_nasdaq_nsmequities_qbbo_itch_v2.1 PRIVATE PkgConfig::AVRO_C)
 add_executable(json_native_nasdaq_nsmequities_totalview_itch_v4.1 executables/json/native/nasdaq/nsmequities/totalview/itch/v4.1/main.cpp)
 target_include_directories(json_native_nasdaq_nsmequities_totalview_itch_v4.1 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(json_native_nasdaq_nsmequities_totalview_itch_v4.1 PRIVATE ${ZSTD_LIBRARY})
@@ -237,6 +529,20 @@ add_executable(parquet_wide_nasdaq_nsmequities_totalview_itch_v4.1 executables/p
 target_include_directories(parquet_wide_nasdaq_nsmequities_totalview_itch_v4.1 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(parquet_wide_nasdaq_nsmequities_totalview_itch_v4.1 PRIVATE ${ZSTD_LIBRARY})
 target_link_libraries(parquet_wide_nasdaq_nsmequities_totalview_itch_v4.1 PRIVATE Arrow::arrow_shared Parquet::parquet_shared)
+add_executable(avro_wide_native_nasdaq_nsmequities_totalview_itch_v4.1 executables/avro/wide/native/nasdaq/nsmequities/totalview/itch/v4.1/main.cpp)
+target_include_directories(avro_wide_native_nasdaq_nsmequities_totalview_itch_v4.1 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_native_nasdaq_nsmequities_totalview_itch_v4.1 PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_wide_c_nasdaq_nsmequities_totalview_itch_v4.1 executables/avro/wide/c/nasdaq/nsmequities/totalview/itch/v4.1/main.cpp)
+target_include_directories(avro_wide_c_nasdaq_nsmequities_totalview_itch_v4.1 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_c_nasdaq_nsmequities_totalview_itch_v4.1 PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_wide_c_nasdaq_nsmequities_totalview_itch_v4.1 PRIVATE PkgConfig::AVRO_C)
+add_executable(avro_tree_native_nasdaq_nsmequities_totalview_itch_v4.1 executables/avro/tree/native/nasdaq/nsmequities/totalview/itch/v4.1/main.cpp)
+target_include_directories(avro_tree_native_nasdaq_nsmequities_totalview_itch_v4.1 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_native_nasdaq_nsmequities_totalview_itch_v4.1 PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_tree_c_nasdaq_nsmequities_totalview_itch_v4.1 executables/avro/tree/c/nasdaq/nsmequities/totalview/itch/v4.1/main.cpp)
+target_include_directories(avro_tree_c_nasdaq_nsmequities_totalview_itch_v4.1 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_c_nasdaq_nsmequities_totalview_itch_v4.1 PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_tree_c_nasdaq_nsmequities_totalview_itch_v4.1 PRIVATE PkgConfig::AVRO_C)
 add_executable(json_native_nasdaq_nsmequities_totalview_itch_v5.0.2017 executables/json/native/nasdaq/nsmequities/totalview/itch/v5.0.2017/main.cpp)
 target_include_directories(json_native_nasdaq_nsmequities_totalview_itch_v5.0.2017 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(json_native_nasdaq_nsmequities_totalview_itch_v5.0.2017 PRIVATE ${ZSTD_LIBRARY})
@@ -248,6 +554,20 @@ add_executable(parquet_wide_nasdaq_nsmequities_totalview_itch_v5.0.2017 executab
 target_include_directories(parquet_wide_nasdaq_nsmequities_totalview_itch_v5.0.2017 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(parquet_wide_nasdaq_nsmequities_totalview_itch_v5.0.2017 PRIVATE ${ZSTD_LIBRARY})
 target_link_libraries(parquet_wide_nasdaq_nsmequities_totalview_itch_v5.0.2017 PRIVATE Arrow::arrow_shared Parquet::parquet_shared)
+add_executable(avro_wide_native_nasdaq_nsmequities_totalview_itch_v5.0.2017 executables/avro/wide/native/nasdaq/nsmequities/totalview/itch/v5.0.2017/main.cpp)
+target_include_directories(avro_wide_native_nasdaq_nsmequities_totalview_itch_v5.0.2017 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_native_nasdaq_nsmequities_totalview_itch_v5.0.2017 PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_wide_c_nasdaq_nsmequities_totalview_itch_v5.0.2017 executables/avro/wide/c/nasdaq/nsmequities/totalview/itch/v5.0.2017/main.cpp)
+target_include_directories(avro_wide_c_nasdaq_nsmequities_totalview_itch_v5.0.2017 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_c_nasdaq_nsmequities_totalview_itch_v5.0.2017 PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_wide_c_nasdaq_nsmequities_totalview_itch_v5.0.2017 PRIVATE PkgConfig::AVRO_C)
+add_executable(avro_tree_native_nasdaq_nsmequities_totalview_itch_v5.0.2017 executables/avro/tree/native/nasdaq/nsmequities/totalview/itch/v5.0.2017/main.cpp)
+target_include_directories(avro_tree_native_nasdaq_nsmequities_totalview_itch_v5.0.2017 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_native_nasdaq_nsmequities_totalview_itch_v5.0.2017 PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_tree_c_nasdaq_nsmequities_totalview_itch_v5.0.2017 executables/avro/tree/c/nasdaq/nsmequities/totalview/itch/v5.0.2017/main.cpp)
+target_include_directories(avro_tree_c_nasdaq_nsmequities_totalview_itch_v5.0.2017 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_c_nasdaq_nsmequities_totalview_itch_v5.0.2017 PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_tree_c_nasdaq_nsmequities_totalview_itch_v5.0.2017 PRIVATE PkgConfig::AVRO_C)
 add_executable(json_native_nasdaq_nsmequities_totalview_itch_v5.0.2018 executables/json/native/nasdaq/nsmequities/totalview/itch/v5.0.2018/main.cpp)
 target_include_directories(json_native_nasdaq_nsmequities_totalview_itch_v5.0.2018 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(json_native_nasdaq_nsmequities_totalview_itch_v5.0.2018 PRIVATE ${ZSTD_LIBRARY})
@@ -259,6 +579,20 @@ add_executable(parquet_wide_nasdaq_nsmequities_totalview_itch_v5.0.2018 executab
 target_include_directories(parquet_wide_nasdaq_nsmequities_totalview_itch_v5.0.2018 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(parquet_wide_nasdaq_nsmequities_totalview_itch_v5.0.2018 PRIVATE ${ZSTD_LIBRARY})
 target_link_libraries(parquet_wide_nasdaq_nsmequities_totalview_itch_v5.0.2018 PRIVATE Arrow::arrow_shared Parquet::parquet_shared)
+add_executable(avro_wide_native_nasdaq_nsmequities_totalview_itch_v5.0.2018 executables/avro/wide/native/nasdaq/nsmequities/totalview/itch/v5.0.2018/main.cpp)
+target_include_directories(avro_wide_native_nasdaq_nsmequities_totalview_itch_v5.0.2018 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_native_nasdaq_nsmequities_totalview_itch_v5.0.2018 PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_wide_c_nasdaq_nsmequities_totalview_itch_v5.0.2018 executables/avro/wide/c/nasdaq/nsmequities/totalview/itch/v5.0.2018/main.cpp)
+target_include_directories(avro_wide_c_nasdaq_nsmequities_totalview_itch_v5.0.2018 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_c_nasdaq_nsmequities_totalview_itch_v5.0.2018 PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_wide_c_nasdaq_nsmequities_totalview_itch_v5.0.2018 PRIVATE PkgConfig::AVRO_C)
+add_executable(avro_tree_native_nasdaq_nsmequities_totalview_itch_v5.0.2018 executables/avro/tree/native/nasdaq/nsmequities/totalview/itch/v5.0.2018/main.cpp)
+target_include_directories(avro_tree_native_nasdaq_nsmequities_totalview_itch_v5.0.2018 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_native_nasdaq_nsmequities_totalview_itch_v5.0.2018 PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_tree_c_nasdaq_nsmequities_totalview_itch_v5.0.2018 executables/avro/tree/c/nasdaq/nsmequities/totalview/itch/v5.0.2018/main.cpp)
+target_include_directories(avro_tree_c_nasdaq_nsmequities_totalview_itch_v5.0.2018 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_c_nasdaq_nsmequities_totalview_itch_v5.0.2018 PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_tree_c_nasdaq_nsmequities_totalview_itch_v5.0.2018 PRIVATE PkgConfig::AVRO_C)
 add_executable(json_native_nasdaq_nsmequities_totalview_itch_v5.0.2022 executables/json/native/nasdaq/nsmequities/totalview/itch/v5.0.2022/main.cpp)
 target_include_directories(json_native_nasdaq_nsmequities_totalview_itch_v5.0.2022 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(json_native_nasdaq_nsmequities_totalview_itch_v5.0.2022 PRIVATE ${ZSTD_LIBRARY})
@@ -270,6 +604,20 @@ add_executable(parquet_wide_nasdaq_nsmequities_totalview_itch_v5.0.2022 executab
 target_include_directories(parquet_wide_nasdaq_nsmequities_totalview_itch_v5.0.2022 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(parquet_wide_nasdaq_nsmequities_totalview_itch_v5.0.2022 PRIVATE ${ZSTD_LIBRARY})
 target_link_libraries(parquet_wide_nasdaq_nsmequities_totalview_itch_v5.0.2022 PRIVATE Arrow::arrow_shared Parquet::parquet_shared)
+add_executable(avro_wide_native_nasdaq_nsmequities_totalview_itch_v5.0.2022 executables/avro/wide/native/nasdaq/nsmequities/totalview/itch/v5.0.2022/main.cpp)
+target_include_directories(avro_wide_native_nasdaq_nsmequities_totalview_itch_v5.0.2022 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_native_nasdaq_nsmequities_totalview_itch_v5.0.2022 PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_wide_c_nasdaq_nsmequities_totalview_itch_v5.0.2022 executables/avro/wide/c/nasdaq/nsmequities/totalview/itch/v5.0.2022/main.cpp)
+target_include_directories(avro_wide_c_nasdaq_nsmequities_totalview_itch_v5.0.2022 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_c_nasdaq_nsmequities_totalview_itch_v5.0.2022 PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_wide_c_nasdaq_nsmequities_totalview_itch_v5.0.2022 PRIVATE PkgConfig::AVRO_C)
+add_executable(avro_tree_native_nasdaq_nsmequities_totalview_itch_v5.0.2022 executables/avro/tree/native/nasdaq/nsmequities/totalview/itch/v5.0.2022/main.cpp)
+target_include_directories(avro_tree_native_nasdaq_nsmequities_totalview_itch_v5.0.2022 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_native_nasdaq_nsmequities_totalview_itch_v5.0.2022 PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_tree_c_nasdaq_nsmequities_totalview_itch_v5.0.2022 executables/avro/tree/c/nasdaq/nsmequities/totalview/itch/v5.0.2022/main.cpp)
+target_include_directories(avro_tree_c_nasdaq_nsmequities_totalview_itch_v5.0.2022 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_c_nasdaq_nsmequities_totalview_itch_v5.0.2022 PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_tree_c_nasdaq_nsmequities_totalview_itch_v5.0.2022 PRIVATE PkgConfig::AVRO_C)
 add_executable(json_native_nasdaq_nsmequities_totalview_itch_v5.0.2023 executables/json/native/nasdaq/nsmequities/totalview/itch/v5.0.2023/main.cpp)
 target_include_directories(json_native_nasdaq_nsmequities_totalview_itch_v5.0.2023 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(json_native_nasdaq_nsmequities_totalview_itch_v5.0.2023 PRIVATE ${ZSTD_LIBRARY})
@@ -281,6 +629,20 @@ add_executable(parquet_wide_nasdaq_nsmequities_totalview_itch_v5.0.2023 executab
 target_include_directories(parquet_wide_nasdaq_nsmequities_totalview_itch_v5.0.2023 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(parquet_wide_nasdaq_nsmequities_totalview_itch_v5.0.2023 PRIVATE ${ZSTD_LIBRARY})
 target_link_libraries(parquet_wide_nasdaq_nsmequities_totalview_itch_v5.0.2023 PRIVATE Arrow::arrow_shared Parquet::parquet_shared)
+add_executable(avro_wide_native_nasdaq_nsmequities_totalview_itch_v5.0.2023 executables/avro/wide/native/nasdaq/nsmequities/totalview/itch/v5.0.2023/main.cpp)
+target_include_directories(avro_wide_native_nasdaq_nsmequities_totalview_itch_v5.0.2023 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_native_nasdaq_nsmequities_totalview_itch_v5.0.2023 PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_wide_c_nasdaq_nsmequities_totalview_itch_v5.0.2023 executables/avro/wide/c/nasdaq/nsmequities/totalview/itch/v5.0.2023/main.cpp)
+target_include_directories(avro_wide_c_nasdaq_nsmequities_totalview_itch_v5.0.2023 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_c_nasdaq_nsmequities_totalview_itch_v5.0.2023 PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_wide_c_nasdaq_nsmequities_totalview_itch_v5.0.2023 PRIVATE PkgConfig::AVRO_C)
+add_executable(avro_tree_native_nasdaq_nsmequities_totalview_itch_v5.0.2023 executables/avro/tree/native/nasdaq/nsmequities/totalview/itch/v5.0.2023/main.cpp)
+target_include_directories(avro_tree_native_nasdaq_nsmequities_totalview_itch_v5.0.2023 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_native_nasdaq_nsmequities_totalview_itch_v5.0.2023 PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_tree_c_nasdaq_nsmequities_totalview_itch_v5.0.2023 executables/avro/tree/c/nasdaq/nsmequities/totalview/itch/v5.0.2023/main.cpp)
+target_include_directories(avro_tree_c_nasdaq_nsmequities_totalview_itch_v5.0.2023 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_c_nasdaq_nsmequities_totalview_itch_v5.0.2023 PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_tree_c_nasdaq_nsmequities_totalview_itch_v5.0.2023 PRIVATE PkgConfig::AVRO_C)
 add_executable(json_native_nasdaq_nsmequities_totalview_itch_v5.0.2026 executables/json/native/nasdaq/nsmequities/totalview/itch/v5.0.2026/main.cpp)
 target_include_directories(json_native_nasdaq_nsmequities_totalview_itch_v5.0.2026 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(json_native_nasdaq_nsmequities_totalview_itch_v5.0.2026 PRIVATE ${ZSTD_LIBRARY})
@@ -292,6 +654,20 @@ add_executable(parquet_wide_nasdaq_nsmequities_totalview_itch_v5.0.2026 executab
 target_include_directories(parquet_wide_nasdaq_nsmequities_totalview_itch_v5.0.2026 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(parquet_wide_nasdaq_nsmequities_totalview_itch_v5.0.2026 PRIVATE ${ZSTD_LIBRARY})
 target_link_libraries(parquet_wide_nasdaq_nsmequities_totalview_itch_v5.0.2026 PRIVATE Arrow::arrow_shared Parquet::parquet_shared)
+add_executable(avro_wide_native_nasdaq_nsmequities_totalview_itch_v5.0.2026 executables/avro/wide/native/nasdaq/nsmequities/totalview/itch/v5.0.2026/main.cpp)
+target_include_directories(avro_wide_native_nasdaq_nsmequities_totalview_itch_v5.0.2026 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_native_nasdaq_nsmequities_totalview_itch_v5.0.2026 PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_wide_c_nasdaq_nsmequities_totalview_itch_v5.0.2026 executables/avro/wide/c/nasdaq/nsmequities/totalview/itch/v5.0.2026/main.cpp)
+target_include_directories(avro_wide_c_nasdaq_nsmequities_totalview_itch_v5.0.2026 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_c_nasdaq_nsmequities_totalview_itch_v5.0.2026 PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_wide_c_nasdaq_nsmequities_totalview_itch_v5.0.2026 PRIVATE PkgConfig::AVRO_C)
+add_executable(avro_tree_native_nasdaq_nsmequities_totalview_itch_v5.0.2026 executables/avro/tree/native/nasdaq/nsmequities/totalview/itch/v5.0.2026/main.cpp)
+target_include_directories(avro_tree_native_nasdaq_nsmequities_totalview_itch_v5.0.2026 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_native_nasdaq_nsmequities_totalview_itch_v5.0.2026 PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_tree_c_nasdaq_nsmequities_totalview_itch_v5.0.2026 executables/avro/tree/c/nasdaq/nsmequities/totalview/itch/v5.0.2026/main.cpp)
+target_include_directories(avro_tree_c_nasdaq_nsmequities_totalview_itch_v5.0.2026 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_c_nasdaq_nsmequities_totalview_itch_v5.0.2026 PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_tree_c_nasdaq_nsmequities_totalview_itch_v5.0.2026 PRIVATE PkgConfig::AVRO_C)
 
 # Corpus-driven tests, built by every build so a test that does not compile fails the build.
 add_executable(json_native_iex_iexequities_deep_iextp_v1.06_test tests/json/native/iex_iexequities_deep_iextp_v1.06.cpp)
@@ -305,6 +681,20 @@ add_executable(parquet_wide_iex_iexequities_deep_iextp_v1.06_test tests/parquet/
 target_include_directories(parquet_wide_iex_iexequities_deep_iextp_v1.06_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(parquet_wide_iex_iexequities_deep_iextp_v1.06_test PRIVATE ${ZSTD_LIBRARY})
 target_link_libraries(parquet_wide_iex_iexequities_deep_iextp_v1.06_test PRIVATE Arrow::arrow_shared Parquet::parquet_shared)
+add_executable(avro_wide_native_iex_iexequities_deep_iextp_v1.06_test tests/avro/wide/native/iex_iexequities_deep_iextp_v1.06.cpp)
+target_include_directories(avro_wide_native_iex_iexequities_deep_iextp_v1.06_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_native_iex_iexequities_deep_iextp_v1.06_test PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_wide_c_iex_iexequities_deep_iextp_v1.06_test tests/avro/wide/c/iex_iexequities_deep_iextp_v1.06.cpp)
+target_include_directories(avro_wide_c_iex_iexequities_deep_iextp_v1.06_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_c_iex_iexequities_deep_iextp_v1.06_test PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_wide_c_iex_iexequities_deep_iextp_v1.06_test PRIVATE PkgConfig::AVRO_C)
+add_executable(avro_tree_native_iex_iexequities_deep_iextp_v1.06_test tests/avro/tree/native/iex_iexequities_deep_iextp_v1.06.cpp)
+target_include_directories(avro_tree_native_iex_iexequities_deep_iextp_v1.06_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_native_iex_iexequities_deep_iextp_v1.06_test PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_tree_c_iex_iexequities_deep_iextp_v1.06_test tests/avro/tree/c/iex_iexequities_deep_iextp_v1.06.cpp)
+target_include_directories(avro_tree_c_iex_iexequities_deep_iextp_v1.06_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_c_iex_iexequities_deep_iextp_v1.06_test PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_tree_c_iex_iexequities_deep_iextp_v1.06_test PRIVATE PkgConfig::AVRO_C)
 add_executable(json_native_iex_iexequities_deep_iextp_v1.08_test tests/json/native/iex_iexequities_deep_iextp_v1.08.cpp)
 target_include_directories(json_native_iex_iexequities_deep_iextp_v1.08_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(json_native_iex_iexequities_deep_iextp_v1.08_test PRIVATE ${ZSTD_LIBRARY})
@@ -316,6 +706,20 @@ add_executable(parquet_wide_iex_iexequities_deep_iextp_v1.08_test tests/parquet/
 target_include_directories(parquet_wide_iex_iexequities_deep_iextp_v1.08_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(parquet_wide_iex_iexequities_deep_iextp_v1.08_test PRIVATE ${ZSTD_LIBRARY})
 target_link_libraries(parquet_wide_iex_iexequities_deep_iextp_v1.08_test PRIVATE Arrow::arrow_shared Parquet::parquet_shared)
+add_executable(avro_wide_native_iex_iexequities_deep_iextp_v1.08_test tests/avro/wide/native/iex_iexequities_deep_iextp_v1.08.cpp)
+target_include_directories(avro_wide_native_iex_iexequities_deep_iextp_v1.08_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_native_iex_iexequities_deep_iextp_v1.08_test PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_wide_c_iex_iexequities_deep_iextp_v1.08_test tests/avro/wide/c/iex_iexequities_deep_iextp_v1.08.cpp)
+target_include_directories(avro_wide_c_iex_iexequities_deep_iextp_v1.08_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_c_iex_iexequities_deep_iextp_v1.08_test PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_wide_c_iex_iexequities_deep_iextp_v1.08_test PRIVATE PkgConfig::AVRO_C)
+add_executable(avro_tree_native_iex_iexequities_deep_iextp_v1.08_test tests/avro/tree/native/iex_iexequities_deep_iextp_v1.08.cpp)
+target_include_directories(avro_tree_native_iex_iexequities_deep_iextp_v1.08_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_native_iex_iexequities_deep_iextp_v1.08_test PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_tree_c_iex_iexequities_deep_iextp_v1.08_test tests/avro/tree/c/iex_iexequities_deep_iextp_v1.08.cpp)
+target_include_directories(avro_tree_c_iex_iexequities_deep_iextp_v1.08_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_c_iex_iexequities_deep_iextp_v1.08_test PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_tree_c_iex_iexequities_deep_iextp_v1.08_test PRIVATE PkgConfig::AVRO_C)
 add_executable(json_native_iex_iexequities_deepplus_iextp_v1.01_test tests/json/native/iex_iexequities_deepplus_iextp_v1.01.cpp)
 target_include_directories(json_native_iex_iexequities_deepplus_iextp_v1.01_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(json_native_iex_iexequities_deepplus_iextp_v1.01_test PRIVATE ${ZSTD_LIBRARY})
@@ -327,6 +731,20 @@ add_executable(parquet_wide_iex_iexequities_deepplus_iextp_v1.01_test tests/parq
 target_include_directories(parquet_wide_iex_iexequities_deepplus_iextp_v1.01_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(parquet_wide_iex_iexequities_deepplus_iextp_v1.01_test PRIVATE ${ZSTD_LIBRARY})
 target_link_libraries(parquet_wide_iex_iexequities_deepplus_iextp_v1.01_test PRIVATE Arrow::arrow_shared Parquet::parquet_shared)
+add_executable(avro_wide_native_iex_iexequities_deepplus_iextp_v1.01_test tests/avro/wide/native/iex_iexequities_deepplus_iextp_v1.01.cpp)
+target_include_directories(avro_wide_native_iex_iexequities_deepplus_iextp_v1.01_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_native_iex_iexequities_deepplus_iextp_v1.01_test PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_wide_c_iex_iexequities_deepplus_iextp_v1.01_test tests/avro/wide/c/iex_iexequities_deepplus_iextp_v1.01.cpp)
+target_include_directories(avro_wide_c_iex_iexequities_deepplus_iextp_v1.01_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_c_iex_iexequities_deepplus_iextp_v1.01_test PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_wide_c_iex_iexequities_deepplus_iextp_v1.01_test PRIVATE PkgConfig::AVRO_C)
+add_executable(avro_tree_native_iex_iexequities_deepplus_iextp_v1.01_test tests/avro/tree/native/iex_iexequities_deepplus_iextp_v1.01.cpp)
+target_include_directories(avro_tree_native_iex_iexequities_deepplus_iextp_v1.01_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_native_iex_iexequities_deepplus_iextp_v1.01_test PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_tree_c_iex_iexequities_deepplus_iextp_v1.01_test tests/avro/tree/c/iex_iexequities_deepplus_iextp_v1.01.cpp)
+target_include_directories(avro_tree_c_iex_iexequities_deepplus_iextp_v1.01_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_c_iex_iexequities_deepplus_iextp_v1.01_test PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_tree_c_iex_iexequities_deepplus_iextp_v1.01_test PRIVATE PkgConfig::AVRO_C)
 add_executable(json_native_iex_iexequities_deepplus_iextp_v1.05_test tests/json/native/iex_iexequities_deepplus_iextp_v1.05.cpp)
 target_include_directories(json_native_iex_iexequities_deepplus_iextp_v1.05_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(json_native_iex_iexequities_deepplus_iextp_v1.05_test PRIVATE ${ZSTD_LIBRARY})
@@ -338,6 +756,20 @@ add_executable(parquet_wide_iex_iexequities_deepplus_iextp_v1.05_test tests/parq
 target_include_directories(parquet_wide_iex_iexequities_deepplus_iextp_v1.05_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(parquet_wide_iex_iexequities_deepplus_iextp_v1.05_test PRIVATE ${ZSTD_LIBRARY})
 target_link_libraries(parquet_wide_iex_iexequities_deepplus_iextp_v1.05_test PRIVATE Arrow::arrow_shared Parquet::parquet_shared)
+add_executable(avro_wide_native_iex_iexequities_deepplus_iextp_v1.05_test tests/avro/wide/native/iex_iexequities_deepplus_iextp_v1.05.cpp)
+target_include_directories(avro_wide_native_iex_iexequities_deepplus_iextp_v1.05_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_native_iex_iexequities_deepplus_iextp_v1.05_test PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_wide_c_iex_iexequities_deepplus_iextp_v1.05_test tests/avro/wide/c/iex_iexequities_deepplus_iextp_v1.05.cpp)
+target_include_directories(avro_wide_c_iex_iexequities_deepplus_iextp_v1.05_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_c_iex_iexequities_deepplus_iextp_v1.05_test PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_wide_c_iex_iexequities_deepplus_iextp_v1.05_test PRIVATE PkgConfig::AVRO_C)
+add_executable(avro_tree_native_iex_iexequities_deepplus_iextp_v1.05_test tests/avro/tree/native/iex_iexequities_deepplus_iextp_v1.05.cpp)
+target_include_directories(avro_tree_native_iex_iexequities_deepplus_iextp_v1.05_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_native_iex_iexequities_deepplus_iextp_v1.05_test PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_tree_c_iex_iexequities_deepplus_iextp_v1.05_test tests/avro/tree/c/iex_iexequities_deepplus_iextp_v1.05.cpp)
+target_include_directories(avro_tree_c_iex_iexequities_deepplus_iextp_v1.05_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_c_iex_iexequities_deepplus_iextp_v1.05_test PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_tree_c_iex_iexequities_deepplus_iextp_v1.05_test PRIVATE PkgConfig::AVRO_C)
 add_executable(json_native_iex_iexequities_tops_iextp_v1.64_test tests/json/native/iex_iexequities_tops_iextp_v1.64.cpp)
 target_include_directories(json_native_iex_iexequities_tops_iextp_v1.64_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(json_native_iex_iexequities_tops_iextp_v1.64_test PRIVATE ${ZSTD_LIBRARY})
@@ -349,6 +781,20 @@ add_executable(parquet_wide_iex_iexequities_tops_iextp_v1.64_test tests/parquet/
 target_include_directories(parquet_wide_iex_iexequities_tops_iextp_v1.64_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(parquet_wide_iex_iexequities_tops_iextp_v1.64_test PRIVATE ${ZSTD_LIBRARY})
 target_link_libraries(parquet_wide_iex_iexequities_tops_iextp_v1.64_test PRIVATE Arrow::arrow_shared Parquet::parquet_shared)
+add_executable(avro_wide_native_iex_iexequities_tops_iextp_v1.64_test tests/avro/wide/native/iex_iexequities_tops_iextp_v1.64.cpp)
+target_include_directories(avro_wide_native_iex_iexequities_tops_iextp_v1.64_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_native_iex_iexequities_tops_iextp_v1.64_test PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_wide_c_iex_iexequities_tops_iextp_v1.64_test tests/avro/wide/c/iex_iexequities_tops_iextp_v1.64.cpp)
+target_include_directories(avro_wide_c_iex_iexequities_tops_iextp_v1.64_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_c_iex_iexequities_tops_iextp_v1.64_test PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_wide_c_iex_iexequities_tops_iextp_v1.64_test PRIVATE PkgConfig::AVRO_C)
+add_executable(avro_tree_native_iex_iexequities_tops_iextp_v1.64_test tests/avro/tree/native/iex_iexequities_tops_iextp_v1.64.cpp)
+target_include_directories(avro_tree_native_iex_iexequities_tops_iextp_v1.64_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_native_iex_iexequities_tops_iextp_v1.64_test PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_tree_c_iex_iexequities_tops_iextp_v1.64_test tests/avro/tree/c/iex_iexequities_tops_iextp_v1.64.cpp)
+target_include_directories(avro_tree_c_iex_iexequities_tops_iextp_v1.64_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_c_iex_iexequities_tops_iextp_v1.64_test PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_tree_c_iex_iexequities_tops_iextp_v1.64_test PRIVATE PkgConfig::AVRO_C)
 add_executable(json_native_iex_iexequities_tops_iextp_v1.66_test tests/json/native/iex_iexequities_tops_iextp_v1.66.cpp)
 target_include_directories(json_native_iex_iexequities_tops_iextp_v1.66_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(json_native_iex_iexequities_tops_iextp_v1.66_test PRIVATE ${ZSTD_LIBRARY})
@@ -360,6 +806,20 @@ add_executable(parquet_wide_iex_iexequities_tops_iextp_v1.66_test tests/parquet/
 target_include_directories(parquet_wide_iex_iexequities_tops_iextp_v1.66_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(parquet_wide_iex_iexequities_tops_iextp_v1.66_test PRIVATE ${ZSTD_LIBRARY})
 target_link_libraries(parquet_wide_iex_iexequities_tops_iextp_v1.66_test PRIVATE Arrow::arrow_shared Parquet::parquet_shared)
+add_executable(avro_wide_native_iex_iexequities_tops_iextp_v1.66_test tests/avro/wide/native/iex_iexequities_tops_iextp_v1.66.cpp)
+target_include_directories(avro_wide_native_iex_iexequities_tops_iextp_v1.66_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_native_iex_iexequities_tops_iextp_v1.66_test PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_wide_c_iex_iexequities_tops_iextp_v1.66_test tests/avro/wide/c/iex_iexequities_tops_iextp_v1.66.cpp)
+target_include_directories(avro_wide_c_iex_iexequities_tops_iextp_v1.66_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_c_iex_iexequities_tops_iextp_v1.66_test PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_wide_c_iex_iexequities_tops_iextp_v1.66_test PRIVATE PkgConfig::AVRO_C)
+add_executable(avro_tree_native_iex_iexequities_tops_iextp_v1.66_test tests/avro/tree/native/iex_iexequities_tops_iextp_v1.66.cpp)
+target_include_directories(avro_tree_native_iex_iexequities_tops_iextp_v1.66_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_native_iex_iexequities_tops_iextp_v1.66_test PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_tree_c_iex_iexequities_tops_iextp_v1.66_test tests/avro/tree/c/iex_iexequities_tops_iextp_v1.66.cpp)
+target_include_directories(avro_tree_c_iex_iexequities_tops_iextp_v1.66_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_c_iex_iexequities_tops_iextp_v1.66_test PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_tree_c_iex_iexequities_tops_iextp_v1.66_test PRIVATE PkgConfig::AVRO_C)
 add_executable(json_native_nasdaq_nsmequities_totalview_itch_v5.0.2017_test tests/json/native/nasdaq_nsmequities_totalview_itch_v5.0.2017.cpp)
 target_include_directories(json_native_nasdaq_nsmequities_totalview_itch_v5.0.2017_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(json_native_nasdaq_nsmequities_totalview_itch_v5.0.2017_test PRIVATE ${ZSTD_LIBRARY})
@@ -371,6 +831,20 @@ add_executable(parquet_wide_nasdaq_nsmequities_totalview_itch_v5.0.2017_test tes
 target_include_directories(parquet_wide_nasdaq_nsmequities_totalview_itch_v5.0.2017_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(parquet_wide_nasdaq_nsmequities_totalview_itch_v5.0.2017_test PRIVATE ${ZSTD_LIBRARY})
 target_link_libraries(parquet_wide_nasdaq_nsmequities_totalview_itch_v5.0.2017_test PRIVATE Arrow::arrow_shared Parquet::parquet_shared)
+add_executable(avro_wide_native_nasdaq_nsmequities_totalview_itch_v5.0.2017_test tests/avro/wide/native/nasdaq_nsmequities_totalview_itch_v5.0.2017.cpp)
+target_include_directories(avro_wide_native_nasdaq_nsmequities_totalview_itch_v5.0.2017_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_native_nasdaq_nsmequities_totalview_itch_v5.0.2017_test PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_wide_c_nasdaq_nsmequities_totalview_itch_v5.0.2017_test tests/avro/wide/c/nasdaq_nsmequities_totalview_itch_v5.0.2017.cpp)
+target_include_directories(avro_wide_c_nasdaq_nsmequities_totalview_itch_v5.0.2017_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_c_nasdaq_nsmequities_totalview_itch_v5.0.2017_test PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_wide_c_nasdaq_nsmequities_totalview_itch_v5.0.2017_test PRIVATE PkgConfig::AVRO_C)
+add_executable(avro_tree_native_nasdaq_nsmequities_totalview_itch_v5.0.2017_test tests/avro/tree/native/nasdaq_nsmequities_totalview_itch_v5.0.2017.cpp)
+target_include_directories(avro_tree_native_nasdaq_nsmequities_totalview_itch_v5.0.2017_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_native_nasdaq_nsmequities_totalview_itch_v5.0.2017_test PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_tree_c_nasdaq_nsmequities_totalview_itch_v5.0.2017_test tests/avro/tree/c/nasdaq_nsmequities_totalview_itch_v5.0.2017.cpp)
+target_include_directories(avro_tree_c_nasdaq_nsmequities_totalview_itch_v5.0.2017_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_c_nasdaq_nsmequities_totalview_itch_v5.0.2017_test PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_tree_c_nasdaq_nsmequities_totalview_itch_v5.0.2017_test PRIVATE PkgConfig::AVRO_C)
 add_executable(json_native_nasdaq_nsmequities_totalview_itch_v5.0.2018_test tests/json/native/nasdaq_nsmequities_totalview_itch_v5.0.2018.cpp)
 target_include_directories(json_native_nasdaq_nsmequities_totalview_itch_v5.0.2018_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(json_native_nasdaq_nsmequities_totalview_itch_v5.0.2018_test PRIVATE ${ZSTD_LIBRARY})
@@ -382,6 +856,20 @@ add_executable(parquet_wide_nasdaq_nsmequities_totalview_itch_v5.0.2018_test tes
 target_include_directories(parquet_wide_nasdaq_nsmequities_totalview_itch_v5.0.2018_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(parquet_wide_nasdaq_nsmequities_totalview_itch_v5.0.2018_test PRIVATE ${ZSTD_LIBRARY})
 target_link_libraries(parquet_wide_nasdaq_nsmequities_totalview_itch_v5.0.2018_test PRIVATE Arrow::arrow_shared Parquet::parquet_shared)
+add_executable(avro_wide_native_nasdaq_nsmequities_totalview_itch_v5.0.2018_test tests/avro/wide/native/nasdaq_nsmequities_totalview_itch_v5.0.2018.cpp)
+target_include_directories(avro_wide_native_nasdaq_nsmequities_totalview_itch_v5.0.2018_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_native_nasdaq_nsmequities_totalview_itch_v5.0.2018_test PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_wide_c_nasdaq_nsmequities_totalview_itch_v5.0.2018_test tests/avro/wide/c/nasdaq_nsmequities_totalview_itch_v5.0.2018.cpp)
+target_include_directories(avro_wide_c_nasdaq_nsmequities_totalview_itch_v5.0.2018_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_c_nasdaq_nsmequities_totalview_itch_v5.0.2018_test PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_wide_c_nasdaq_nsmequities_totalview_itch_v5.0.2018_test PRIVATE PkgConfig::AVRO_C)
+add_executable(avro_tree_native_nasdaq_nsmequities_totalview_itch_v5.0.2018_test tests/avro/tree/native/nasdaq_nsmequities_totalview_itch_v5.0.2018.cpp)
+target_include_directories(avro_tree_native_nasdaq_nsmequities_totalview_itch_v5.0.2018_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_native_nasdaq_nsmequities_totalview_itch_v5.0.2018_test PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_tree_c_nasdaq_nsmequities_totalview_itch_v5.0.2018_test tests/avro/tree/c/nasdaq_nsmequities_totalview_itch_v5.0.2018.cpp)
+target_include_directories(avro_tree_c_nasdaq_nsmequities_totalview_itch_v5.0.2018_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_c_nasdaq_nsmequities_totalview_itch_v5.0.2018_test PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_tree_c_nasdaq_nsmequities_totalview_itch_v5.0.2018_test PRIVATE PkgConfig::AVRO_C)
 add_executable(json_native_nasdaq_nsmequities_totalview_itch_v5.0.2022_test tests/json/native/nasdaq_nsmequities_totalview_itch_v5.0.2022.cpp)
 target_include_directories(json_native_nasdaq_nsmequities_totalview_itch_v5.0.2022_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(json_native_nasdaq_nsmequities_totalview_itch_v5.0.2022_test PRIVATE ${ZSTD_LIBRARY})
@@ -393,6 +881,20 @@ add_executable(parquet_wide_nasdaq_nsmequities_totalview_itch_v5.0.2022_test tes
 target_include_directories(parquet_wide_nasdaq_nsmequities_totalview_itch_v5.0.2022_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(parquet_wide_nasdaq_nsmequities_totalview_itch_v5.0.2022_test PRIVATE ${ZSTD_LIBRARY})
 target_link_libraries(parquet_wide_nasdaq_nsmequities_totalview_itch_v5.0.2022_test PRIVATE Arrow::arrow_shared Parquet::parquet_shared)
+add_executable(avro_wide_native_nasdaq_nsmequities_totalview_itch_v5.0.2022_test tests/avro/wide/native/nasdaq_nsmequities_totalview_itch_v5.0.2022.cpp)
+target_include_directories(avro_wide_native_nasdaq_nsmequities_totalview_itch_v5.0.2022_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_native_nasdaq_nsmequities_totalview_itch_v5.0.2022_test PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_wide_c_nasdaq_nsmequities_totalview_itch_v5.0.2022_test tests/avro/wide/c/nasdaq_nsmequities_totalview_itch_v5.0.2022.cpp)
+target_include_directories(avro_wide_c_nasdaq_nsmequities_totalview_itch_v5.0.2022_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_c_nasdaq_nsmequities_totalview_itch_v5.0.2022_test PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_wide_c_nasdaq_nsmequities_totalview_itch_v5.0.2022_test PRIVATE PkgConfig::AVRO_C)
+add_executable(avro_tree_native_nasdaq_nsmequities_totalview_itch_v5.0.2022_test tests/avro/tree/native/nasdaq_nsmequities_totalview_itch_v5.0.2022.cpp)
+target_include_directories(avro_tree_native_nasdaq_nsmequities_totalview_itch_v5.0.2022_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_native_nasdaq_nsmequities_totalview_itch_v5.0.2022_test PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_tree_c_nasdaq_nsmequities_totalview_itch_v5.0.2022_test tests/avro/tree/c/nasdaq_nsmequities_totalview_itch_v5.0.2022.cpp)
+target_include_directories(avro_tree_c_nasdaq_nsmequities_totalview_itch_v5.0.2022_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_c_nasdaq_nsmequities_totalview_itch_v5.0.2022_test PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_tree_c_nasdaq_nsmequities_totalview_itch_v5.0.2022_test PRIVATE PkgConfig::AVRO_C)
 add_executable(json_native_nasdaq_nsmequities_totalview_itch_v5.0.2023_test tests/json/native/nasdaq_nsmequities_totalview_itch_v5.0.2023.cpp)
 target_include_directories(json_native_nasdaq_nsmequities_totalview_itch_v5.0.2023_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(json_native_nasdaq_nsmequities_totalview_itch_v5.0.2023_test PRIVATE ${ZSTD_LIBRARY})
@@ -404,6 +906,20 @@ add_executable(parquet_wide_nasdaq_nsmequities_totalview_itch_v5.0.2023_test tes
 target_include_directories(parquet_wide_nasdaq_nsmequities_totalview_itch_v5.0.2023_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(parquet_wide_nasdaq_nsmequities_totalview_itch_v5.0.2023_test PRIVATE ${ZSTD_LIBRARY})
 target_link_libraries(parquet_wide_nasdaq_nsmequities_totalview_itch_v5.0.2023_test PRIVATE Arrow::arrow_shared Parquet::parquet_shared)
+add_executable(avro_wide_native_nasdaq_nsmequities_totalview_itch_v5.0.2023_test tests/avro/wide/native/nasdaq_nsmequities_totalview_itch_v5.0.2023.cpp)
+target_include_directories(avro_wide_native_nasdaq_nsmequities_totalview_itch_v5.0.2023_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_native_nasdaq_nsmequities_totalview_itch_v5.0.2023_test PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_wide_c_nasdaq_nsmequities_totalview_itch_v5.0.2023_test tests/avro/wide/c/nasdaq_nsmequities_totalview_itch_v5.0.2023.cpp)
+target_include_directories(avro_wide_c_nasdaq_nsmequities_totalview_itch_v5.0.2023_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_c_nasdaq_nsmequities_totalview_itch_v5.0.2023_test PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_wide_c_nasdaq_nsmequities_totalview_itch_v5.0.2023_test PRIVATE PkgConfig::AVRO_C)
+add_executable(avro_tree_native_nasdaq_nsmequities_totalview_itch_v5.0.2023_test tests/avro/tree/native/nasdaq_nsmequities_totalview_itch_v5.0.2023.cpp)
+target_include_directories(avro_tree_native_nasdaq_nsmequities_totalview_itch_v5.0.2023_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_native_nasdaq_nsmequities_totalview_itch_v5.0.2023_test PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_tree_c_nasdaq_nsmequities_totalview_itch_v5.0.2023_test tests/avro/tree/c/nasdaq_nsmequities_totalview_itch_v5.0.2023.cpp)
+target_include_directories(avro_tree_c_nasdaq_nsmequities_totalview_itch_v5.0.2023_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_c_nasdaq_nsmequities_totalview_itch_v5.0.2023_test PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_tree_c_nasdaq_nsmequities_totalview_itch_v5.0.2023_test PRIVATE PkgConfig::AVRO_C)
 add_executable(json_native_nasdaq_nsmequities_totalview_itch_v5.0.2026_test tests/json/native/nasdaq_nsmequities_totalview_itch_v5.0.2026.cpp)
 target_include_directories(json_native_nasdaq_nsmequities_totalview_itch_v5.0.2026_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(json_native_nasdaq_nsmequities_totalview_itch_v5.0.2026_test PRIVATE ${ZSTD_LIBRARY})
@@ -415,6 +931,20 @@ add_executable(parquet_wide_nasdaq_nsmequities_totalview_itch_v5.0.2026_test tes
 target_include_directories(parquet_wide_nasdaq_nsmequities_totalview_itch_v5.0.2026_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(parquet_wide_nasdaq_nsmequities_totalview_itch_v5.0.2026_test PRIVATE ${ZSTD_LIBRARY})
 target_link_libraries(parquet_wide_nasdaq_nsmequities_totalview_itch_v5.0.2026_test PRIVATE Arrow::arrow_shared Parquet::parquet_shared)
+add_executable(avro_wide_native_nasdaq_nsmequities_totalview_itch_v5.0.2026_test tests/avro/wide/native/nasdaq_nsmequities_totalview_itch_v5.0.2026.cpp)
+target_include_directories(avro_wide_native_nasdaq_nsmequities_totalview_itch_v5.0.2026_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_native_nasdaq_nsmequities_totalview_itch_v5.0.2026_test PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_wide_c_nasdaq_nsmequities_totalview_itch_v5.0.2026_test tests/avro/wide/c/nasdaq_nsmequities_totalview_itch_v5.0.2026.cpp)
+target_include_directories(avro_wide_c_nasdaq_nsmequities_totalview_itch_v5.0.2026_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_c_nasdaq_nsmequities_totalview_itch_v5.0.2026_test PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_wide_c_nasdaq_nsmequities_totalview_itch_v5.0.2026_test PRIVATE PkgConfig::AVRO_C)
+add_executable(avro_tree_native_nasdaq_nsmequities_totalview_itch_v5.0.2026_test tests/avro/tree/native/nasdaq_nsmequities_totalview_itch_v5.0.2026.cpp)
+target_include_directories(avro_tree_native_nasdaq_nsmequities_totalview_itch_v5.0.2026_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_native_nasdaq_nsmequities_totalview_itch_v5.0.2026_test PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_tree_c_nasdaq_nsmequities_totalview_itch_v5.0.2026_test tests/avro/tree/c/nasdaq_nsmequities_totalview_itch_v5.0.2026.cpp)
+target_include_directories(avro_tree_c_nasdaq_nsmequities_totalview_itch_v5.0.2026_test PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_c_nasdaq_nsmequities_totalview_itch_v5.0.2026_test PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_tree_c_nasdaq_nsmequities_totalview_itch_v5.0.2026_test PRIVATE PkgConfig::AVRO_C)
 
 # Running them reads the captures each protocol declares, from an omi-data-pcaps checkout:
 #
@@ -435,6 +965,18 @@ if(OMI_PACKETS_DIR)
   add_test(NAME parquet_wide_iex_iexequities_deep_iextp_v1.06 COMMAND parquet_wide_iex_iexequities_deep_iextp_v1.06_test)
   set_tests_properties(parquet_wide_iex_iexequities_deep_iextp_v1.06 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
 
+  add_test(NAME avro_wide_native_iex_iexequities_deep_iextp_v1.06 COMMAND avro_wide_native_iex_iexequities_deep_iextp_v1.06_test)
+  set_tests_properties(avro_wide_native_iex_iexequities_deep_iextp_v1.06 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
+
+  add_test(NAME avro_wide_c_iex_iexequities_deep_iextp_v1.06 COMMAND avro_wide_c_iex_iexequities_deep_iextp_v1.06_test)
+  set_tests_properties(avro_wide_c_iex_iexequities_deep_iextp_v1.06 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
+
+  add_test(NAME avro_tree_native_iex_iexequities_deep_iextp_v1.06 COMMAND avro_tree_native_iex_iexequities_deep_iextp_v1.06_test)
+  set_tests_properties(avro_tree_native_iex_iexequities_deep_iextp_v1.06 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
+
+  add_test(NAME avro_tree_c_iex_iexequities_deep_iextp_v1.06 COMMAND avro_tree_c_iex_iexequities_deep_iextp_v1.06_test)
+  set_tests_properties(avro_tree_c_iex_iexequities_deep_iextp_v1.06 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
+
   add_test(NAME json_native_iex_iexequities_deep_iextp_v1.08 COMMAND json_native_iex_iexequities_deep_iextp_v1.08_test)
   set_tests_properties(json_native_iex_iexequities_deep_iextp_v1.08 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
 
@@ -443,6 +985,18 @@ if(OMI_PACKETS_DIR)
 
   add_test(NAME parquet_wide_iex_iexequities_deep_iextp_v1.08 COMMAND parquet_wide_iex_iexequities_deep_iextp_v1.08_test)
   set_tests_properties(parquet_wide_iex_iexequities_deep_iextp_v1.08 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
+
+  add_test(NAME avro_wide_native_iex_iexequities_deep_iextp_v1.08 COMMAND avro_wide_native_iex_iexequities_deep_iextp_v1.08_test)
+  set_tests_properties(avro_wide_native_iex_iexequities_deep_iextp_v1.08 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
+
+  add_test(NAME avro_wide_c_iex_iexequities_deep_iextp_v1.08 COMMAND avro_wide_c_iex_iexequities_deep_iextp_v1.08_test)
+  set_tests_properties(avro_wide_c_iex_iexequities_deep_iextp_v1.08 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
+
+  add_test(NAME avro_tree_native_iex_iexequities_deep_iextp_v1.08 COMMAND avro_tree_native_iex_iexequities_deep_iextp_v1.08_test)
+  set_tests_properties(avro_tree_native_iex_iexequities_deep_iextp_v1.08 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
+
+  add_test(NAME avro_tree_c_iex_iexequities_deep_iextp_v1.08 COMMAND avro_tree_c_iex_iexequities_deep_iextp_v1.08_test)
+  set_tests_properties(avro_tree_c_iex_iexequities_deep_iextp_v1.08 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
 
   add_test(NAME json_native_iex_iexequities_deepplus_iextp_v1.01 COMMAND json_native_iex_iexequities_deepplus_iextp_v1.01_test)
   set_tests_properties(json_native_iex_iexequities_deepplus_iextp_v1.01 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
@@ -453,6 +1007,18 @@ if(OMI_PACKETS_DIR)
   add_test(NAME parquet_wide_iex_iexequities_deepplus_iextp_v1.01 COMMAND parquet_wide_iex_iexequities_deepplus_iextp_v1.01_test)
   set_tests_properties(parquet_wide_iex_iexequities_deepplus_iextp_v1.01 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
 
+  add_test(NAME avro_wide_native_iex_iexequities_deepplus_iextp_v1.01 COMMAND avro_wide_native_iex_iexequities_deepplus_iextp_v1.01_test)
+  set_tests_properties(avro_wide_native_iex_iexequities_deepplus_iextp_v1.01 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
+
+  add_test(NAME avro_wide_c_iex_iexequities_deepplus_iextp_v1.01 COMMAND avro_wide_c_iex_iexequities_deepplus_iextp_v1.01_test)
+  set_tests_properties(avro_wide_c_iex_iexequities_deepplus_iextp_v1.01 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
+
+  add_test(NAME avro_tree_native_iex_iexequities_deepplus_iextp_v1.01 COMMAND avro_tree_native_iex_iexequities_deepplus_iextp_v1.01_test)
+  set_tests_properties(avro_tree_native_iex_iexequities_deepplus_iextp_v1.01 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
+
+  add_test(NAME avro_tree_c_iex_iexequities_deepplus_iextp_v1.01 COMMAND avro_tree_c_iex_iexequities_deepplus_iextp_v1.01_test)
+  set_tests_properties(avro_tree_c_iex_iexequities_deepplus_iextp_v1.01 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
+
   add_test(NAME json_native_iex_iexequities_deepplus_iextp_v1.05 COMMAND json_native_iex_iexequities_deepplus_iextp_v1.05_test)
   set_tests_properties(json_native_iex_iexequities_deepplus_iextp_v1.05 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
 
@@ -461,6 +1027,18 @@ if(OMI_PACKETS_DIR)
 
   add_test(NAME parquet_wide_iex_iexequities_deepplus_iextp_v1.05 COMMAND parquet_wide_iex_iexequities_deepplus_iextp_v1.05_test)
   set_tests_properties(parquet_wide_iex_iexequities_deepplus_iextp_v1.05 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
+
+  add_test(NAME avro_wide_native_iex_iexequities_deepplus_iextp_v1.05 COMMAND avro_wide_native_iex_iexequities_deepplus_iextp_v1.05_test)
+  set_tests_properties(avro_wide_native_iex_iexequities_deepplus_iextp_v1.05 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
+
+  add_test(NAME avro_wide_c_iex_iexequities_deepplus_iextp_v1.05 COMMAND avro_wide_c_iex_iexequities_deepplus_iextp_v1.05_test)
+  set_tests_properties(avro_wide_c_iex_iexequities_deepplus_iextp_v1.05 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
+
+  add_test(NAME avro_tree_native_iex_iexequities_deepplus_iextp_v1.05 COMMAND avro_tree_native_iex_iexequities_deepplus_iextp_v1.05_test)
+  set_tests_properties(avro_tree_native_iex_iexequities_deepplus_iextp_v1.05 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
+
+  add_test(NAME avro_tree_c_iex_iexequities_deepplus_iextp_v1.05 COMMAND avro_tree_c_iex_iexequities_deepplus_iextp_v1.05_test)
+  set_tests_properties(avro_tree_c_iex_iexequities_deepplus_iextp_v1.05 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
 
   add_test(NAME json_native_iex_iexequities_tops_iextp_v1.64 COMMAND json_native_iex_iexequities_tops_iextp_v1.64_test)
   set_tests_properties(json_native_iex_iexequities_tops_iextp_v1.64 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
@@ -471,6 +1049,18 @@ if(OMI_PACKETS_DIR)
   add_test(NAME parquet_wide_iex_iexequities_tops_iextp_v1.64 COMMAND parquet_wide_iex_iexequities_tops_iextp_v1.64_test)
   set_tests_properties(parquet_wide_iex_iexequities_tops_iextp_v1.64 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
 
+  add_test(NAME avro_wide_native_iex_iexequities_tops_iextp_v1.64 COMMAND avro_wide_native_iex_iexequities_tops_iextp_v1.64_test)
+  set_tests_properties(avro_wide_native_iex_iexequities_tops_iextp_v1.64 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
+
+  add_test(NAME avro_wide_c_iex_iexequities_tops_iextp_v1.64 COMMAND avro_wide_c_iex_iexequities_tops_iextp_v1.64_test)
+  set_tests_properties(avro_wide_c_iex_iexequities_tops_iextp_v1.64 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
+
+  add_test(NAME avro_tree_native_iex_iexequities_tops_iextp_v1.64 COMMAND avro_tree_native_iex_iexequities_tops_iextp_v1.64_test)
+  set_tests_properties(avro_tree_native_iex_iexequities_tops_iextp_v1.64 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
+
+  add_test(NAME avro_tree_c_iex_iexequities_tops_iextp_v1.64 COMMAND avro_tree_c_iex_iexequities_tops_iextp_v1.64_test)
+  set_tests_properties(avro_tree_c_iex_iexequities_tops_iextp_v1.64 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
+
   add_test(NAME json_native_iex_iexequities_tops_iextp_v1.66 COMMAND json_native_iex_iexequities_tops_iextp_v1.66_test)
   set_tests_properties(json_native_iex_iexequities_tops_iextp_v1.66 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
 
@@ -479,6 +1069,18 @@ if(OMI_PACKETS_DIR)
 
   add_test(NAME parquet_wide_iex_iexequities_tops_iextp_v1.66 COMMAND parquet_wide_iex_iexequities_tops_iextp_v1.66_test)
   set_tests_properties(parquet_wide_iex_iexequities_tops_iextp_v1.66 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
+
+  add_test(NAME avro_wide_native_iex_iexequities_tops_iextp_v1.66 COMMAND avro_wide_native_iex_iexequities_tops_iextp_v1.66_test)
+  set_tests_properties(avro_wide_native_iex_iexequities_tops_iextp_v1.66 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
+
+  add_test(NAME avro_wide_c_iex_iexequities_tops_iextp_v1.66 COMMAND avro_wide_c_iex_iexequities_tops_iextp_v1.66_test)
+  set_tests_properties(avro_wide_c_iex_iexequities_tops_iextp_v1.66 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
+
+  add_test(NAME avro_tree_native_iex_iexequities_tops_iextp_v1.66 COMMAND avro_tree_native_iex_iexequities_tops_iextp_v1.66_test)
+  set_tests_properties(avro_tree_native_iex_iexequities_tops_iextp_v1.66 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
+
+  add_test(NAME avro_tree_c_iex_iexequities_tops_iextp_v1.66 COMMAND avro_tree_c_iex_iexequities_tops_iextp_v1.66_test)
+  set_tests_properties(avro_tree_c_iex_iexequities_tops_iextp_v1.66 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
 
   add_test(NAME json_native_nasdaq_nsmequities_totalview_itch_v5.0.2017 COMMAND json_native_nasdaq_nsmequities_totalview_itch_v5.0.2017_test)
   set_tests_properties(json_native_nasdaq_nsmequities_totalview_itch_v5.0.2017 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
@@ -489,6 +1091,18 @@ if(OMI_PACKETS_DIR)
   add_test(NAME parquet_wide_nasdaq_nsmequities_totalview_itch_v5.0.2017 COMMAND parquet_wide_nasdaq_nsmequities_totalview_itch_v5.0.2017_test)
   set_tests_properties(parquet_wide_nasdaq_nsmequities_totalview_itch_v5.0.2017 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
 
+  add_test(NAME avro_wide_native_nasdaq_nsmequities_totalview_itch_v5.0.2017 COMMAND avro_wide_native_nasdaq_nsmequities_totalview_itch_v5.0.2017_test)
+  set_tests_properties(avro_wide_native_nasdaq_nsmequities_totalview_itch_v5.0.2017 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
+
+  add_test(NAME avro_wide_c_nasdaq_nsmequities_totalview_itch_v5.0.2017 COMMAND avro_wide_c_nasdaq_nsmequities_totalview_itch_v5.0.2017_test)
+  set_tests_properties(avro_wide_c_nasdaq_nsmequities_totalview_itch_v5.0.2017 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
+
+  add_test(NAME avro_tree_native_nasdaq_nsmequities_totalview_itch_v5.0.2017 COMMAND avro_tree_native_nasdaq_nsmequities_totalview_itch_v5.0.2017_test)
+  set_tests_properties(avro_tree_native_nasdaq_nsmequities_totalview_itch_v5.0.2017 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
+
+  add_test(NAME avro_tree_c_nasdaq_nsmequities_totalview_itch_v5.0.2017 COMMAND avro_tree_c_nasdaq_nsmequities_totalview_itch_v5.0.2017_test)
+  set_tests_properties(avro_tree_c_nasdaq_nsmequities_totalview_itch_v5.0.2017 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
+
   add_test(NAME json_native_nasdaq_nsmequities_totalview_itch_v5.0.2018 COMMAND json_native_nasdaq_nsmequities_totalview_itch_v5.0.2018_test)
   set_tests_properties(json_native_nasdaq_nsmequities_totalview_itch_v5.0.2018 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
 
@@ -497,6 +1111,18 @@ if(OMI_PACKETS_DIR)
 
   add_test(NAME parquet_wide_nasdaq_nsmequities_totalview_itch_v5.0.2018 COMMAND parquet_wide_nasdaq_nsmequities_totalview_itch_v5.0.2018_test)
   set_tests_properties(parquet_wide_nasdaq_nsmequities_totalview_itch_v5.0.2018 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
+
+  add_test(NAME avro_wide_native_nasdaq_nsmequities_totalview_itch_v5.0.2018 COMMAND avro_wide_native_nasdaq_nsmequities_totalview_itch_v5.0.2018_test)
+  set_tests_properties(avro_wide_native_nasdaq_nsmequities_totalview_itch_v5.0.2018 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
+
+  add_test(NAME avro_wide_c_nasdaq_nsmequities_totalview_itch_v5.0.2018 COMMAND avro_wide_c_nasdaq_nsmequities_totalview_itch_v5.0.2018_test)
+  set_tests_properties(avro_wide_c_nasdaq_nsmequities_totalview_itch_v5.0.2018 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
+
+  add_test(NAME avro_tree_native_nasdaq_nsmequities_totalview_itch_v5.0.2018 COMMAND avro_tree_native_nasdaq_nsmequities_totalview_itch_v5.0.2018_test)
+  set_tests_properties(avro_tree_native_nasdaq_nsmequities_totalview_itch_v5.0.2018 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
+
+  add_test(NAME avro_tree_c_nasdaq_nsmequities_totalview_itch_v5.0.2018 COMMAND avro_tree_c_nasdaq_nsmequities_totalview_itch_v5.0.2018_test)
+  set_tests_properties(avro_tree_c_nasdaq_nsmequities_totalview_itch_v5.0.2018 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
 
   add_test(NAME json_native_nasdaq_nsmequities_totalview_itch_v5.0.2022 COMMAND json_native_nasdaq_nsmequities_totalview_itch_v5.0.2022_test)
   set_tests_properties(json_native_nasdaq_nsmequities_totalview_itch_v5.0.2022 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
@@ -507,6 +1133,18 @@ if(OMI_PACKETS_DIR)
   add_test(NAME parquet_wide_nasdaq_nsmequities_totalview_itch_v5.0.2022 COMMAND parquet_wide_nasdaq_nsmequities_totalview_itch_v5.0.2022_test)
   set_tests_properties(parquet_wide_nasdaq_nsmequities_totalview_itch_v5.0.2022 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
 
+  add_test(NAME avro_wide_native_nasdaq_nsmequities_totalview_itch_v5.0.2022 COMMAND avro_wide_native_nasdaq_nsmequities_totalview_itch_v5.0.2022_test)
+  set_tests_properties(avro_wide_native_nasdaq_nsmequities_totalview_itch_v5.0.2022 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
+
+  add_test(NAME avro_wide_c_nasdaq_nsmequities_totalview_itch_v5.0.2022 COMMAND avro_wide_c_nasdaq_nsmequities_totalview_itch_v5.0.2022_test)
+  set_tests_properties(avro_wide_c_nasdaq_nsmequities_totalview_itch_v5.0.2022 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
+
+  add_test(NAME avro_tree_native_nasdaq_nsmequities_totalview_itch_v5.0.2022 COMMAND avro_tree_native_nasdaq_nsmequities_totalview_itch_v5.0.2022_test)
+  set_tests_properties(avro_tree_native_nasdaq_nsmequities_totalview_itch_v5.0.2022 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
+
+  add_test(NAME avro_tree_c_nasdaq_nsmequities_totalview_itch_v5.0.2022 COMMAND avro_tree_c_nasdaq_nsmequities_totalview_itch_v5.0.2022_test)
+  set_tests_properties(avro_tree_c_nasdaq_nsmequities_totalview_itch_v5.0.2022 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
+
   add_test(NAME json_native_nasdaq_nsmequities_totalview_itch_v5.0.2023 COMMAND json_native_nasdaq_nsmequities_totalview_itch_v5.0.2023_test)
   set_tests_properties(json_native_nasdaq_nsmequities_totalview_itch_v5.0.2023 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
 
@@ -516,6 +1154,18 @@ if(OMI_PACKETS_DIR)
   add_test(NAME parquet_wide_nasdaq_nsmequities_totalview_itch_v5.0.2023 COMMAND parquet_wide_nasdaq_nsmequities_totalview_itch_v5.0.2023_test)
   set_tests_properties(parquet_wide_nasdaq_nsmequities_totalview_itch_v5.0.2023 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
 
+  add_test(NAME avro_wide_native_nasdaq_nsmequities_totalview_itch_v5.0.2023 COMMAND avro_wide_native_nasdaq_nsmequities_totalview_itch_v5.0.2023_test)
+  set_tests_properties(avro_wide_native_nasdaq_nsmequities_totalview_itch_v5.0.2023 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
+
+  add_test(NAME avro_wide_c_nasdaq_nsmequities_totalview_itch_v5.0.2023 COMMAND avro_wide_c_nasdaq_nsmequities_totalview_itch_v5.0.2023_test)
+  set_tests_properties(avro_wide_c_nasdaq_nsmequities_totalview_itch_v5.0.2023 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
+
+  add_test(NAME avro_tree_native_nasdaq_nsmequities_totalview_itch_v5.0.2023 COMMAND avro_tree_native_nasdaq_nsmequities_totalview_itch_v5.0.2023_test)
+  set_tests_properties(avro_tree_native_nasdaq_nsmequities_totalview_itch_v5.0.2023 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
+
+  add_test(NAME avro_tree_c_nasdaq_nsmequities_totalview_itch_v5.0.2023 COMMAND avro_tree_c_nasdaq_nsmequities_totalview_itch_v5.0.2023_test)
+  set_tests_properties(avro_tree_c_nasdaq_nsmequities_totalview_itch_v5.0.2023 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
+
   add_test(NAME json_native_nasdaq_nsmequities_totalview_itch_v5.0.2026 COMMAND json_native_nasdaq_nsmequities_totalview_itch_v5.0.2026_test)
   set_tests_properties(json_native_nasdaq_nsmequities_totalview_itch_v5.0.2026 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
 
@@ -524,4 +1174,16 @@ if(OMI_PACKETS_DIR)
 
   add_test(NAME parquet_wide_nasdaq_nsmequities_totalview_itch_v5.0.2026 COMMAND parquet_wide_nasdaq_nsmequities_totalview_itch_v5.0.2026_test)
   set_tests_properties(parquet_wide_nasdaq_nsmequities_totalview_itch_v5.0.2026 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
+
+  add_test(NAME avro_wide_native_nasdaq_nsmequities_totalview_itch_v5.0.2026 COMMAND avro_wide_native_nasdaq_nsmequities_totalview_itch_v5.0.2026_test)
+  set_tests_properties(avro_wide_native_nasdaq_nsmequities_totalview_itch_v5.0.2026 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
+
+  add_test(NAME avro_wide_c_nasdaq_nsmequities_totalview_itch_v5.0.2026 COMMAND avro_wide_c_nasdaq_nsmequities_totalview_itch_v5.0.2026_test)
+  set_tests_properties(avro_wide_c_nasdaq_nsmequities_totalview_itch_v5.0.2026 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
+
+  add_test(NAME avro_tree_native_nasdaq_nsmequities_totalview_itch_v5.0.2026 COMMAND avro_tree_native_nasdaq_nsmequities_totalview_itch_v5.0.2026_test)
+  set_tests_properties(avro_tree_native_nasdaq_nsmequities_totalview_itch_v5.0.2026 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
+
+  add_test(NAME avro_tree_c_nasdaq_nsmequities_totalview_itch_v5.0.2026 COMMAND avro_tree_c_nasdaq_nsmequities_totalview_itch_v5.0.2026_test)
+  set_tests_properties(avro_tree_c_nasdaq_nsmequities_totalview_itch_v5.0.2026 PROPERTIES ENVIRONMENT "OMI_PACKETS_DIR=${OMI_PACKETS_DIR}")
 endif()

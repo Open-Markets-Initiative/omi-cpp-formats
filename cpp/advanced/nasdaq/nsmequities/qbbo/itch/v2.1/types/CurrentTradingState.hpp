@@ -57,7 +57,7 @@ struct current_trading_state {
     using storage_type = result_type;
 
     constexpr current_trading_state()
-     : value{ enum_type::halted_paused } {}
+     : value{ enum_type{} } {}
 
     constexpr current_trading_state(enum_type v)
      : value{ v } {}

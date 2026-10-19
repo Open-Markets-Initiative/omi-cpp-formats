@@ -31,7 +31,7 @@ struct price_level_update_message {
         itch_aggregated::mpid mpid;
     };
 
-    message_header header = {std::uint16_t(sizeof(message_header) + sizeof(fields_type) - 2), message_type::enum_type::price_level_update_message};
+    itch_aggregated::message_header header = {std::uint16_t(sizeof(itch_aggregated::message_header) + sizeof(fields_type) - 2), message_type::enum_type::price_level_update_message};
 
     fields_type fields;
 
@@ -57,7 +57,7 @@ static_assert(offsetof(price_level_update_message::fields_type, stock) == 17, "u
 static_assert(offsetof(price_level_update_message::fields_type, price) == 25, "unexpected offset of price_level_update_message::fields_type::price");
 static_assert(offsetof(price_level_update_message::fields_type, mpid) == 29, "unexpected offset of price_level_update_message::fields_type::mpid");
 static_assert(sizeof(price_level_update_message::fields_type) == 33, "unexpected sizeof price_level_update_message::fields_type");
-static_assert(sizeof(price_level_update_message) == sizeof(message_header) + 33, "unexpected sizeof price_level_update_message");
+static_assert(sizeof(price_level_update_message) == sizeof(itch_aggregated::message_header) + 33, "unexpected sizeof price_level_update_message");
 
 #pragma pack(pop)
 }

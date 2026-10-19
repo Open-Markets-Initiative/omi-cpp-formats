@@ -197,7 +197,7 @@ inline void write(omi::json::native::Writer& writer, const iextp_tops::auction_i
     writer.key("imbalance_side");
     writer.string(iextp_tops::imbalance_side::to_string(message.fields.imbalance_side.get().value()));
     writer.key("extension_number");
-    writer.character(message.fields.extension_number.get().value());
+    writer.unsigned_integer(static_cast<std::uint64_t>(message.fields.extension_number.get().value()));
     writer.key("scheduled_auction_time");
     writer.unsigned_integer(static_cast<std::uint64_t>(message.fields.scheduled_auction_time.get().value()));
     writer.key("auction_book_clearing_price");

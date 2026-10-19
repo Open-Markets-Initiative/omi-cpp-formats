@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install C++23 compiler
-        run: sudo apt-get update && sudo apt-get install -y g++-14 rapidjson-dev libarrow-dev libparquet-dev libzstd-dev
+        run: sudo apt-get update && sudo apt-get install -y g++-14 rapidjson-dev libarrow-dev libparquet-dev libavro-dev libzstd-dev
       - name: Clone captures
         run: git clone --depth=1 https://github.com/Open-Markets-Initiative/omi-data-pcaps.git
       - name: Configure

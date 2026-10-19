@@ -16,12 +16,10 @@ namespace itch_totalview = ::nasdaq::nsmequities::totalview::itch::v5_0_2022;
 template <typename Message>
 inline constexpr bool writes = true;
 
-inline void write(omi::json::native::Writer& writer, const itch_totalview::debug_packet& message) {
+inline void write(omi::json::native::Writer& writer, const itch_totalview::debug_packet&) {
     writer.start_object();
     writer.key("message");
     writer.string("DebugPacket");
-    writer.key("text");
-    writer.character(message.fields.text.get().value());
     writer.end_object();
 }
 

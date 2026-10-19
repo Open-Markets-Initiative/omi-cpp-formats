@@ -32,6 +32,7 @@
 #include "NetOrderImbalanceIndicatorMessage.hpp"
 #include "RetailPriceImprovementIndicatorMessage.hpp"
 #include "DirectListingWithCapitalRaisePriceDiscoveryMessage.hpp"
+#include "../json/messages/debug_packet_json.hpp"
 #include "../json/messages/unsequenced_data_packet_json.hpp"
 #include "../json/messages/sequenced_data_packet_json.hpp"
 
@@ -53,9 +54,9 @@ inline std::ostream& operator<<(std::ostream& os, const server_packet_header& va
     return os;
 }
 
-inline std::ostream& operator<<(std::ostream& os, const udp_packet_header& value) {
-    os << "udp_session=\"" << value.udp_session.get_trimmed().value() << '"'
-       << ",udp_sequence_number=" << value.udp_sequence_number.get().value()
+inline std::ostream& operator<<(std::ostream& os, const packet_header& value) {
+    os << "session=\"" << value.session.get_trimmed().value() << '"'
+       << ",sequence_number=" << value.sequence_number.get().value()
        << ",message_count=" << value.message_count.get().value()
        ;
     return os;
@@ -69,7 +70,7 @@ inline std::ostream& operator<<(std::ostream& os, const message_header& value) {
 }
 
 inline std::ostream& operator<<(std::ostream& os, const debug_packet& msg) {
-    os << "text=\"" << msg.fields.text.get().value() << '"'
+    os << "tail=" << json::tail_to_json_string(msg)
        ;
     return os;
 }

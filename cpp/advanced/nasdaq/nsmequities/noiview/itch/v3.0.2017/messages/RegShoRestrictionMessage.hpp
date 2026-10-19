@@ -23,7 +23,7 @@ struct reg_sho_restriction_message {
         itch_noiview::reg_sho_action reg_sho_action;
     };
 
-    message_header header = {std::uint16_t(sizeof(message_header) + sizeof(fields_type) - 2), message_type::enum_type::reg_sho_restriction_message};
+    itch_noiview::message_header header = {std::uint16_t(sizeof(itch_noiview::message_header) + sizeof(fields_type) - 2), message_type::enum_type::reg_sho_restriction_message};
 
     fields_type fields;
 
@@ -45,7 +45,7 @@ static_assert(offsetof(reg_sho_restriction_message::fields_type, timestamp) == 2
 static_assert(offsetof(reg_sho_restriction_message::fields_type, stock) == 8, "unexpected offset of reg_sho_restriction_message::fields_type::stock");
 static_assert(offsetof(reg_sho_restriction_message::fields_type, reg_sho_action) == 16, "unexpected offset of reg_sho_restriction_message::fields_type::reg_sho_action");
 static_assert(sizeof(reg_sho_restriction_message::fields_type) == 17, "unexpected sizeof reg_sho_restriction_message::fields_type");
-static_assert(sizeof(reg_sho_restriction_message) == sizeof(message_header) + 17, "unexpected sizeof reg_sho_restriction_message");
+static_assert(sizeof(reg_sho_restriction_message) == sizeof(itch_noiview::message_header) + 17, "unexpected sizeof reg_sho_restriction_message");
 
 #pragma pack(pop)
 }

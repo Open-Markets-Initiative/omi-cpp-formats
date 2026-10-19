@@ -54,7 +54,7 @@ struct luld_reference_price_tier {
     using storage_type = result_type;
 
     constexpr luld_reference_price_tier()
-     : value{ enum_type::tier_1_nms_stocks_and_select_et_ps } {}
+     : value{ enum_type{} } {}
 
     constexpr luld_reference_price_tier(enum_type v)
      : value{ v } {}

@@ -21,7 +21,7 @@ struct system_event_message {
         itch_qbbo::event_code event_code;
     };
 
-    message_header header = {std::uint16_t(sizeof(message_header) + sizeof(fields_type) - 2), message_type::enum_type::system_event_message};
+    itch_qbbo::message_header header = {std::uint16_t(sizeof(itch_qbbo::message_header) + sizeof(fields_type) - 2), message_type::enum_type::system_event_message};
 
     fields_type fields;
 
@@ -42,7 +42,7 @@ static_assert(offsetof(system_event_message::fields_type, tracking_number) == 0,
 static_assert(offsetof(system_event_message::fields_type, time_stamp) == 2, "unexpected offset of system_event_message::fields_type::time_stamp");
 static_assert(offsetof(system_event_message::fields_type, event_code) == 8, "unexpected offset of system_event_message::fields_type::event_code");
 static_assert(sizeof(system_event_message::fields_type) == 9, "unexpected sizeof system_event_message::fields_type");
-static_assert(sizeof(system_event_message) == sizeof(message_header) + 9, "unexpected sizeof system_event_message");
+static_assert(sizeof(system_event_message) == sizeof(itch_qbbo::message_header) + 9, "unexpected sizeof system_event_message");
 
 #pragma pack(pop)
 }

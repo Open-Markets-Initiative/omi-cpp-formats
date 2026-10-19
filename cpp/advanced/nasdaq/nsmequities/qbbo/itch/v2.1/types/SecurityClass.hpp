@@ -66,7 +66,7 @@ struct security_class {
     using storage_type = result_type;
 
     constexpr security_class()
-     : value{ enum_type::nasdaq_listed_issue } {}
+     : value{ enum_type{} } {}
 
     constexpr security_class(enum_type v)
      : value{ v } {}

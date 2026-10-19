@@ -27,7 +27,7 @@ struct ipo_information_message {
         itch_nlsplus::reference_price reference_price;
     };
 
-    message_header header = {std::uint16_t(sizeof(message_header) + sizeof(fields_type) - 2), message_type::enum_type::ipo_information_message};
+    itch_nlsplus::message_header header = {std::uint16_t(sizeof(itch_nlsplus::message_header) + sizeof(fields_type) - 2), message_type::enum_type::ipo_information_message};
 
     fields_type fields;
 
@@ -51,7 +51,7 @@ static_assert(offsetof(ipo_information_message::fields_type, security_class) == 
 static_assert(offsetof(ipo_information_message::fields_type, reference_for_net_change) == 17, "unexpected offset of ipo_information_message::fields_type::reference_for_net_change");
 static_assert(offsetof(ipo_information_message::fields_type, reference_price) == 18, "unexpected offset of ipo_information_message::fields_type::reference_price");
 static_assert(sizeof(ipo_information_message::fields_type) == 26, "unexpected sizeof ipo_information_message::fields_type");
-static_assert(sizeof(ipo_information_message) == sizeof(message_header) + 26, "unexpected sizeof ipo_information_message");
+static_assert(sizeof(ipo_information_message) == sizeof(itch_nlsplus::message_header) + 26, "unexpected sizeof ipo_information_message");
 
 #pragma pack(pop)
 }

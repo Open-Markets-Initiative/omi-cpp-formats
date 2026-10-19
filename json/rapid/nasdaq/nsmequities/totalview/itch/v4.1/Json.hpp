@@ -17,12 +17,10 @@ template <typename Message>
 inline constexpr bool writes = true;
 
 template <typename Writer>
-void write(Writer& writer, const itch_totalview::debug_packet& message) {
+void write(Writer& writer, const itch_totalview::debug_packet&) {
     writer.StartObject();
     writer.Key("message");
     writer.String("DebugPacket");
-    writer.Key("text");
-    omi::json::rapid::character(writer, message.fields.text.get().value());
     writer.EndObject();
 }
 

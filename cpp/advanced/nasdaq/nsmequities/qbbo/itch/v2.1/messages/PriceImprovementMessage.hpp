@@ -23,7 +23,7 @@ struct price_improvement_message {
         itch_qbbo::interest_flag interest_flag;
     };
 
-    message_header header = {std::uint16_t(sizeof(message_header) + sizeof(fields_type) - 2), message_type::enum_type::price_improvement_message};
+    itch_qbbo::message_header header = {std::uint16_t(sizeof(itch_qbbo::message_header) + sizeof(fields_type) - 2), message_type::enum_type::price_improvement_message};
 
     fields_type fields;
 
@@ -45,7 +45,7 @@ static_assert(offsetof(price_improvement_message::fields_type, time_stamp) == 2,
 static_assert(offsetof(price_improvement_message::fields_type, stock) == 8, "unexpected offset of price_improvement_message::fields_type::stock");
 static_assert(offsetof(price_improvement_message::fields_type, interest_flag) == 16, "unexpected offset of price_improvement_message::fields_type::interest_flag");
 static_assert(sizeof(price_improvement_message::fields_type) == 17, "unexpected sizeof price_improvement_message::fields_type");
-static_assert(sizeof(price_improvement_message) == sizeof(message_header) + 17, "unexpected sizeof price_improvement_message");
+static_assert(sizeof(price_improvement_message) == sizeof(itch_qbbo::message_header) + 17, "unexpected sizeof price_improvement_message");
 
 #pragma pack(pop)
 }

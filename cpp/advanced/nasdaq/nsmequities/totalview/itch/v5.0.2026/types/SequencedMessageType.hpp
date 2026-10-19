@@ -114,7 +114,7 @@ struct sequenced_message_type {
     using storage_type = result_type;
 
     constexpr sequenced_message_type()
-     : value{ enum_type::system_event_message } {}
+     : value{ enum_type{} } {}
 
     constexpr sequenced_message_type(enum_type v)
      : value{ v } {}

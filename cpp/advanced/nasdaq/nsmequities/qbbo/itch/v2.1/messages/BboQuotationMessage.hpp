@@ -31,7 +31,7 @@ struct bbo_quotation_message {
         itch_qbbo::best_offer_size best_offer_size;
     };
 
-    message_header header = {std::uint16_t(sizeof(message_header) + sizeof(fields_type) - 2), message_type::enum_type::bbo_quotation_message};
+    itch_qbbo::message_header header = {std::uint16_t(sizeof(itch_qbbo::message_header) + sizeof(fields_type) - 2), message_type::enum_type::bbo_quotation_message};
 
     fields_type fields;
 
@@ -57,7 +57,7 @@ static_assert(offsetof(bbo_quotation_message::fields_type, best_bid_size) == 21,
 static_assert(offsetof(bbo_quotation_message::fields_type, best_offer_price) == 25, "unexpected offset of bbo_quotation_message::fields_type::best_offer_price");
 static_assert(offsetof(bbo_quotation_message::fields_type, best_offer_size) == 29, "unexpected offset of bbo_quotation_message::fields_type::best_offer_size");
 static_assert(sizeof(bbo_quotation_message::fields_type) == 33, "unexpected sizeof bbo_quotation_message::fields_type");
-static_assert(sizeof(bbo_quotation_message) == sizeof(message_header) + 33, "unexpected sizeof bbo_quotation_message");
+static_assert(sizeof(bbo_quotation_message) == sizeof(itch_qbbo::message_header) + 33, "unexpected sizeof bbo_quotation_message");
 
 #pragma pack(pop)
 }

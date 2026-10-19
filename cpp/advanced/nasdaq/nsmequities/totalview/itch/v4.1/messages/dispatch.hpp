@@ -73,7 +73,10 @@ void dispatch(Handler& handler, const std::byte* buffer, std::size_t length, std
             handler.on_message(*retail_price_improvement_indicator_message::parse(buffer), packet_receive_time, transport);
             break;
         default:
-            // Unknown message type - handler should implement on_unknown if needed
+            // a code none of the messages answer to: the handler is told when it wants to be
+            if constexpr (requires { handler.on_unknown(buffer, length, packet_receive_time, transport); }) {
+                handler.on_unknown(buffer, length, packet_receive_time, transport);
+            }
             break;
     }
 }
@@ -94,7 +97,10 @@ void dispatch_server_packet(Handler& handler, const std::byte* buffer, std::size
             handler.on_message(*sequenced_data_packet::parse(buffer));
             break;
         default:
-            // Unknown message type - handler should implement on_unknown if needed
+            // a code none of the messages answer to: the handler is told when it wants to be
+            if constexpr (requires { handler.on_unknown(buffer, length); }) {
+                handler.on_unknown(buffer, length);
+            }
             break;
     }
 }
@@ -115,7 +121,10 @@ void dispatch_client_packet(Handler& handler, const std::byte* buffer, std::size
             handler.on_message(*unsequenced_data_packet::parse(buffer));
             break;
         default:
-            // Unknown message type - handler should implement on_unknown if needed
+            // a code none of the messages answer to: the handler is told when it wants to be
+            if constexpr (requires { handler.on_unknown(buffer, length); }) {
+                handler.on_unknown(buffer, length);
+            }
             break;
     }
 }
