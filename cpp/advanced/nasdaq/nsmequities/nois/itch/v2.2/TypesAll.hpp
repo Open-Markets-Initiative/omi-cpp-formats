@@ -1,0 +1,25 @@
+#pragma once
+
+// All type headers for this protocol schema
+
+#include "types/Session.hpp"
+#include "types/SequenceNumber.hpp"
+#include "types/MessageCount.hpp"
+#include "types/MessageLength.hpp"
+#include "types/Timestamp.hpp"
+#include "types/MessageType.hpp"
+#include "types/EventCode.hpp"
+#include "types/Symbol.hpp"
+#include "types/MarketCategory.hpp"
+#include "types/Rfu.hpp"
+#include "types/RoundLotSize.hpp"
+#include "types/RoundLotsOnly.hpp"
+#include "types/IssueClassification.hpp"
+#include "types/IssueSubType.hpp"
+#include "types/TradingState.hpp"
+#include "types/Reason.hpp"
+#include "types/ImbalanceShares.hpp"
+#include "types/ImbalanceDirection.hpp"
+#include "types/NearPrice.hpp"
+#include "types/CurrentReferencePrice.hpp"
+#include "types/CrossType.hpp"

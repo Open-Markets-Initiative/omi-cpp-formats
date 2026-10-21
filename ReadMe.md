@@ -76,10 +76,8 @@ A protocol that cannot be written is left out, of every format or of the one nam
 - Iex.IexEquities.Deep.Snap.v1.6: no transport sequence for the Advanced session layer to walk a capture with
 - Iex.IexEquities.DeepPlus.Snap.v1.06: no transport sequence for the Advanced session layer to walk a capture with
 - Iex.IexEquities.Tops.Snap.v1.6: no transport sequence for the Advanced session layer to walk a capture with
-- Nasdaq.NsmEquities.Nois.Itch.v2.2: 'Imbalance Shares' is a 9-byte integer (addr=packet.messages.message.messagebody.messagedata.payload.noismessage.imbalanceshares), and no C++ integer holds more than eight bytes. Where the field is really ASCII digits - Nasdaq's older Itch editions document numerics as left-zero-padded ASCII - the model's Translation trait is what needs correcting, not this classification.
-- Nasdaq.NsmEquities.Nois.Itch.v2.2.2022: 'Imbalance Shares' is a 9-byte integer (addr=packet.messages.message.messagebody.messagedata.payload.noismessage.imbalanceshares), and no C++ integer holds more than eight bytes. Where the field is really ASCII digits - Nasdaq's older Itch editions document numerics as left-zero-padded ASCII - the model's Translation trait is what needs correcting, not this classification.
 
-## Protocols (20)
+## Protocols (22)
 
 - `Iex.IexEquities.Deep.IexTp.v1.06`
 - `Iex.IexEquities.Deep.IexTp.v1.08`
@@ -94,6 +92,8 @@ A protocol that cannot be written is left out, of every format or of the one nam
 - `Nasdaq.NsmEquities.NlsPlus.Itch.v4.0`
 - `Nasdaq.NsmEquities.NoiView.Itch.v3.0.2017`
 - `Nasdaq.NsmEquities.NoiView.Itch.v3.0.2026`
+- `Nasdaq.NsmEquities.Nois.Itch.v2.2`
+- `Nasdaq.NsmEquities.Nois.Itch.v2.2.2022`
 - `Nasdaq.NsmEquities.Qbbo.Itch.v2.1`
 - `Nasdaq.NsmEquities.TotalView.Itch.v4.1`
 - `Nasdaq.NsmEquities.TotalView.Itch.v5.0.2017`

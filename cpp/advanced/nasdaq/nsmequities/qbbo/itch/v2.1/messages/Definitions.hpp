@@ -14,5 +14,5 @@
 #include "PriceImprovementMessage.hpp"
 #include "IpoQuotingPeriodUpdateMessage.hpp"
 
-#include "../actions/Heartbeat.hpp"
-#include "../actions/EndOfSession.hpp"
+#include "../messages/Heartbeat.hpp"
+#include "../messages/EndOfSession.hpp"
