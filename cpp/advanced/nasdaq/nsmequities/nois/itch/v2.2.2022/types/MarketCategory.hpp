@@ -19,11 +19,13 @@ struct market_category {
         new_york_stock_exchange = 'N',
         nyse_amex = 'A',
         nyse_arca = 'P',
-        bats_z_exchange = 'Z'
+        bats_z_exchange = 'Z',
+        investors_exchange = 'V'
     };
 
-    static constexpr std::array<std::pair<std::string_view, enum_type>, 7> from_string_map = {{
+    static constexpr std::array<std::pair<std::string_view, enum_type>, 8> from_string_map = {{
         {"Bats Z Exchange", enum_type::bats_z_exchange},
+        {"Investors Exchange", enum_type::investors_exchange},
         {"Nasdaq Capital Market", enum_type::nasdaq_capital_market},
         {"Nasdaq Global Market", enum_type::nasdaq_global_market},
         {"Nasdaq Global Select Market", enum_type::nasdaq_global_select_market},
@@ -41,6 +43,7 @@ struct market_category {
             case enum_type::nyse_amex: return "Nyse Amex";
             case enum_type::nyse_arca: return "Nyse Arca";
             case enum_type::bats_z_exchange: return "Bats Z Exchange";
+            case enum_type::investors_exchange: return "Investors Exchange";
             default: return "unknown";
         }
     }
@@ -83,7 +86,7 @@ struct market_category {
         if (value.has_value())
             set(value.value());
         else
-            set(enum_type::bats_z_exchange);
+            set(enum_type::investors_exchange);
     }
 
   protected:

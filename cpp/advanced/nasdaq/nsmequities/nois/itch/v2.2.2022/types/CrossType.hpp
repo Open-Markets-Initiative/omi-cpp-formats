@@ -15,12 +15,12 @@ struct cross_type {
     enum class enum_type : char {
         open_cross = 'O',
         close_cross = 'C',
-        ipo_halt_cross = 'H'
+        intraday_opening_cross_for_ipo = 'H'
     };
 
     static constexpr std::array<std::pair<std::string_view, enum_type>, 3> from_string_map = {{
         {"Close Cross", enum_type::close_cross},
-        {"Ipo Halt Cross", enum_type::ipo_halt_cross},
+        {"Intraday Opening Cross For Ipo", enum_type::intraday_opening_cross_for_ipo},
         {"Open Cross", enum_type::open_cross}
     }};
 
@@ -28,7 +28,7 @@ struct cross_type {
         switch (value) {
             case enum_type::open_cross: return "Open Cross";
             case enum_type::close_cross: return "Close Cross";
-            case enum_type::ipo_halt_cross: return "Ipo Halt Cross";
+            case enum_type::intraday_opening_cross_for_ipo: return "Intraday Opening Cross For Ipo";
             default: return "unknown";
         }
     }
@@ -71,7 +71,7 @@ struct cross_type {
         if (value.has_value())
             set(value.value());
         else
-            set(enum_type::ipo_halt_cross);
+            set(enum_type::intraday_opening_cross_for_ipo);
     }
 
   protected:

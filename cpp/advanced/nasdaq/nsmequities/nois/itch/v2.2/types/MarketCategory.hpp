@@ -20,11 +20,10 @@ struct market_category {
         nyse_amex = 'A',
         nyse_arca = 'P',
         bats_z_exchange = 'Z',
-        nyse_texas = 'M',
         investors_exchange = 'V'
     };
 
-    static constexpr std::array<std::pair<std::string_view, enum_type>, 9> from_string_map = {{
+    static constexpr std::array<std::pair<std::string_view, enum_type>, 8> from_string_map = {{
         {"Bats Z Exchange", enum_type::bats_z_exchange},
         {"Investors Exchange", enum_type::investors_exchange},
         {"Nasdaq Capital Market", enum_type::nasdaq_capital_market},
@@ -32,8 +31,7 @@ struct market_category {
         {"Nasdaq Global Select Market", enum_type::nasdaq_global_select_market},
         {"New York Stock Exchange", enum_type::new_york_stock_exchange},
         {"Nyse Amex", enum_type::nyse_amex},
-        {"Nyse Arca", enum_type::nyse_arca},
-        {"Nyse Texas", enum_type::nyse_texas}
+        {"Nyse Arca", enum_type::nyse_arca}
     }};
 
     static constexpr std::string_view to_string(enum_type value) {
@@ -45,7 +43,6 @@ struct market_category {
             case enum_type::nyse_amex: return "Nyse Amex";
             case enum_type::nyse_arca: return "Nyse Arca";
             case enum_type::bats_z_exchange: return "Bats Z Exchange";
-            case enum_type::nyse_texas: return "Nyse Texas";
             case enum_type::investors_exchange: return "Investors Exchange";
             default: return "unknown";
         }
