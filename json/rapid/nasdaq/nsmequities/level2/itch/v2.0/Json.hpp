@@ -51,8 +51,8 @@ void write(Writer& writer, const itch_level2::stock_directory_message& message) 
     omi::json::rapid::text(writer, itch_level2::round_lots_only::to_string(message.fields.round_lots_only.get().value()));
     writer.Key("issue_classification");
     omi::json::rapid::text(writer, itch_level2::issue_classification::to_string(message.fields.issue_classification.get().value()));
-    writer.Key("issue_subtype");
-    omi::json::rapid::text(writer, message.fields.issue_subtype.get_trimmed().value());
+    writer.Key("issue_sub_type");
+    omi::json::rapid::text(writer, message.fields.issue_sub_type.get_trimmed().value());
     writer.Key("authenticity");
     omi::json::rapid::text(writer, itch_level2::authenticity::to_string(message.fields.authenticity.get().value()));
     writer.Key("short_sale_threshold_indicator");

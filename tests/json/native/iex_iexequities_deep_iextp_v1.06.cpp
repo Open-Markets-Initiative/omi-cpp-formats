@@ -198,6 +198,14 @@ void expect(const char* expected, const char* relative) {
 
 int main() {
     std::printf("== Iex.IexEquities.Deep.IexTp.v1.06 (native json)\n");
-    expect("", "iex/IexEquities/Deep.v1.0.zst");
+    expect("AuctionInformationMessage", "Iex/IexEquities.Deep.IexTp.v1.06/AuctionInformationMessage.pcap");
+    expect("OfficialPriceMessage", "Iex/IexEquities.Deep.IexTp.v1.06/OfficialPriceMessage.pcap");
+    expect("PriceLevelBuyUpdateMessage", "Iex/IexEquities.Deep.IexTp.v1.06/PriceLevelBuyUpdateMessage.pcap");
+    expect("PriceLevelSellUpdateMessage", "Iex/IexEquities.Deep.IexTp.v1.06/PriceLevelSellUpdateMessage.pcap");
+    expect("SecurityEventMessage", "Iex/IexEquities.Deep.IexTp.v1.06/SecurityEventMessage.pcap");
+    expect("ShortSalePriceTestStatusMessage", "Iex/IexEquities.Deep.IexTp.v1.06/ShortSalePriceTestStatusMessage.pcap");
+    expect("SystemEventMessage", "Iex/IexEquities.Deep.IexTp.v1.06/SystemEventMessage.pcap");
+    expect("TradeReportMessage", "Iex/IexEquities.Deep.IexTp.v1.06/TradeReportMessage.pcap");
+    expect("TradingStatusMessage", "Iex/IexEquities.Deep.IexTp.v1.06/TradingStatusMessage.pcap");
     return failures == 0 ? 0 : 1;
 }

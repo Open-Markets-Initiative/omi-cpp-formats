@@ -49,8 +49,8 @@ inline void write(omi::json::native::Writer& writer, const itch_level2::stock_di
     writer.string(itch_level2::round_lots_only::to_string(message.fields.round_lots_only.get().value()));
     writer.key("issue_classification");
     writer.string(itch_level2::issue_classification::to_string(message.fields.issue_classification.get().value()));
-    writer.key("issue_subtype");
-    writer.string(message.fields.issue_subtype.get_trimmed().value());
+    writer.key("issue_sub_type");
+    writer.string(message.fields.issue_sub_type.get_trimmed().value());
     writer.key("authenticity");
     writer.string(itch_level2::authenticity::to_string(message.fields.authenticity.get().value()));
     writer.key("short_sale_threshold_indicator");

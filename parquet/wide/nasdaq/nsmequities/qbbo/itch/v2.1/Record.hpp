@@ -29,7 +29,7 @@ inline std::shared_ptr<arrow::Schema> schema() {
         arrow::field("round_lot_size", arrow::uint64()),
         arrow::field("round_lots_only", arrow::utf8()),
         arrow::field("issue_classification", arrow::utf8()),
-        arrow::field("issue_subtype", arrow::utf8()),
+        arrow::field("issue_sub_type", arrow::utf8()),
         arrow::field("authenticity", arrow::utf8()),
         arrow::field("short_sale_threshold_indicator", arrow::utf8()),
         arrow::field("ipo_flag", arrow::utf8()),
@@ -116,7 +116,7 @@ class Table {
         column_6_.append(message.fields.round_lot_size.get().value());
         column_7_.append(itch_qbbo::round_lots_only::to_string(message.fields.round_lots_only.get().value()));
         column_8_.append(itch_qbbo::issue_classification::to_string(message.fields.issue_classification.get().value()));
-        column_9_.append(message.fields.issue_subtype.get_trimmed().value());
+        column_9_.append(message.fields.issue_sub_type.get_trimmed().value());
         column_10_.append(itch_qbbo::authenticity::to_string(message.fields.authenticity.get().value()));
         column_11_.append(itch_qbbo::short_sale_threshold_indicator::to_string(message.fields.short_sale_threshold_indicator.get().value()));
         column_12_.append(itch_qbbo::ipo_flag::to_string(message.fields.ipo_flag.get().value()));
@@ -533,7 +533,7 @@ class Table {
     omi::parquet::wide::Unsigned column_6_{  };   // round_lot_size
     omi::parquet::wide::Text column_7_{  };   // round_lots_only
     omi::parquet::wide::Text column_8_{  };   // issue_classification
-    omi::parquet::wide::Text column_9_{  };   // issue_subtype
+    omi::parquet::wide::Text column_9_{  };   // issue_sub_type
     omi::parquet::wide::Text column_10_{  };   // authenticity
     omi::parquet::wide::Text column_11_{  };   // short_sale_threshold_indicator
     omi::parquet::wide::Text column_12_{  };   // ipo_flag

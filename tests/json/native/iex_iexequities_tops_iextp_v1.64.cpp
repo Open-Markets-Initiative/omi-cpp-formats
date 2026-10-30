@@ -198,6 +198,14 @@ void expect(const char* expected, const char* relative) {
 
 int main() {
     std::printf("== Iex.IexEquities.Tops.IexTp.v1.64 (native json)\n");
-    expect("", "iex/IexEquities/Tops.v1.6.zst");
+    expect("AuctionInformationMessage", "Iex/IexEquities.Tops.IexTp.v1.64/AuctionInformationMessage.pcap");
+    expect("OfficialPriceMessage", "Iex/IexEquities.Tops.IexTp.v1.64/OfficialPriceMessage.pcap");
+    expect("OperationalHaltStatusMessage", "Iex/IexEquities.Tops.IexTp.v1.64/OperationalHaltStatusMessage.pcap");
+    expect("QuoteUpdateMessage", "Iex/IexEquities.Tops.IexTp.v1.64/QuoteUpdateMessage.pcap");
+    expect("SecurityDirectoryMessage", "Iex/IexEquities.Tops.IexTp.v1.64/SecurityDirectoryMessage.pcap");
+    expect("ShortSalePriceTestStatusMessage", "Iex/IexEquities.Tops.IexTp.v1.64/ShortSalePriceTestStatusMessage.pcap");
+    expect("SystemEventMessage", "Iex/IexEquities.Tops.IexTp.v1.64/SystemEventMessage.pcap");
+    expect("TradeReportMessage", "Iex/IexEquities.Tops.IexTp.v1.64/TradeReportMessage.pcap");
+    expect("TradingStatusMessage", "Iex/IexEquities.Tops.IexTp.v1.64/TradingStatusMessage.pcap");
     return failures == 0 ? 0 : 1;
 }

@@ -126,6 +126,21 @@ void expect(const char* expected, const char* relative) {
 
 int main() {
     std::printf("== Nasdaq.NsmEquities.TotalView.Itch.v5.0.2026 (wide avro (native))\n");
-    expect("", "nasdaq/NsmEquities/TotalView.v5.0.zst");
+    expect("AddOrderNoMpidAttributionMessage", "Nasdaq/NsmEquities.TotalView.Itch.v5.0.2026/AddOrderNoMpidAttributionMessage.pcap");
+    expect("AddOrderWithMpidAttributionMessage", "Nasdaq/NsmEquities.TotalView.Itch.v5.0.2026/AddOrderWithMpidAttributionMessage.pcap");
+    expect("CrossTradeMessage", "Nasdaq/NsmEquities.TotalView.Itch.v5.0.2026/CrossTradeMessage.pcap");
+    expect("LuldAuctionCollarMessage", "Nasdaq/NsmEquities.TotalView.Itch.v5.0.2026/LuldAuctionCollarMessage.pcap");
+    expect("MarketParticipantPositionMessage", "Nasdaq/NsmEquities.TotalView.Itch.v5.0.2026/MarketParticipantPositionMessage.pcap");
+    expect("NetOrderImbalanceIndicatorMessage", "Nasdaq/NsmEquities.TotalView.Itch.v5.0.2026/NetOrderImbalanceIndicatorMessage.pcap");
+    expect("NonCrossTradeMessage", "Nasdaq/NsmEquities.TotalView.Itch.v5.0.2026/NonCrossTradeMessage.pcap");
+    expect("OrderCancelMessage", "Nasdaq/NsmEquities.TotalView.Itch.v5.0.2026/OrderCancelMessage.pcap");
+    expect("OrderDeleteMessage", "Nasdaq/NsmEquities.TotalView.Itch.v5.0.2026/OrderDeleteMessage.pcap");
+    expect("OrderExecutedMessage", "Nasdaq/NsmEquities.TotalView.Itch.v5.0.2026/OrderExecutedMessage.pcap");
+    expect("OrderExecutedWithPriceMessage", "Nasdaq/NsmEquities.TotalView.Itch.v5.0.2026/OrderExecutedWithPriceMessage.pcap");
+    expect("OrderReplaceMessage", "Nasdaq/NsmEquities.TotalView.Itch.v5.0.2026/OrderReplaceMessage.pcap");
+    expect("RegShoShortSalePriceTestRestrictedIndicatorMessage", "Nasdaq/NsmEquities.TotalView.Itch.v5.0.2026/RegShoShortSalePriceTestRestrictedIndicatorMessage.pcap");
+    expect("StockDirectoryMessage", "Nasdaq/NsmEquities.TotalView.Itch.v5.0.2026/StockDirectoryMessage.pcap");
+    expect("StockTradingActionMessage", "Nasdaq/NsmEquities.TotalView.Itch.v5.0.2026/StockTradingActionMessage.pcap");
+    expect("SystemEventMessage", "Nasdaq/NsmEquities.TotalView.Itch.v5.0.2026/SystemEventMessage.pcap");
     return failures == 0 ? 0 : 1;
 }

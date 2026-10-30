@@ -121,6 +121,20 @@ void expect(const char* expected, const char* relative) {
 
 int main() {
     std::printf("== Nasdaq.NsmEquities.TotalView.Itch.v5.0.2023 (rapid json)\n");
-    expect("", "nasdaq/NsmEquities/TotalView.v5.0.zst");
+    expect("AddOrderNoMpidAttributionMessage", "Nasdaq/NsmEquities.TotalView.Itch.v5.0.2023/AddOrderNoMpidAttributionMessage.pcap");
+    expect("AddOrderWithMpidAttributionMessage", "Nasdaq/NsmEquities.TotalView.Itch.v5.0.2023/AddOrderWithMpidAttributionMessage.pcap");
+    expect("CrossTradeMessage", "Nasdaq/NsmEquities.TotalView.Itch.v5.0.2023/CrossTradeMessage.pcap");
+    expect("LuldAuctionCollarMessage", "Nasdaq/NsmEquities.TotalView.Itch.v5.0.2023/LuldAuctionCollarMessage.pcap");
+    expect("MarketParticipantPositionMessage", "Nasdaq/NsmEquities.TotalView.Itch.v5.0.2023/MarketParticipantPositionMessage.pcap");
+    expect("NetOrderImbalanceIndicatorMessage", "Nasdaq/NsmEquities.TotalView.Itch.v5.0.2023/NetOrderImbalanceIndicatorMessage.pcap");
+    expect("NonCrossTradeMessage", "Nasdaq/NsmEquities.TotalView.Itch.v5.0.2023/NonCrossTradeMessage.pcap");
+    expect("OrderCancelMessage", "Nasdaq/NsmEquities.TotalView.Itch.v5.0.2023/OrderCancelMessage.pcap");
+    expect("OrderDeleteMessage", "Nasdaq/NsmEquities.TotalView.Itch.v5.0.2023/OrderDeleteMessage.pcap");
+    expect("OrderExecutedMessage", "Nasdaq/NsmEquities.TotalView.Itch.v5.0.2023/OrderExecutedMessage.pcap");
+    expect("OrderExecutedWithPriceMessage", "Nasdaq/NsmEquities.TotalView.Itch.v5.0.2023/OrderExecutedWithPriceMessage.pcap");
+    expect("OrderReplaceMessage", "Nasdaq/NsmEquities.TotalView.Itch.v5.0.2023/OrderReplaceMessage.pcap");
+    expect("RegShoShortSalePriceTestRestrictedIndicatorMessage", "Nasdaq/NsmEquities.TotalView.Itch.v5.0.2023/RegShoShortSalePriceTestRestrictedIndicatorMessage.pcap");
+    expect("StockTradingActionMessage", "Nasdaq/NsmEquities.TotalView.Itch.v5.0.2023/StockTradingActionMessage.pcap");
+    expect("SystemEventMessage", "Nasdaq/NsmEquities.TotalView.Itch.v5.0.2023/SystemEventMessage.pcap");
     return failures == 0 ? 0 : 1;
 }

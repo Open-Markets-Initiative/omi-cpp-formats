@@ -18,6 +18,26 @@ each format has a directory of its own:
 cmake -S . -B build && cmake --build build --parallel $(nproc)
 ```
 
+## Development
+
+Updates are greatly appreciated; however, this entire repository is source generated. If you wish to suggest updates, the recommended process is to create an issue with changes and explanation.
+
+| Format | Protocol Count | Generated Lines |
+| --- | --- | --- |
+| Advanced parser | 22 | 113,785 |
+| native json | 22 | 8,630 |
+| rapid json | 22 | 8,990 |
+| wide parquet | 22 | 25,895 |
+| wide avro (native) | 22 | 22,858 |
+| wide avro (c) | 22 | 22,776 |
+| tree avro (native) | 22 | 9,294 |
+| tree avro (c) | 22 | 9,212 |
+
+| Organization | Protocol Count | Generated Lines |
+| --- | --- | --- |
+| Iex | 7 | 42,784 |
+| Nasdaq | 15 | 176,523 |
+
 ## Programs
 
 Each format has one program per protocol, under `executables/<format>/<protocol>/`. Every one reads a
@@ -56,7 +76,7 @@ decimal kept exactly from its mantissa and its exponent, and an absent optional 
 ## Tests
 
 `tests/<format>/` walks every capture a protocol declares, writes every message it holds through that
-format and reads the result back (77 tests). A capture
+format and reads the result back (84 tests). A capture
 named for one message must hold it; a session capture names none, and is held to what it holds.
 The captures are the session captures of
 [omi-data-pcaps](https://github.com/Open-Markets-Initiative/omi-data-pcaps), read compressed:

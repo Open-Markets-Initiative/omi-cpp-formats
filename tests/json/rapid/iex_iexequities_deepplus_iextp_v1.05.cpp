@@ -121,6 +121,16 @@ void expect(const char* expected, const char* relative) {
 
 int main() {
     std::printf("== Iex.IexEquities.DeepPlus.IexTp.v1.05 (rapid json)\n");
-    expect("", "iex/IexEquities/DeepPlus.v1.0.zst");
+    expect("AddOrderMessage", "Iex/IexEquities.DeepPlus.IexTp.v1.05/AddOrderMessage.pcap");
+    expect("OperationalHaltStatusMessage", "Iex/IexEquities.DeepPlus.IexTp.v1.05/OperationalHaltStatusMessage.pcap");
+    expect("OrderDeleteMessage", "Iex/IexEquities.DeepPlus.IexTp.v1.05/OrderDeleteMessage.pcap");
+    expect("OrderExecutedMessage", "Iex/IexEquities.DeepPlus.IexTp.v1.05/OrderExecutedMessage.pcap");
+    expect("OrderModifyMessage", "Iex/IexEquities.DeepPlus.IexTp.v1.05/OrderModifyMessage.pcap");
+    expect("RetailLiquidityIndicatorMessage", "Iex/IexEquities.DeepPlus.IexTp.v1.05/RetailLiquidityIndicatorMessage.pcap");
+    expect("SecurityEventMessage", "Iex/IexEquities.DeepPlus.IexTp.v1.05/SecurityEventMessage.pcap");
+    expect("ShortSalePriceTestStatusMessage", "Iex/IexEquities.DeepPlus.IexTp.v1.05/ShortSalePriceTestStatusMessage.pcap");
+    expect("SystemEventMessage", "Iex/IexEquities.DeepPlus.IexTp.v1.05/SystemEventMessage.pcap");
+    expect("TradeMessage", "Iex/IexEquities.DeepPlus.IexTp.v1.05/TradeMessage.pcap");
+    expect("TradingStatusMessage", "Iex/IexEquities.DeepPlus.IexTp.v1.05/TradingStatusMessage.pcap");
     return failures == 0 ? 0 : 1;
 }
