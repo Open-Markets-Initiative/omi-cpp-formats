@@ -24,19 +24,20 @@ Updates are greatly appreciated; however, this entire repository is source gener
 
 | Format | Protocol Count | Generated Lines |
 | --- | --- | --- |
-| Advanced parser | 22 | 113,785 |
-| native json | 22 | 8,630 |
-| rapid json | 22 | 8,990 |
-| wide parquet | 22 | 25,895 |
-| wide avro (native) | 22 | 22,858 |
-| wide avro (c) | 22 | 22,776 |
-| tree avro (native) | 22 | 9,294 |
-| tree avro (c) | 22 | 9,212 |
+| Advanced parser | 25 | 147,137 |
+| native json | 25 | 10,711 |
+| rapid json | 25 | 11,128 |
+| wide parquet | 25 | 36,590 |
+| wide avro (native) | 25 | 31,804 |
+| wide avro (c) | 25 | 31,722 |
+| tree avro (native) | 25 | 11,129 |
+| tree avro (c) | 25 | 11,047 |
 
 | Organization | Protocol Count | Generated Lines |
 | --- | --- | --- |
-| Iex | 7 | 42,784 |
-| Nasdaq | 15 | 176,523 |
+| Databento | 3 | 69,788 |
+| Iex | 7 | 42,791 |
+| Nasdaq | 15 | 176,556 |
 
 ## Programs
 
@@ -52,6 +53,11 @@ capture through the Advanced session layer and writes what its messages hold:
 ./build/avro_tree_native_<protocol> capture.pcap out.avro
 ./build/avro_tree_c_<protocol> capture.pcap out.avro
 ```
+
+A protocol delivered as files reads a file in place of a capture, gzip or plain, through the Advanced
+file layer (`messages/file.hpp`): the file's first bytes are checked against the constants the model
+says it opens with, what it opens with is stepped over, and every record after it is framed by its
+own length.
 
 Every format is written from one translation of its protocol, so a value carries the same name and the
 same meaning wherever it is written: an enumeration by its value's name, text trimmed, a price or other
@@ -76,7 +82,7 @@ decimal kept exactly from its mantissa and its exponent, and an absent optional 
 ## Tests
 
 `tests/<format>/` walks every capture a protocol declares, writes every message it holds through that
-format and reads the result back (84 tests). A capture
+format and reads the result back (105 tests). A capture
 named for one message must hold it; a session capture names none, and is held to what it holds.
 The captures are the session captures of
 [omi-data-pcaps](https://github.com/Open-Markets-Initiative/omi-data-pcaps), read compressed:
@@ -86,6 +92,9 @@ git clone --depth=1 https://github.com/Open-Markets-Initiative/omi-data-pcaps.gi
 cmake -S . -B build -DOMI_PACKETS_DIR=omi-data-pcaps
 cmake --build build --parallel $(nproc) && ctest --test-dir build
 ```
+
+A protocol delivered as files is tested over its file excerpts instead: whole files of the corpus,
+gzipped, each named for the record it carries, read through the file layer.
 
 Every build also compiles `checks/`, one translation unit per protocol and format holding nothing but
 an include of its writers, so a writer that does not compile fails the build whether or not the corpus
@@ -97,8 +106,11 @@ A protocol that cannot be written is left out, of every format or of the one nam
 - Iex.IexEquities.DeepPlus.Snap.v1.06: no transport sequence for the Advanced session layer to walk a capture with
 - Iex.IexEquities.Tops.Snap.v1.6: no transport sequence for the Advanced session layer to walk a capture with
 
-## Protocols (22)
+## Protocols (25)
 
+- `Databento.MarketData.Normalized.Dbn.v1`
+- `Databento.MarketData.Normalized.Dbn.v2`
+- `Databento.MarketData.Normalized.Dbn.v3`
 - `Iex.IexEquities.Deep.IexTp.v1.06`
 - `Iex.IexEquities.Deep.IexTp.v1.08`
 - `Iex.IexEquities.DeepPlus.IexTp.v1.01`
