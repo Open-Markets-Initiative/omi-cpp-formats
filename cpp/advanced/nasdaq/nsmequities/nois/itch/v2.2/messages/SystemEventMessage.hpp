@@ -1,3 +1,4 @@
+// Nasdaq.NsmEquities.Nois.Itch.v2.2: messages/SystemEventMessage.hpp
 #pragma once
 
 #include <cstddef>

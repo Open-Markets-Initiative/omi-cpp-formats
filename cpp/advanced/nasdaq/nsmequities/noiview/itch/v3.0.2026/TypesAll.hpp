@@ -1,3 +1,4 @@
+// Nasdaq.NsmEquities.NoiView.Itch.v3.0.2026: TypesAll.hpp
 #pragma once
 
 // All type headers for this protocol schema

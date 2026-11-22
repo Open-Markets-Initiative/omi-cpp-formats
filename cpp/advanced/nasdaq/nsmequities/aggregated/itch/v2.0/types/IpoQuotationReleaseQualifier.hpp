@@ -1,3 +1,4 @@
+// Nasdaq.NsmEquities.Aggregated.Itch.v2.0: types/IpoQuotationReleaseQualifier.hpp
 #pragma once
 
 #include <cstddef>

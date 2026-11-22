@@ -1,3 +1,4 @@
+// Nasdaq.NsmEquities.NoiView.Itch.v3.0.2017: messages/EndOfSession.hpp
 #pragma once
 
 #include <cstdint>

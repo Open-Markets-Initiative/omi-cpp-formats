@@ -1,3 +1,4 @@
+// Nasdaq.NsmEquities.NoiView.Itch.v3.0.2017: messages/SystemEventMessage.hpp
 #pragma once
 
 #include <cstddef>

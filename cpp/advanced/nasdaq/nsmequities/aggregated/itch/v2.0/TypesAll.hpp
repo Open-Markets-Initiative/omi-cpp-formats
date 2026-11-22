@@ -1,3 +1,4 @@
+// Nasdaq.NsmEquities.Aggregated.Itch.v2.0: TypesAll.hpp
 #pragma once
 
 // All type headers for this protocol schema

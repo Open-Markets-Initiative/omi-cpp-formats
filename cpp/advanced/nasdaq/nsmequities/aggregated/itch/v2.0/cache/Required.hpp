@@ -1,3 +1,4 @@
+// Nasdaq.NsmEquities.Aggregated.Itch.v2.0: cache/Required.hpp
 #pragma once
 
 #include <string_view>

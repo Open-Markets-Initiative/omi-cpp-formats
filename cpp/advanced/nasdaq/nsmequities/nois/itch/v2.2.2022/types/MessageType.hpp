@@ -1,3 +1,4 @@
+// Nasdaq.NsmEquities.Nois.Itch.v2.2.2022: types/MessageType.hpp
 #pragma once
 
 #include <cstddef>

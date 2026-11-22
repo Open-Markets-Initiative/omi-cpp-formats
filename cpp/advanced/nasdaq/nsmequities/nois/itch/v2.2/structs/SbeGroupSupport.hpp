@@ -1,3 +1,4 @@
+// Nasdaq.NsmEquities.Nois.Itch.v2.2: structs/SbeGroupSupport.hpp
 #pragma once
 
 #include <cstddef>

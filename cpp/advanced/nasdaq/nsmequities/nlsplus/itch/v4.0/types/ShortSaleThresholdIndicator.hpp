@@ -1,3 +1,4 @@
+// Nasdaq.NsmEquities.NlsPlus.Itch.v4.0: types/ShortSaleThresholdIndicator.hpp
 #pragma once
 
 #include <cstddef>

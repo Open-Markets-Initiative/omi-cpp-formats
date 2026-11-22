@@ -1,50 +1,28 @@
 # Omi C++ Formats
 
-Generated C++ programs that read packet captures and write their messages out in other formats.
-The repository is purely historical: every program reads a pcap and writes what it holds.
+Omi C++ Formats provide source generated C++ programs that read packet captures of common binary exchange protocols and write their messages out in other formats. Every program reads its capture through the Advanced parser under `cpp/advanced/`, and every format is written from one translation of its protocol, so a value carries the same name and the same meaning wherever it is written.
 
-Each protocol carries the Advanced parser every program reads through under `cpp/advanced/`, and
-each format has a directory of its own:
+## Formats
 
-- `json/native/` — writers that turn every message into a flat JSON object without a JSON library
-- `json/rapid/` — writers that turn every message into the same object through RapidJSON
-- `parquet/wide/` — one table per protocol, a column for every value any of its messages holds
-- `avro/wide/native/` — every message as one wide record of the values any message holds, written without an Avro library
-- `avro/wide/c/` — every message as one wide record of the values any message holds, written through Apache Avro's C library
-- `avro/tree/native/` — every message as a record of its own, holding what it holds as the model declares it, written without an Avro library
-- `avro/tree/c/` — every message as a record of its own, holding what it holds as the model declares it, written through Apache Avro's C library
+Each top-level directory holds one kind of format, with a directory for each way of writing it. A format's ReadMe shows how to use its programs, what its build needs, and lists its organizations and protocols.
 
-```sh
+| Format | Description |
+| --- | --- |
+| [json](json) | [native json](json/native), [rapid json](json/rapid) |
+| [parquet](parquet) | [wide parquet](parquet/wide) |
+| [avro](avro) | [wide avro (native)](avro/wide/native), [wide avro (c)](avro/wide/c), [tree avro (native)](avro/tree/native), [tree avro (c)](avro/tree/c) |
+
+## Usage
+
+The repository is one CMake build, with a program for each protocol in each format. Build every one:
+
+```
 cmake -S . -B build && cmake --build build --parallel $(nproc)
 ```
 
-## Development
+Each program reads a capture and writes what its messages hold, and is named for its format and protocol:
 
-Updates are greatly appreciated; however, this entire repository is source generated. If you wish to suggest updates, the recommended process is to create an issue with changes and explanation.
-
-| Format | Protocol Count | Generated Lines |
-| --- | --- | --- |
-| Advanced parser | 25 | 147,137 |
-| native json | 25 | 10,711 |
-| rapid json | 25 | 11,128 |
-| wide parquet | 25 | 36,590 |
-| wide avro (native) | 25 | 31,804 |
-| wide avro (c) | 25 | 31,722 |
-| tree avro (native) | 25 | 11,129 |
-| tree avro (c) | 25 | 11,047 |
-
-| Organization | Protocol Count | Generated Lines |
-| --- | --- | --- |
-| Databento | 3 | 69,788 |
-| Iex | 7 | 42,791 |
-| Nasdaq | 15 | 176,556 |
-
-## Programs
-
-Each format has one program per protocol, under `executables/<format>/<protocol>/`. Every one reads a
-capture through the Advanced session layer and writes what its messages hold:
-
-```sh
+```
 ./build/json_native_<protocol> capture.pcap [output.jsonl]
 ./build/json_rapid_<protocol> capture.pcap [output.jsonl]
 ./build/parquet_wide_<protocol> capture.pcap out.parquet
@@ -54,84 +32,40 @@ capture through the Advanced session layer and writes what its messages hold:
 ./build/avro_tree_c_<protocol> capture.pcap out.avro
 ```
 
-A protocol delivered as files reads a file in place of a capture, gzip or plain, through the Advanced
-file layer (`messages/file.hpp`): the file's first bytes are checked against the constants the model
-says it opens with, what it opens with is stepped over, and every record after it is framed by its
-own length.
+## Development
 
-Every format is written from one translation of its protocol, so a value carries the same name and the
-same meaning wherever it is written: an enumeration by its value's name, text trimmed, a price or other
-decimal kept exactly from its mantissa and its exponent, and an absent optional value as null.
+Updates are greatly appreciated; however, this entire repository is source generated...including the words you are reading right now. If you wish to suggest updates, the recommended process is to create an issue with changes and explanation.  Time permitting, we will update the models and regenerate.
 
-## Formats
+| Protocols | Formats | Generated Lines |
+| ---: | ---: | ---: |
+| 25 | 7 | 293,981 |
 
-**native json** — writers that turn every message into a flat JSON object without a JSON library. It needs nothing beyond the compiler.
+## Testing
 
-**rapid json** — writers that turn every message into the same object through RapidJSON. It needs `rapidjson-dev` (on Ubuntu).
+[![Build](https://github.com/Open-Markets-Initiative/omi-cpp-formats/actions/workflows/build.yml/badge.svg)](https://github.com/Open-Markets-Initiative/omi-cpp-formats/actions/workflows/build.yml)
 
-**wide parquet** — one table per protocol, a column for every value any of its messages holds. It needs `libarrow-dev` and `libparquet-dev` (on Ubuntu).
+Every build compiles each protocol's writers in every format, and runs 105 corpus tests, each writing every message of a protocol's captures from [omi-data-pcaps](https://github.com/Open-Markets-Initiative/omi-data-pcaps) and reading the result back; see each format's ReadMe.
 
-**wide avro (native)** — every message as one wide record of the values any message holds, written without an Avro library. It needs nothing beyond the compiler.
+A protocol that cannot be read is left out of every format:
 
-**wide avro (c)** — every message as one wide record of the values any message holds, written through Apache Avro's C library. It needs `libavro-dev` (on Ubuntu).
+- `Iex.IexEquities.Deep.Snap.v1.6`: no transport sequence for the Advanced session layer to walk a capture with
+- `Iex.IexEquities.DeepPlus.Snap.v1.06`: no transport sequence for the Advanced session layer to walk a capture with
+- `Iex.IexEquities.Tops.Snap.v1.6`: no transport sequence for the Advanced session layer to walk a capture with
 
-**tree avro (native)** — every message as a record of its own, holding what it holds as the model declares it, written without an Avro library. It needs nothing beyond the compiler.
+Please report any errors as an [issue](https://github.com/Open-Markets-Initiative/omi-cpp-formats/issues "Omi C++ Formats Issues").  Include a small note on the protocol and version, and a minimal capture demonstrating the problem. Also consider including a link or pdf specification documenting the correct behavior.
 
-**tree avro (c)** — every message as a record of its own, holding what it holds as the model declares it, written through Apache Avro's C library. It needs `libavro-dev` (on Ubuntu).
+Production packet captures are required for protocol verification.  If your organization has the rights to packet captures, and you wish to make the world a better place, please post captures to this project.
 
-## Tests
+## Open Markets Initiative
 
-`tests/<format>/` walks every capture a protocol declares, writes every message it holds through that
-format and reads the result back (105 tests). A capture
-named for one message must hold it; a session capture names none, and is held to what it holds.
-The captures are the session captures of
-[omi-data-pcaps](https://github.com/Open-Markets-Initiative/omi-data-pcaps), read compressed:
+[![Omi](https://github.com/Open-Markets-Initiative/Open-Markets-Initiative/raw/main/About/Images/Logo.png)](https://github.com/Open-Markets-Initiative/Directory)
 
-```sh
-git clone --depth=1 https://github.com/Open-Markets-Initiative/omi-data-pcaps.git
-cmake -S . -B build -DOMI_PACKETS_DIR=omi-data-pcaps
-cmake --build build --parallel $(nproc) && ctest --test-dir build
-```
+The Open Markets Initiative (Omi) is a group of technologists dedicated to enhancing the stability of electronic financial markets using modern development methods.
 
-A protocol delivered as files is tested over its file excerpts instead: whole files of the corpus,
-gzipped, each named for the record it carries, read through the file layer.
+Other generated code can be found at [Omi Repositories](https://github.com/Open-Markets-Initiative/Directory/tree/main/Repositories "Open Markets Initiative Repositories"); for Omi rules and regulations, see [Omi Directory](https://github.com/Open-Markets-Initiative/Directory "Open Markets Initiative Directory").
 
-Every build also compiles `checks/`, one translation unit per protocol and format holding nothing but
-an include of its writers, so a writer that does not compile fails the build whether or not the corpus
-has a capture to run it against.
+## Disclaimer
 
-A protocol that cannot be written is left out, of every format or of the one named:
+Any similarities between existing people, places and/or protocols is purely incidental.
 
-- Iex.IexEquities.Deep.Snap.v1.6: no transport sequence for the Advanced session layer to walk a capture with
-- Iex.IexEquities.DeepPlus.Snap.v1.06: no transport sequence for the Advanced session layer to walk a capture with
-- Iex.IexEquities.Tops.Snap.v1.6: no transport sequence for the Advanced session layer to walk a capture with
-
-## Protocols (25)
-
-- `Databento.MarketData.Normalized.Dbn.v1`
-- `Databento.MarketData.Normalized.Dbn.v2`
-- `Databento.MarketData.Normalized.Dbn.v3`
-- `Iex.IexEquities.Deep.IexTp.v1.06`
-- `Iex.IexEquities.Deep.IexTp.v1.08`
-- `Iex.IexEquities.DeepPlus.IexTp.v1.01`
-- `Iex.IexEquities.DeepPlus.IexTp.v1.05`
-- `Iex.IexEquities.Tops.IexTp.v1.56`
-- `Iex.IexEquities.Tops.IexTp.v1.64`
-- `Iex.IexEquities.Tops.IexTp.v1.66`
-- `Nasdaq.NsmEquities.Aggregated.Itch.v2.0`
-- `Nasdaq.NsmEquities.Level2.Itch.v2.0`
-- `Nasdaq.NsmEquities.NlsPlus.Itch.v3.0`
-- `Nasdaq.NsmEquities.NlsPlus.Itch.v4.0`
-- `Nasdaq.NsmEquities.NoiView.Itch.v3.0.2017`
-- `Nasdaq.NsmEquities.NoiView.Itch.v3.0.2026`
-- `Nasdaq.NsmEquities.Nois.Itch.v2.2`
-- `Nasdaq.NsmEquities.Nois.Itch.v2.2.2022`
-- `Nasdaq.NsmEquities.Qbbo.Itch.v2.1`
-- `Nasdaq.NsmEquities.TotalView.Itch.v4.1`
-- `Nasdaq.NsmEquities.TotalView.Itch.v5.0.2017`
-- `Nasdaq.NsmEquities.TotalView.Itch.v5.0.2018`
-- `Nasdaq.NsmEquities.TotalView.Itch.v5.0.2022`
-- `Nasdaq.NsmEquities.TotalView.Itch.v5.0.2023`
-- `Nasdaq.NsmEquities.TotalView.Itch.v5.0.2026`
-
-Regenerated by `Generate.Cpp.Formats.Repository`; do not edit by hand.
+Enjoy.

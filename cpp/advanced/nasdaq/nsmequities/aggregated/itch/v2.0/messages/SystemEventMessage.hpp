@@ -1,3 +1,4 @@
+// Nasdaq.NsmEquities.Aggregated.Itch.v2.0: messages/SystemEventMessage.hpp
 #pragma once
 
 #include <cstddef>

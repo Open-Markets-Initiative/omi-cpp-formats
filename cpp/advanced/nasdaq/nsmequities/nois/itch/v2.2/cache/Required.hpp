@@ -1,3 +1,4 @@
+// Nasdaq.NsmEquities.Nois.Itch.v2.2: cache/Required.hpp
 #pragma once
 
 #include <string_view>

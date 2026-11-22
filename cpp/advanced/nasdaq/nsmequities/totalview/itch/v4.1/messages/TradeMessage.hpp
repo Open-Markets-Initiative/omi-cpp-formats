@@ -1,3 +1,4 @@
+// Nasdaq.NsmEquities.TotalView.Itch.v4.1: messages/TradeMessage.hpp
 #pragma once
 
 #include <cstddef>

@@ -1,3 +1,4 @@
+// Nasdaq.NsmEquities.NoiView.Itch.v3.0.2026: main.cpp
 // Nasdaq.NsmEquities.NoiView.Itch.v3.0.2026 to JSON: every message of a capture as one JSON object per line, written
 // without a JSON library.
 //

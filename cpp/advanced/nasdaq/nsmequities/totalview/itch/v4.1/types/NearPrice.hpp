@@ -1,3 +1,4 @@
+// Nasdaq.NsmEquities.TotalView.Itch.v4.1: types/NearPrice.hpp
 #pragma once
 
 #include <cstddef>

@@ -1,3 +1,4 @@
+// Nasdaq.NsmEquities.Nois.Itch.v2.2.2022: types/NearPrice.hpp
 #pragma once
 
 #include <cstddef>

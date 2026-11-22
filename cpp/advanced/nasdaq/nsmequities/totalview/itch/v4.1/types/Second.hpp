@@ -1,3 +1,4 @@
+// Nasdaq.NsmEquities.TotalView.Itch.v4.1: types/Second.hpp
 #pragma once
 
 #include <cstddef>

@@ -1,3 +1,4 @@
+// Nasdaq.NsmEquities.Aggregated.Itch.v2.0: common/Day.hpp
 #pragma once
 
 #include <array>

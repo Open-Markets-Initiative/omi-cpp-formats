@@ -103,13 +103,13 @@ add_library(formats_check OBJECT
   checks/nasdaq_nsmequities_aggregated_itch_v2.0_avro_wide_c.cpp
   checks/nasdaq_nsmequities_aggregated_itch_v2.0_avro_tree_native.cpp
   checks/nasdaq_nsmequities_aggregated_itch_v2.0_avro_tree_c.cpp
-  checks/nasdaq_nsmequities_level2_itch_v2.0_json_native.cpp
-  checks/nasdaq_nsmequities_level2_itch_v2.0_json_rapid.cpp
-  checks/nasdaq_nsmequities_level2_itch_v2.0_parquet_wide.cpp
-  checks/nasdaq_nsmequities_level2_itch_v2.0_avro_wide_native.cpp
-  checks/nasdaq_nsmequities_level2_itch_v2.0_avro_wide_c.cpp
-  checks/nasdaq_nsmequities_level2_itch_v2.0_avro_tree_native.cpp
-  checks/nasdaq_nsmequities_level2_itch_v2.0_avro_tree_c.cpp
+  checks/nasdaq_nsmequities_level2_itch_v2.0.2026_json_native.cpp
+  checks/nasdaq_nsmequities_level2_itch_v2.0.2026_json_rapid.cpp
+  checks/nasdaq_nsmequities_level2_itch_v2.0.2026_parquet_wide.cpp
+  checks/nasdaq_nsmequities_level2_itch_v2.0.2026_avro_wide_native.cpp
+  checks/nasdaq_nsmequities_level2_itch_v2.0.2026_avro_wide_c.cpp
+  checks/nasdaq_nsmequities_level2_itch_v2.0.2026_avro_tree_native.cpp
+  checks/nasdaq_nsmequities_level2_itch_v2.0.2026_avro_tree_c.cpp
   checks/nasdaq_nsmequities_nlsplus_itch_v3.0_json_native.cpp
   checks/nasdaq_nsmequities_nlsplus_itch_v3.0_json_rapid.cpp
   checks/nasdaq_nsmequities_nlsplus_itch_v3.0_parquet_wide.cpp
@@ -524,31 +524,31 @@ add_executable(avro_tree_c_nasdaq_nsmequities_aggregated_itch_v2.0 executables/a
 target_include_directories(avro_tree_c_nasdaq_nsmequities_aggregated_itch_v2.0 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(avro_tree_c_nasdaq_nsmequities_aggregated_itch_v2.0 PRIVATE ${ZSTD_LIBRARY})
 target_link_libraries(avro_tree_c_nasdaq_nsmequities_aggregated_itch_v2.0 PRIVATE PkgConfig::AVRO_C)
-add_executable(json_native_nasdaq_nsmequities_level2_itch_v2.0 executables/json/native/nasdaq/nsmequities/level2/itch/v2.0/main.cpp)
-target_include_directories(json_native_nasdaq_nsmequities_level2_itch_v2.0 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
-target_link_libraries(json_native_nasdaq_nsmequities_level2_itch_v2.0 PRIVATE ${ZSTD_LIBRARY})
-add_executable(json_rapid_nasdaq_nsmequities_level2_itch_v2.0 executables/json/rapid/nasdaq/nsmequities/level2/itch/v2.0/main.cpp)
-target_include_directories(json_rapid_nasdaq_nsmequities_level2_itch_v2.0 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
-target_link_libraries(json_rapid_nasdaq_nsmequities_level2_itch_v2.0 PRIVATE ${ZSTD_LIBRARY})
-target_include_directories(json_rapid_nasdaq_nsmequities_level2_itch_v2.0 SYSTEM PRIVATE ${RAPIDJSON_INCLUDE_DIRS})
-add_executable(parquet_wide_nasdaq_nsmequities_level2_itch_v2.0 executables/parquet/wide/nasdaq/nsmequities/level2/itch/v2.0/main.cpp)
-target_include_directories(parquet_wide_nasdaq_nsmequities_level2_itch_v2.0 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
-target_link_libraries(parquet_wide_nasdaq_nsmequities_level2_itch_v2.0 PRIVATE ${ZSTD_LIBRARY})
-target_link_libraries(parquet_wide_nasdaq_nsmequities_level2_itch_v2.0 PRIVATE Arrow::arrow_shared Parquet::parquet_shared)
-add_executable(avro_wide_native_nasdaq_nsmequities_level2_itch_v2.0 executables/avro/wide/native/nasdaq/nsmequities/level2/itch/v2.0/main.cpp)
-target_include_directories(avro_wide_native_nasdaq_nsmequities_level2_itch_v2.0 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
-target_link_libraries(avro_wide_native_nasdaq_nsmequities_level2_itch_v2.0 PRIVATE ${ZSTD_LIBRARY})
-add_executable(avro_wide_c_nasdaq_nsmequities_level2_itch_v2.0 executables/avro/wide/c/nasdaq/nsmequities/level2/itch/v2.0/main.cpp)
-target_include_directories(avro_wide_c_nasdaq_nsmequities_level2_itch_v2.0 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
-target_link_libraries(avro_wide_c_nasdaq_nsmequities_level2_itch_v2.0 PRIVATE ${ZSTD_LIBRARY})
-target_link_libraries(avro_wide_c_nasdaq_nsmequities_level2_itch_v2.0 PRIVATE PkgConfig::AVRO_C)
-add_executable(avro_tree_native_nasdaq_nsmequities_level2_itch_v2.0 executables/avro/tree/native/nasdaq/nsmequities/level2/itch/v2.0/main.cpp)
-target_include_directories(avro_tree_native_nasdaq_nsmequities_level2_itch_v2.0 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
-target_link_libraries(avro_tree_native_nasdaq_nsmequities_level2_itch_v2.0 PRIVATE ${ZSTD_LIBRARY})
-add_executable(avro_tree_c_nasdaq_nsmequities_level2_itch_v2.0 executables/avro/tree/c/nasdaq/nsmequities/level2/itch/v2.0/main.cpp)
-target_include_directories(avro_tree_c_nasdaq_nsmequities_level2_itch_v2.0 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
-target_link_libraries(avro_tree_c_nasdaq_nsmequities_level2_itch_v2.0 PRIVATE ${ZSTD_LIBRARY})
-target_link_libraries(avro_tree_c_nasdaq_nsmequities_level2_itch_v2.0 PRIVATE PkgConfig::AVRO_C)
+add_executable(json_native_nasdaq_nsmequities_level2_itch_v2.0.2026 executables/json/native/nasdaq/nsmequities/level2/itch/v2.0.2026/main.cpp)
+target_include_directories(json_native_nasdaq_nsmequities_level2_itch_v2.0.2026 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(json_native_nasdaq_nsmequities_level2_itch_v2.0.2026 PRIVATE ${ZSTD_LIBRARY})
+add_executable(json_rapid_nasdaq_nsmequities_level2_itch_v2.0.2026 executables/json/rapid/nasdaq/nsmequities/level2/itch/v2.0.2026/main.cpp)
+target_include_directories(json_rapid_nasdaq_nsmequities_level2_itch_v2.0.2026 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(json_rapid_nasdaq_nsmequities_level2_itch_v2.0.2026 PRIVATE ${ZSTD_LIBRARY})
+target_include_directories(json_rapid_nasdaq_nsmequities_level2_itch_v2.0.2026 SYSTEM PRIVATE ${RAPIDJSON_INCLUDE_DIRS})
+add_executable(parquet_wide_nasdaq_nsmequities_level2_itch_v2.0.2026 executables/parquet/wide/nasdaq/nsmequities/level2/itch/v2.0.2026/main.cpp)
+target_include_directories(parquet_wide_nasdaq_nsmequities_level2_itch_v2.0.2026 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(parquet_wide_nasdaq_nsmequities_level2_itch_v2.0.2026 PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(parquet_wide_nasdaq_nsmequities_level2_itch_v2.0.2026 PRIVATE Arrow::arrow_shared Parquet::parquet_shared)
+add_executable(avro_wide_native_nasdaq_nsmequities_level2_itch_v2.0.2026 executables/avro/wide/native/nasdaq/nsmequities/level2/itch/v2.0.2026/main.cpp)
+target_include_directories(avro_wide_native_nasdaq_nsmequities_level2_itch_v2.0.2026 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_native_nasdaq_nsmequities_level2_itch_v2.0.2026 PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_wide_c_nasdaq_nsmequities_level2_itch_v2.0.2026 executables/avro/wide/c/nasdaq/nsmequities/level2/itch/v2.0.2026/main.cpp)
+target_include_directories(avro_wide_c_nasdaq_nsmequities_level2_itch_v2.0.2026 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_wide_c_nasdaq_nsmequities_level2_itch_v2.0.2026 PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_wide_c_nasdaq_nsmequities_level2_itch_v2.0.2026 PRIVATE PkgConfig::AVRO_C)
+add_executable(avro_tree_native_nasdaq_nsmequities_level2_itch_v2.0.2026 executables/avro/tree/native/nasdaq/nsmequities/level2/itch/v2.0.2026/main.cpp)
+target_include_directories(avro_tree_native_nasdaq_nsmequities_level2_itch_v2.0.2026 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_native_nasdaq_nsmequities_level2_itch_v2.0.2026 PRIVATE ${ZSTD_LIBRARY})
+add_executable(avro_tree_c_nasdaq_nsmequities_level2_itch_v2.0.2026 executables/avro/tree/c/nasdaq/nsmequities/level2/itch/v2.0.2026/main.cpp)
+target_include_directories(avro_tree_c_nasdaq_nsmequities_level2_itch_v2.0.2026 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
+target_link_libraries(avro_tree_c_nasdaq_nsmequities_level2_itch_v2.0.2026 PRIVATE ${ZSTD_LIBRARY})
+target_link_libraries(avro_tree_c_nasdaq_nsmequities_level2_itch_v2.0.2026 PRIVATE PkgConfig::AVRO_C)
 add_executable(json_native_nasdaq_nsmequities_nlsplus_itch_v3.0 executables/json/native/nasdaq/nsmequities/nlsplus/itch/v3.0/main.cpp)
 target_include_directories(json_native_nasdaq_nsmequities_nlsplus_itch_v3.0 PRIVATE ${CMAKE_SOURCE_DIR} executables/pcap ${ZSTD_INCLUDE_DIR})
 target_link_libraries(json_native_nasdaq_nsmequities_nlsplus_itch_v3.0 PRIVATE ${ZSTD_LIBRARY})

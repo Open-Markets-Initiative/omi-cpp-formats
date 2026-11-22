@@ -1,3 +1,4 @@
+// Nasdaq.NsmEquities.Nois.Itch.v2.2.2022: types/IssueClassification.hpp
 #pragma once
 
 #include <cstddef>

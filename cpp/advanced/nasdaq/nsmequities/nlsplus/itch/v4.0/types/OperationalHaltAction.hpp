@@ -1,3 +1,4 @@
+// Nasdaq.NsmEquities.NlsPlus.Itch.v4.0: types/OperationalHaltAction.hpp
 #pragma once
 
 #include <cstddef>

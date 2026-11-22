@@ -1,3 +1,4 @@
+// Nasdaq.NsmEquities.NoiView.Itch.v3.0.2026: types/MessageType.hpp
 #pragma once
 
 #include <cstddef>

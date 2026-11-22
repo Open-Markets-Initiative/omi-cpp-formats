@@ -1,3 +1,4 @@
+// Nasdaq.NsmEquities.TotalView.Itch.v5.0.2022: types/UpperAuctionCollarPrice.hpp
 #pragma once
 
 #include <cstddef>

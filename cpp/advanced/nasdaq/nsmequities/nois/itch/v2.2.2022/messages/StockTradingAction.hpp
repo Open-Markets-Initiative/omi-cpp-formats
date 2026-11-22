@@ -1,3 +1,4 @@
+// Nasdaq.NsmEquities.Nois.Itch.v2.2.2022: messages/StockTradingAction.hpp
 #pragma once
 
 #include <cstddef>

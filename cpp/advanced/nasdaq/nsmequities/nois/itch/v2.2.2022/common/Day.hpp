@@ -1,3 +1,4 @@
+// Nasdaq.NsmEquities.Nois.Itch.v2.2.2022: common/Day.hpp
 #pragma once
 
 #include <array>

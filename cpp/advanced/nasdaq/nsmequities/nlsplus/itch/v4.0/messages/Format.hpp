@@ -1,3 +1,4 @@
+// Nasdaq.NsmEquities.NlsPlus.Itch.v4.0: messages/Format.hpp
 #pragma once
 
 #include <ostream>
@@ -206,7 +207,7 @@ inline std::ostream& operator<<(std::ostream& os, const ipo_quoting_period_updat
 inline std::ostream& operator<<(std::ostream& os, const operational_halt_message& msg) {
     os << "tracking_number=" << msg.fields.tracking_number.get().value()
        << ",timestamp=" << msg.fields.timestamp.get().value()
-       << ",stock_alpha_8=\"" << msg.fields.stock_alpha_8.get_trimmed().value() << '"'
+       << ",stock=\"" << msg.fields.stock.get_trimmed().value() << '"'
        << ",market_code=\"" << itch_nlsplus::market_code::to_string(msg.fields.market_code.get().value()) << '"'
        << ",operational_halt_action=\"" << itch_nlsplus::operational_halt_action::to_string(msg.fields.operational_halt_action.get().value()) << '"'
        ;

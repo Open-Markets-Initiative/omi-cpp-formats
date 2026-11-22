@@ -1,10 +1,11 @@
+// Nasdaq.NsmEquities.NlsPlus.Itch.v4.0: messages/OperationalHaltMessage.hpp
 #pragma once
 
 #include <cstddef>
 #include "../structs/MessageHeader.hpp"
 #include "../types/TrackingNumber.hpp"
 #include "../types/Timestamp.hpp"
-#include "../types/StockAlpha8.hpp"
+#include "../types/Stock.hpp"
 #include "../types/MarketCode.hpp"
 #include "../types/OperationalHaltAction.hpp"
 
@@ -20,7 +21,7 @@ struct operational_halt_message {
     struct fields_type {
         itch_nlsplus::tracking_number tracking_number;
         itch_nlsplus::timestamp timestamp;
-        itch_nlsplus::stock_alpha_8 stock_alpha_8;
+        itch_nlsplus::stock stock;
         itch_nlsplus::market_code market_code;
         itch_nlsplus::operational_halt_action operational_halt_action;
     };
@@ -44,7 +45,7 @@ struct operational_halt_message {
 // layout verification
 static_assert(offsetof(operational_halt_message::fields_type, tracking_number) == 0, "unexpected offset of operational_halt_message::fields_type::tracking_number");
 static_assert(offsetof(operational_halt_message::fields_type, timestamp) == 2, "unexpected offset of operational_halt_message::fields_type::timestamp");
-static_assert(offsetof(operational_halt_message::fields_type, stock_alpha_8) == 8, "unexpected offset of operational_halt_message::fields_type::stock_alpha_8");
+static_assert(offsetof(operational_halt_message::fields_type, stock) == 8, "unexpected offset of operational_halt_message::fields_type::stock");
 static_assert(offsetof(operational_halt_message::fields_type, market_code) == 16, "unexpected offset of operational_halt_message::fields_type::market_code");
 static_assert(offsetof(operational_halt_message::fields_type, operational_halt_action) == 17, "unexpected offset of operational_halt_message::fields_type::operational_halt_action");
 static_assert(sizeof(operational_halt_message::fields_type) == 18, "unexpected sizeof operational_halt_message::fields_type");

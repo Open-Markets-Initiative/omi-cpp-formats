@@ -1,3 +1,4 @@
+// Nasdaq.NsmEquities.TotalView.Itch.v4.1: types/RegShoAction.hpp
 #pragma once
 
 #include <cstddef>

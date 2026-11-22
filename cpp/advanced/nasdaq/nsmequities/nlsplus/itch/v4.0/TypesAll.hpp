@@ -1,3 +1,4 @@
+// Nasdaq.NsmEquities.NlsPlus.Itch.v4.0: TypesAll.hpp
 #pragma once
 
 // All type headers for this protocol schema
@@ -59,6 +60,5 @@
 #include "types/IpoQuotationReleaseTime.hpp"
 #include "types/IpoQuotationReleaseQualifier.hpp"
 #include "types/IpoPrice.hpp"
-#include "types/StockAlpha8.hpp"
 #include "types/MarketCode.hpp"
 #include "types/OperationalHaltAction.hpp"

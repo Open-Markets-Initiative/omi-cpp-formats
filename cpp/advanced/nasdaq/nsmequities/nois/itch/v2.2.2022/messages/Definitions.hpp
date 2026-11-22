@@ -1,3 +1,4 @@
+// Nasdaq.NsmEquities.Nois.Itch.v2.2.2022: messages/Definitions.hpp
 #pragma once
 
 #include "../structs/PacketHeader.hpp"

@@ -1,3 +1,4 @@
+// Nasdaq.NsmEquities.NoiView.Itch.v3.0.2017: cache/Required.hpp
 #pragma once
 
 #include <string_view>

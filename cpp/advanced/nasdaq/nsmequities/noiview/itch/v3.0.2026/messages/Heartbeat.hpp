@@ -1,3 +1,4 @@
+// Nasdaq.NsmEquities.NoiView.Itch.v3.0.2026: messages/Heartbeat.hpp
 #pragma once
 
 #include <cstdint>

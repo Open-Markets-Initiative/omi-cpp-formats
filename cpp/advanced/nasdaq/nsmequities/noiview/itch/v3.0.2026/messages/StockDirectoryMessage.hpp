@@ -1,3 +1,4 @@
+// Nasdaq.NsmEquities.NoiView.Itch.v3.0.2026: messages/StockDirectoryMessage.hpp
 #pragma once
 
 #include <cstddef>
